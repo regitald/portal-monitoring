@@ -1,0 +1,19 @@
+version: '3.3'
+services:
+  db:
+    network_mode: host
+    image: mysql:8.0
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      - MYSQL_DATABASE=portal-auth
+      - MYSQL_ROOT_PASSWORD=allyoucan#34T
+    ports:
+      - '3306:3306'
+    volumes:
+      - db:/var/lib/mysql
+    container_name: mysql-portal-auth
+volumes:
+  db:
+    driver: local
