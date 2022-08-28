@@ -1,11 +1,13 @@
 var express = require('express');
 var router = express.Router();
-var userService = require('../services/user')
+var {getAllUser,getUserById,addUser,
+    updateUser,activeDeactiveUser} = require('../services/userService/userService')
+var {validateAddUserRequest} = require('../services/userService/userMiddlewares')
 
-/* GET users listing. */
-router.get('/', userService.getAllUser);
-// router.post('/',user)
-router.get('/:id', userService.getUserById);
-router.post('/',userService.addUser)
+router.get('/',getAllUser)
+router.get('/:id',getUserById)
+router.post('/',validateAddUserRequest,addUser)
+router.put('/:id',updateUser)
+router.patch('/active-deactive/:id',activeDeactiveUser)
 
 module.exports = router;

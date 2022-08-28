@@ -1,16 +1,8 @@
-const db = require('./db')
+const userModel = require('./initDatabaseModel').users
 
 const save = async (user)=>{
-    var userMap = [user.first_name,user.last_name,user.username,
-    user.email, user.phone_number, user.password
-    ]
     try {
-       var [result,fields] = await db.query(" "+
-       " INSERT INTO users "+
-       " (first_name, last_name, username, email, phone_number, "+
-       " password) "+
-       " VALUES(?,?,?,?,?,?)"+
-       "" ,userMap)
+        var result = userModel.create(user)
         return result
     } catch (error) {
         throw error
@@ -19,7 +11,7 @@ const save = async (user)=>{
 
 const findAll = async ()=>{
     try {
-        var [users,fields] = await db.query("SELECT * FROM `users` ");
+        var users = await userModel.findAll();
         return users
     } catch (error) {
         throw error
@@ -28,20 +20,47 @@ const findAll = async ()=>{
 
 const findById = async (id)=>{
     try {
-        var [user,field] = await db.query("SELECT * FROM `users` WHERE `id` = ?",id)
+        var user = await userModel.findByPk(id);
         return user
-
     } catch (error) {
         throw error
     }
 }
 
-const updateById = async (user)=>{
-    
+const updateStatus = async (id,status)=>{
+    try {
+        var updateUser = await userModel.update(
+            {status},{where : {id}})
+        return updateUser
+    } catch (error) {
+        throw error
+    }
 }
 
+const update = async (id,user)=> {
+    try {
+        var {
+            first_name,last_name,email,
+            username,email,phone_number,
+            bio,location
+         } = user
+        var updateUser = await userModel.update(
+            { 
+                first_name,last_name,
+                username,email,phone_number,
+                bio,location
+             },{where : {id}})
+        return updateUser
+    } catch (error) {
+        throw error
+    }
+}
+
+
 module.exports = {
-    save,
     findAll,
     findById,
+    save,
+    updateStatus,
+    update
 }

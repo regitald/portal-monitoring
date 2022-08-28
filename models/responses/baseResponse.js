@@ -1,8 +1,7 @@
-const baseResponse = (code,message,content)=> {
+const baseResponse = (message,content)=> {
     return {
-        "code":code,
-        "message":message,
-        "contents:":content
+        message,
+        content
     }
 }
 
