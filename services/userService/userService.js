@@ -5,10 +5,10 @@ const bycrypt = require('bcrypt');
 
 const getAllUser = async (req,res,next)=>{
     try {
-        var users = await userRepository.findAll();
+        var users = await userRepository.findAllWithRoles();
         res.send(response("succes",users));
     } catch (error) {
-        res.status(500).send(error)
+        res.status(500).send("err: "+error)
     }    
 }
 

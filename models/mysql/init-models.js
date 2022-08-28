@@ -20,6 +20,10 @@ function initModels(sequelize) {
   roles.hasMany(role_user, { as: "role_users", foreignKey: "role_id"});
   role_user.belongsTo(users, { as: "user", foreignKey: "user_id"});
   users.hasMany(role_user, { as: "role_users", foreignKey: "user_id"});
+  users.belongsToMany(roles, {  through : 'role_user', foreignKey : 'user_id'})
+  roles.belongsToMany(users, { through : 'role_user', foreignKey : 'role_id'})
+  permissions.belongsToMany(roles, {through : 'permission_role', foreignKey :'permission_id' })
+  roles.belongsToMany(permissions, {through : 'permission_role', foreignKey : 'role_id'})
 
   return {
     permission_role,

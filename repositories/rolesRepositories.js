@@ -1,3 +1,5 @@
+const { permissions } = require('./initDatabaseModel')
+
 const rolesModel = require('./initDatabaseModel').roles
 
 const save = async (role)=>{
@@ -11,7 +13,9 @@ const save = async (role)=>{
 
 const findAll = async ()=>{
     try {
-        var roles = await rolesModel.findAll();
+        var roles = await rolesModel.findAll({
+            include : permissions
+        });
         return roles
     } catch (error) {
         throw error

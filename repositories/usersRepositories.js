@@ -1,3 +1,5 @@
+const { roles, permissions } = require('./initDatabaseModel')
+
 const userModel = require('./initDatabaseModel').users
 
 const save = async (user)=>{
@@ -12,6 +14,24 @@ const save = async (user)=>{
 const findAll = async ()=>{
     try {
         var users = await userModel.findAll();
+        return users
+    } catch (error) {
+        throw error
+    }
+}
+
+const findAllWithRoles = async()=>{
+    try {
+        var users = await userModel.findAll({
+            include : [
+                {
+                    model : roles,
+                    include : [
+                        permissions
+                    ]
+                }
+            ]
+        });
         return users
     } catch (error) {
         throw error
@@ -62,5 +82,6 @@ module.exports = {
     findById,
     save,
     updateStatus,
-    update
+    update,
+    findAllWithRoles
 }

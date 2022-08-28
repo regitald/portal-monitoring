@@ -39,7 +39,7 @@ FOREIGN KEY (user_id) REFERENCES users(id)
 
 CREATE TABLE permissions (
 id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-name VARCHAR(255),
+name VARCHAR(255) UNIQUE NOT NULL,
 description TEXT,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 updated_at TIMESTAMP
@@ -52,8 +52,8 @@ permission_id INT UNSIGNED,
 status BOOLEAN ,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 updated_at TIMESTAMP,
-FOREIGN KEY (permission_id) REFERENCES roles(id),
-FOREIGN KEY (role_id) REFERENCES permissions(id)
+FOREIGN KEY (permission_id) REFERENCES permissions(id),
+FOREIGN KEY (role_id) REFERENCES roles(id)
 ) 
 
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'allyoucan#34T';
