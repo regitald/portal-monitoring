@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var {login} = require('../services/authenticationService/login')
+var {login} = require('../controllers/authentication/login')
 
 router.post('/login',login)
 

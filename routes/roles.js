@@ -1,10 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var {
-    getAllRoles,
-    getRoleById,
+    getAllRoles,getRoleById,
     addRole,updateRole
-} = require('../services/roleServices/rolesService')
+} = require('../controllers/role/roleController')
 
 router.get('/',getAllRoles)
 router.post('/',addRole)

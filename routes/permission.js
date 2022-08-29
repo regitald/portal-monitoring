@@ -5,7 +5,7 @@ var {
     getPermissionById,
     addPermission,
     updatePermission
-} = require('../services/permissionServices/permissionService')
+} = require('../controllers/permission/permissionController')
 
 router.get('/',getAllPermissions)
 router.post('/',addPermission)

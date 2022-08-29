@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var {getAllUser,getUserById,addUser,
-    updateUser,activeDeactiveUser} = require('../services/userService/userService')
-var {validateAddUserRequest} = require('../services/userService/userMiddlewares')
+    updateUser,activeDeactiveUser} = require('../controllers/user/userController')
+var {validateAddUserRequest} = require('../controllers/user/userMiddlewares')
 
 router.get('/',getAllUser)
 router.get('/:id',getUserById)

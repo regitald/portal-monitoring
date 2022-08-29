@@ -1,11 +1,11 @@
-var userRepository = require('../../repositories/usersRepositories')
+var userService = require('../../services/user/userService')
 var response = require('../../models/responses/baseResponse');
 const bycrypt = require('bcrypt');
 
 
 const getAllUser = async (req,res,next)=>{
     try {
-        var users = await userRepository.findAllWithRoles();
+        var users = await userService.getAllUser();
         res.send(response("succes",users));
     } catch (error) {
         res.status(500).send("err: "+error)
@@ -15,7 +15,7 @@ const getAllUser = async (req,res,next)=>{
 const getUserById = async (req,res,next)=>{
     var id = req.params.id
     try {
-        var user = await userRepository.findById(id);
+        var user = await userService.getUserById(id);
         if(user != null){
             res.send(response("succes",user));
         }else{
@@ -30,7 +30,7 @@ const addUser = async (req,res,next)=>{
     try {
         var user = req.body
         user.password = await encryptPassword(user.password);
-        var user = await userRepository.save(user);
+        var user = await userService.addUser(user);
         res.status(201).send(response("success"));
     } catch (error) {
         res.status(500).send("error : "+error)
@@ -42,13 +42,13 @@ const activeDeactiveUser = async(req,res,next)=>{
         var {id} = req.params
         var {status} = req.query
 
-        var user = await userRepository.findById(id)
+        var user = await userService.getUserById(id)
 
         if(user == null){
             res.status(404).send(response('user not found'))
         }
 
-        var updated = await userRepository.updateStatus(id,status)
+        var updated = await userService.activeDeactiveUser(id,status)
         
         res.status(200).send(response("success"));
     } catch (error) {
@@ -60,7 +60,7 @@ const updateUser = async(req,res,next)=>{
     var {id} = req.params
     var user = req.body
     try {
-        var updates = await userRepository.update(id,user);
+        var updates = await userService.updateUser(id,user);
         res.status(200).send(response("success"));
     } catch (error) {
         res.status(500).send("error : "+error)

@@ -5,7 +5,7 @@ var {
     getUserRoleById,
     addUserRole,
     updateUserRole
-} = require('../services/userRoleService/userRoleService')
+} = require('../controllers/userRole/userRoleController')
 
 router.get('/',getAllUserRole)
 router.post('/',addUserRole)

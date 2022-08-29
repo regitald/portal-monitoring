@@ -1,8 +1,8 @@
-var roleRepository = require('../../repositories/rolesRepositories')
+var roleService = require('../../services/role/rolesService')
 var response = require('../../models/responses/baseResponse')
 const getAllRoles = async (req,res,next)=>{
     try {
-        var roles = await roleRepository.findAll();
+        var roles = await roleService.getAllRoles();
         res.send(response("succes",roles));
     } catch (error) {
         res.status(500).send(error)
@@ -12,7 +12,7 @@ const getAllRoles = async (req,res,next)=>{
 const getRoleById = async (req,res,next)=>{
     var id = req.params.id
     try {
-        var role = await roleRepository.findById(id);
+        var role = await roleService.getRoleById(id);
         if(role != null){
             res.send(response("succes",role));
         }else{
@@ -26,7 +26,7 @@ const getRoleById = async (req,res,next)=>{
 const addRole = async (req,res,next)=>{
     try {
         var role = req.body
-        var roleAdded = await roleRepository.save(role);
+        var roleAdded = await roleService.addRole(role);
         res.status(201).send(response("success"));
     } catch (error) {
         res.status(500).send("error : "+error)
@@ -37,7 +37,7 @@ const updateRole = async(req,res,next)=>{
     try {
         var {id} = req.params
         var role = req.body
-        var roleAdded = await roleRepository.update(id,role);
+        var roleAdded = await roleService.updateRole(id,role);
         res.status(201).send(response("success"));
     } catch (error) {
         res.status(500).send("error : "+error)
