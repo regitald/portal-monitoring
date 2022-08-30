@@ -2,14 +2,20 @@ const userActivityService = require('../../services/userActivity/userActivitySer
 const response = require('../../models/responses/baseResponse')
 
 const getAllUserActivities = async (req,res,next)=>{
-    try {
-        var userActivities = await userActivityService.getAllUserActivities()
-        res.status(200).send(response("succes",userActivities));
-    } catch (error) {
-        res.status(500).send("err: "+error)
-    }   
+    var filters = req.query
+    var userActivities = await userActivityService.getAllUserActivitiesFiltered(filters);
+    res.status(userActivities.code).send(response(
+        userActivities.message,userActivities.content
+    ))
+}
+
+const logUserActivity = async(req,res,next) => {
+    var userActivity = req.body 
+    var logged = await userActivityService.logUserActivity(userActivity);
+    res.status(logged.code).send(response(logged.message))
 }
 
 module.exports = {
-    getAllUserActivities
+    getAllUserActivities,
+    logUserActivity
 }

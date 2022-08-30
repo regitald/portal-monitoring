@@ -14,17 +14,19 @@ const logActivity = async (req,res,next)=>{
             if (authToken.startsWith("Bearer ")){
                 token = authToken.substring(7, authToken.length);
            }
-            var userData = await jwt.verify(token,jwtKey)
-    
+           var userData = await jwt.verify(token,jwtKey)
             if(userData){
+                var userActivity = userData.username+ " accessed "+ req.path + " at " + dateNow
+                userData.activity = userActivity,
+                userData.module = req.path
                 var logged = await userActivityService.logUserActivity(userData,req)
-                console.log(logged);
             }
+        }else{
+            next()
         }
     } catch (error) {
         next()
     }
-    next()
 }
 
 module.exports = {
