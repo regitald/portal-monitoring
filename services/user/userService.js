@@ -1,10 +1,10 @@
-var userRepository = require('../../repositories/usersRepositories')
+var userRepository = require('../../repositories/usersRepository')
 const bycrypt = require('bcrypt');
 
 
 const getAllUser = async ()=>{
     try {
-        var users = await userRepository.findAllWithRoles();
+        var users = await userRepository.findAllWithRolesAndPersmissions();
         return users
     } catch (error) {
         throw error
@@ -20,9 +20,31 @@ const getUserById = async (id)=>{
     }
 }
 
+const getUserByUsername = async (username)=>{
+    try {
+        var user = await userRepository.findByUserName(username);
+        return user
+    } catch (error) {
+        throw error
+    }
+}
+
 const addUser = async (user)=>{
     try {
-        user.password = await encryptPassword(user.password);
+
+        var checkUser = await userRepository.findUsernameEmailPhoneNumber(
+            {username : user.username, 
+            email :user.email, 
+            phone_number :user.phone_number}
+        )
+
+        if(checkUser){
+            throw new Error("user with email/username/phone number exists")
+        }
+
+        var newPass = "123456789"
+        var encryptedPassword = await encryptPassword(newPass);
+        user.password = encryptedPassword
         var userAdded = await userRepository.save(user);
         return userAdded
     } catch (error) {
@@ -56,7 +78,7 @@ const updateUser = async(id,user)=>{
 
 const encryptPassword = async (plainPassword)=>{
     const salt = await bycrypt.genSalt(10);
-    const encryptedPassword = bycrypt.hash(plainPassword,salt);
+    const encryptedPassword = await bycrypt.hash(plainPassword,salt);
     return encryptedPassword;
 }
 
@@ -65,6 +87,7 @@ module.exports = {
     getUserById,
     addUser,
     activeDeactiveUser,
-    updateUser
+    updateUser,
+    getUserByUsername
     
 }

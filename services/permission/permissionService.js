@@ -1,8 +1,8 @@
-var permissionRepositories = require('../../repositories/permissionRepositories')
+var permissionRepository = require('../../repositories/permissionRepository')
 
 const getAllPermissions = async ()=>{
     try {
-        var permissions = await permissionRepositories.findAll();
+        var permissions = await permissionRepository.findAll();
         return permissions
     } catch (error) {
         throw error
@@ -11,7 +11,7 @@ const getAllPermissions = async ()=>{
 
 const getPermissionById = async (id)=>{
     try {
-        var permission = await permissionRepositories.findById(id);
+        var permission = await permissionRepository.findById(id);
         return permission
     } catch (error) {
         throw error
@@ -20,7 +20,7 @@ const getPermissionById = async (id)=>{
 
 const addPermission = async (permissions)=>{
     try {
-        var permissionsAdded = await permissionRepositories.save(permissions);
+        var permissionsAdded = await permissionRepository.save(permissions);
         return permissionsAdded
     } catch (error) {
         throw error
@@ -29,7 +29,7 @@ const addPermission = async (permissions)=>{
 
 const updatePermission = async(id,permission)=>{
     try {
-        var permissionUpdated = await permissionRepositories.update(id,permission);
+        var permissionUpdated = await permissionRepository.update(id,permission);
         return permissionUpdated
     } catch (error) {
         throw permissionUpdated

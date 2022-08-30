@@ -56,6 +56,16 @@ FOREIGN KEY (permission_id) REFERENCES permissions(id),
 FOREIGN KEY (role_id) REFERENCES roles(id)
 ) 
 
+
+CREATE TABLE user_activities(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    user_id INT UNSIGNED,
+    activity VARCHAR(255),
+    datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    module VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+)
+
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'allyoucan#34T';
 
 flush privileges;

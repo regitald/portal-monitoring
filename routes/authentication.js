@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var {login} = require('../controllers/authentication/login')
+var {authenticate} = require('../controllers/authentication/authenticationController')
 
-router.post('/login',login)
+router.post('/',authenticate)
 
 module.exports = router;

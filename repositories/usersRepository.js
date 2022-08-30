@@ -20,7 +20,7 @@ const findAll = async ()=>{
     }
 }
 
-const findAllWithRoles = async()=>{
+const findAllWithRolesAndPersmissions = async()=>{
     try {
         var users = await userModel.findAll({
             include : [
@@ -44,6 +44,27 @@ const findById = async (id)=>{
         return user
     } catch (error) {
         throw error
+    }
+}
+
+const findByUserName = async(username)=>{
+    try {
+        var user = await userModel.findOne({
+            where : {
+                username
+            },
+            include : [
+                {
+                    model : roles,
+                    include : [
+                        permissions
+                    ]
+                }
+            ]
+        })
+        return user
+    } catch (error) {
+        throw user
     }
 }
 
@@ -76,6 +97,20 @@ const update = async (id,user)=> {
     }
 }
 
+const findUsernameEmailPhoneNumber = async(params)=>{
+    var {username, email, phone_number,}  = params
+    try {
+        var user = await userModel.findOne({
+            where : {
+                username, email, phone_number
+            }
+        });
+        return user
+    } catch (error) {
+        throw error        
+    }
+}
+
 
 module.exports = {
     findAll,
@@ -83,5 +118,7 @@ module.exports = {
     save,
     updateStatus,
     update,
-    findAllWithRoles
+    findAllWithRolesAndPersmissions,
+    findByUserName,
+    findUsernameEmailPhoneNumber
 }

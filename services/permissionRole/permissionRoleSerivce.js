@@ -1,8 +1,8 @@
-var permissionRoleRepositories = require('../../repositories/permissionRoleRepositories')
+var permissionRoleRepository = require('../../repositories/permissionRoleRepository')
 
 const getAllPermissionRole = async ()=>{
     try {
-        var permissionRoles = await permissionRoleRepositories.findAll();
+        var permissionRoles = await permissionRoleRepository.findAll();
         return permissionRoles
     } catch (error) {
         throw error
@@ -11,7 +11,7 @@ const getAllPermissionRole = async ()=>{
 
 const getPermissionRoleById = async (id)=>{
     try {
-        var permissionRole = await permissionRoleRepositories.findById(id);
+        var permissionRole = await permissionRoleRepository.findById(id);
         return permissionRole
     } catch (error) {
         throw error
@@ -20,7 +20,7 @@ const getPermissionRoleById = async (id)=>{
 
 const addPermissionRole = async (permissionRole)=>{
     try {
-        var permissionRoleAdded = await permissionRoleRepositories.save(permissionRole);
+        var permissionRoleAdded = await permissionRoleRepository.save(permissionRole);
         return permissionRoleAdded
     } catch (error) {
         throw error
@@ -29,7 +29,7 @@ const addPermissionRole = async (permissionRole)=>{
 
 const updatePermissionRole = async(id,permissionRole)=>{
     try {
-        var permissionRoleUpdated = await permissionRoleRepositories.update(id,permissionRole);
+        var permissionRoleUpdated = await permissionRoleRepository.update(id,permissionRole);
         return permissionRoleUpdated
     } catch (error) {
         throw error

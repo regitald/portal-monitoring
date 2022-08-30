@@ -28,9 +28,8 @@ const getUserById = async (req,res,next)=>{
 
 const addUser = async (req,res,next)=>{
     try {
-        var user = req.body
-        user.password = await encryptPassword(user.password);
-        var user = await userService.addUser(user);
+        var userReq = req.body 
+        var userAdded = await userService.addUser(userReq)
         res.status(201).send(response("success"));
     } catch (error) {
         res.status(500).send("error : "+error)

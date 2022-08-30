@@ -1,4 +1,4 @@
-var userRoleRepository = require('../../repositories/userRoleRepositories')
+var userRoleRepository = require('../../repositories/userRoleRepository')
 
 const getAllUserRole = async ()=>{
     try {
