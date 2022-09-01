@@ -1,4 +1,5 @@
 var userRoleRepository = require('../../repositories/userRoleRepository')
+var serviceResponse = require('../../models/responses/serviceResponse')
 
 const getAllUserRole = async ()=>{
     try {
@@ -19,12 +20,8 @@ const getUserRoleById = async (id)=>{
 }
 
 const addUserRole = async (userRole)=>{
-    try {
-        var roleAdded = await userRoleRepository.save(userRole);
-        return roleAdded
-    } catch (error) {
-        throw error
-    }
+    var roleAdded = await userRoleRepository.save(userRole);
+    return roleAdded
 }
 
 const updateUserRole = async(id,userRole)=>{
@@ -36,9 +33,24 @@ const updateUserRole = async(id,userRole)=>{
     }
 }
 
+const deleteUserRole = async(id)=>{
+    try {
+        var userRole = await getUserRoleById(id);
+
+        if(!userRole){
+            return serviceResponse(404,"user role not found")
+        }
+    
+        var deleteRole = await userRoleRepository.deleteUserRole(id);
+        return deleteRole   
+    } catch (error) {
+        return serviceResponse(500,error.message)
+    }
+}
 module.exports = {
     getAllUserRole,
     getUserRoleById,
     addUserRole,
-    updateUserRole
+    updateUserRole,
+    deleteUserRole
 }

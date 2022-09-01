@@ -29,8 +29,8 @@ const getUserById = async (req,res,next)=>{
 const addUser = async (req,res,next)=>{
     try {
         var userReq = req.body 
-        var userAdded = await userService.addUser(userReq)
-        res.status(201).send(response("success"));
+        var userAdded = await userService.addUser(userReq)        
+        res.status(userAdded.code).send(response(userAdded.message));
     } catch (error) {
         res.status(500).send("error : "+error)
     }
@@ -66,6 +66,16 @@ const updateUser = async(req,res,next)=>{
     }
 }
 
+const deleteUser = async(req,res,next)=>{
+    var {id} = req.params
+    try {
+        var deleted = await userService.deleteUser(id)
+        res.status(deleted.code).send(response(deleted.message))
+    } catch (error) {
+        res.status(500).send(error.message)        
+    }
+}
+
 const encryptPassword = async (plainPassword)=>{
     const salt = await bycrypt.genSalt(10);
     const encryptedPassword = bycrypt.hash(plainPassword,salt);
@@ -77,6 +87,6 @@ module.exports = {
     getUserById,
     addUser,
     activeDeactiveUser,
-    updateUser
-    
+    updateUser,
+    deleteUser    
 }

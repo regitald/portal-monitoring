@@ -16,15 +16,17 @@ const logActivity = async (req,res,next)=>{
            }
            var userData = await jwt.verify(token,jwtKey)
             if(userData){
-                var userActivity = userData.username+ " accessed "+ req.path + " at " + dateNow
+                var userActivity = userData.username+ " accessed "+ req.path 
                 userData.activity = userActivity,
                 userData.module = req.path
                 var logged = await userActivityService.logUserActivity(userData,req)
             }
+            next()
         }else{
             next()
         }
     } catch (error) {
+        console.log(error);
         next()
     }
 }

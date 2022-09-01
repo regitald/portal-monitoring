@@ -27,10 +27,23 @@ const getUserRoleById = async (req,res,next)=>{
 const addUserRole = async (req,res,next)=>{
     try {
         var userRole = req.body
+        var user_id = userRole.user_id
         var roleAdded = await userRoleService.addUserRole(userRole);
-        res.status(201).send(response("success"));
+        res.status(roleAdded.code).send(response(roleAdded.message)); 
     } catch (error) {
-        res.status(500).send("error : "+error)
+        res.status(500).send(response(error.message))
+    }
+
+}
+
+const deleletUserRole = async(req,res,next)=>{
+    try {
+        var {id} = req.params
+        var userRoleDeleted = await userRoleService.deleteUserRole(id)
+        res.status(userRoleDeleted.code).send(response(userRoleDeleted.message))   
+    } catch (error) {
+        res.status(500).send(response(error.message))   
+
     }
 }
 
@@ -49,5 +62,6 @@ module.exports = {
     getAllUserRole,
     getUserRoleById,
     addUserRole,
-    updateUserRole
+    updateUserRole,
+    deleletUserRole
 }

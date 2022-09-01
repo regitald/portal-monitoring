@@ -12,7 +12,7 @@ const generateAuthUserToken = async(user)=>{
     }
 
     let data = {
-        userId : user.id,
+        user_id : user.id,
         username : user.username,
         email : user.email,
         role : user.role,

@@ -1,4 +1,6 @@
 var userRepository = require('../../repositories/usersRepository')
+var userRoleService = require('../userRole/userRoleService')
+var serviceResponse = require('../../models/responses/serviceResponse')
 const bycrypt = require('bcrypt');
 
 
@@ -32,23 +34,48 @@ const getUserByUsername = async (username)=>{
 const addUser = async (user)=>{
     try {
 
-        var checkUser = await userRepository.findUsernameEmailPhoneNumber(
-            {username : user.username, 
-            email :user.email, 
-            phone_number :user.phone_number}
+        var checkUsername = await userRepository.findUser(
+            {username : user.username}
         )
 
-        if(checkUser){
-            throw new Error("user with email/username/phone number exists")
+        if(checkUsername){
+            return {
+                "code":409,
+                "message":"user with "+user.username+" is exists"
+            }
         }
 
-        var newPass = "123456789"
-        var encryptedPassword = await encryptPassword(newPass);
+        var checkEmail = await userRepository.findUser(
+            {email : user.email}
+        )
+
+        if(checkEmail){
+            return {
+                "code":409,
+                "message":"user with "+user.email+" is exists"
+            }
+        }
+
+        var checkPhone = await userRepository.findUser(
+            {phone_number : user.phone_number}
+        )
+
+        if(checkPhone){
+            return {
+                "code":409,
+                "message":"user with "+user.phone_number +" is exists"
+            }
+        }
+
+        var encryptedPassword = await encryptPassword(user.password);
         user.password = encryptedPassword
-        var userAdded = await userRepository.save(user);
+        var userAdded = await userRepository.saveUserAndRole(user);
         return userAdded
     } catch (error) {
-        throw error
+        return {
+            "code":500,
+            "message":error.message
+        }
     }
 }
 
@@ -64,6 +91,15 @@ const activeDeactiveUser = async(id,status)=>{
         return updated
     } catch (error) {
         throw error
+    }
+}
+
+const deleteUser = async(id)=>{
+    try {
+        var deleted = await userRepository.deleteUser(id)
+        return deleted
+    } catch (error) {
+        return serviceResponse(500,error.message)
     }
 }
 
@@ -88,6 +124,7 @@ module.exports = {
     addUser,
     activeDeactiveUser,
     updateUser,
-    getUserByUsername
+    getUserByUsername,
+    deleteUser
     
 }

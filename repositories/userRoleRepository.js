@@ -1,11 +1,12 @@
 const userRoleModel = require('./initDatabaseModel').role_user
+const serviceResponse = require('../models/responses/serviceResponse')
 
 const save = async (userRole)=>{
     try {
-        var result = userRoleModel.create(userRole)
-        return result
+        var result = await userRoleModel.create(userRole)
+        return serviceResponse(200,"success")
     } catch (error) {
-        throw error
+        return serviceResponse(500,error.message)
     }
 }
 
@@ -40,9 +41,20 @@ const update = async (id,userRole)=> {
     }
 }
 
+const deleteUserRole = async (id) => {
+    try {
+        await userRoleModel.destroy({where : {id}})
+        return serviceResponse(200,"success")
+    } catch (error) {
+        return serviceResponse(500,error.message)
+        
+    }
+}
+
 module.exports = {
     findAll,
     findById,
     update,
-    save
+    save,
+    deleteUserRole
 }

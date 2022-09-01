@@ -58,7 +58,7 @@ const getAllUserActivitiesFiltered = async (filter)=>{
 const logUserActivity = async(userData) =>{
     var dateNow = new Date()
     var userActivity = {
-        user_id : userData.user_id,
+        user_id : userData.userId,
         activity : userData.activity,
         datetime : dateNow,
         module : userData.module
