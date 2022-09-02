@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('roles', {
+  return sequelize.define('menu', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER.UNSIGNED,
@@ -9,17 +9,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     name: {
       type: DataTypes.STRING(255),
-      allowNull: false,
-      unique: "name"
-    },
-    is_active: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
-      defaultValue: 1
+      allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'roles',
+    tableName: 'menu',
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",
@@ -32,14 +26,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
-        ]
-      },
-      {
-        name: "name",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "name" },
         ]
       },
     ]

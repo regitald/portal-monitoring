@@ -7,8 +7,8 @@ var {
     updatePermission
 } = require('../controllers/permission/permissionController')
 
-router.get('/',getAllPermissions)
 router.post('/',addPermission)
+router.get('/',getAllPermissions)
 router.get('/:id',getPermissionById)
 router.put('/:id',updatePermission)
 

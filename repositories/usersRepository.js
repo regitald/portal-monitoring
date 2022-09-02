@@ -1,6 +1,5 @@
-const { roles, permissions,role_user } = require('./initDatabaseModel')
+const { roles, permissions,role_user, menu } = require('./initDatabaseModel')
 const userModel = require('./initDatabaseModel').users
-const sequelize = require('./iniDbConnection')
 const serviceResponse = require('../models/responses/serviceResponse')
 
 const save = async (user)=>{
@@ -19,40 +18,15 @@ const save = async (user)=>{
 }
 
 const saveUserAndRole =async (user)=>{
-    var roles = user.roles
-    
     try {
-        var restul = await sequelize.transaction(async(t)=>{
-
-            var userCreated = await userModel.create(user,{
-                transaction : t
-            })
-
-            var newUser = userCreated.dataValues
-
-            for(i in roles){
-                let role = roles[i]
-                await role_user.create({
-                    user_id : newUser.id,
-                    role_id : role.id
-                },{
-                   transaction : t
-                })
-            }
-        })
-
-        return {
-            "code":201,
-            "message":"success"
-        }            
-
+        await userModel.create(user);
+        return serviceResponse(201,"success")         
     } catch (error) {
         return {
             "code":500,
             "message":error.message
         }
     }
-
 }
 
 const findAll = async ()=>{
@@ -67,14 +41,19 @@ const findAll = async ()=>{
 const findAllWithRolesAndPersmissions = async()=>{
     try {
         var users = await userModel.findAll({
-            include : [
-                {
-                    model : roles,
-                    include : [
-                        permissions
-                    ]
-                }
-            ]
+            include : [{
+                model: roles,
+                as : "role",
+                include:[
+                    {
+                        model:permissions,
+                        include: {
+                            model : menu,
+                            as : "menu"
+                        }
+                    }
+                ]
+            }]
         });
         return users
     } catch (error) {
@@ -88,15 +67,16 @@ const findById = async (id)=>{
             include : [
                 {
                     model : roles,
-                    include : [
+                    as : "role",
+                    include: [
                         permissions
                     ]
                 }
             ]
         });
-        return user
+        return serviceResponse(200,"success",user)
     } catch (error) {
-        throw error
+        return serviceResponse(505,error.message)
     }
 }
 
@@ -133,20 +113,10 @@ const updateStatus = async (id,status)=>{
 
 const update = async (id,user)=> {
     try {
-        var {
-            first_name,last_name,email,
-            username,email,phone_number,
-            bio,location
-         } = user
-        var updateUser = await userModel.update(
-            { 
-                first_name,last_name,
-                username,email,phone_number,
-                bio,location
-             },{where : {id}})
-        return updateUser
+        await userModel.update(user,{where : {id}})
+        return serviceResponse(201,"success")
     } catch (error) {
-        throw error
+        return serviceResponse(500,error.message)
     }
 }
 

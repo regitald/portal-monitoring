@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: true,
       references: {
-        model: 'permissions',
+        model: 'roles',
         key: 'id'
       }
     },
@@ -19,12 +19,12 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: true,
       references: {
-        model: 'roles',
+        model: 'permissions',
         key: 'id'
       }
     },
     status: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.TINYINT,
       allowNull: true
     }
   }, {

@@ -1,5 +1,4 @@
 var userRepository = require('../../repositories/usersRepository')
-var userRoleService = require('../userRole/userRoleService')
 var serviceResponse = require('../../models/responses/serviceResponse')
 const bycrypt = require('bcrypt');
 
@@ -105,6 +104,12 @@ const deleteUser = async(id)=>{
 
 const updateUser = async(id,user)=>{
     try {
+        var isUserExists = await userRepository.findById(id)
+
+        if(!isUserExists.content){
+            return serviceResponse(404,'user not found')
+        }
+
         var userUpdated = await userRepository.update(id,user);
         return userUpdated
     } catch (error) {

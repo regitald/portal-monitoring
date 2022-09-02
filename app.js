@@ -6,7 +6,6 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var authRouter = require('./routes/authentication')
 var rolesRouter = require('./routes/roles')
-var userRoleRouter = require('./routes/userRole')
 var permissionRouter = require('./routes/permission')
 var permissionRoleRouter = require('./routes/permissionRole')
 var userActivitiesRouter = require('./routes/userActivities')
@@ -23,7 +22,6 @@ app.use(cookieParser());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/roles', rolesRouter)
-app.use('/user-role',userRoleRouter)
 app.use('/permission',permissionRouter)
 app.use('/permission-role',permissionRoleRouter)
 app.use('/user-activities',userActivitiesRouter)

@@ -1,6 +1,7 @@
 var userService = require('../../services/user/userService')
 var response = require('../../models/responses/baseResponse');
 const bycrypt = require('bcrypt');
+const { update } = require('../../repositories/usersRepository');
 
 
 const getAllUser = async (req,res,next)=>{
@@ -59,8 +60,8 @@ const updateUser = async(req,res,next)=>{
     var {id} = req.params
     var user = req.body
     try {
-        var updates = await userService.updateUser(id,user);
-        res.status(200).send(response("success"));
+        var updated = await userService.updateUser(id,user);
+        res.status(updated.code).send(response(updated.message))
     } catch (error) {
         res.status(500).send("error : "+error)
     }

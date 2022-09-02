@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "",
-    "database": "",
-    "host": "127.0.0.1",
+    "username": "sammy",
+    "password": "allyoucan#34T",
+    "database": "andon_aji_temp",
+    "host": "103.214.112.156",
     "dialect": "mysql"
   },
   "test": {

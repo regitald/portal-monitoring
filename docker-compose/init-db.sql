@@ -17,10 +17,12 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
+  `role_id` int unsigned null,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `phone_number` (`phone_number`)
+  FOREIGN KEY (`role_id`) REFERENCES roles(`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
 
@@ -57,13 +59,16 @@ CREATE TABLE `role_user` (
 
 CREATE TABLE `permissions` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
+  `menu_id` int unsigned,
+  `view` boolean not null default false,
+  `create` boolean not null default false,
+  `edit` boolean not null default false,
+  `delete` boolean not null default false,
+  `detail` boolean not null default false,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 -- `portal-auth`.permission_role definition
@@ -82,7 +87,6 @@ CREATE TABLE `permission_role` (
   CONSTRAINT `permission_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
-
 -- `portal-auth`.user_activities definition
 
 CREATE TABLE `user_activities` (
@@ -95,6 +99,15 @@ CREATE TABLE `user_activities` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `user_activities_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+
+
+CREATE TABLE menu (
+  id int unsigned not null AUTO_INCREMENT PRIMARY key,
+  name varchar(255) DEFAULT null,
+  created_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at timestamp NULL DEFAULT NULL,
+  deleted_at timestamp NULL DEFAULT NULL,
+)
 
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'allyoucan#34T';
 

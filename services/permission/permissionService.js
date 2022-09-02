@@ -1,3 +1,4 @@
+const serviceResponse = require('../../models/responses/serviceResponse');
 var permissionRepository = require('../../repositories/permissionRepository')
 
 const getAllPermissions = async ()=>{
@@ -18,12 +19,31 @@ const getPermissionById = async (id)=>{
     }
 }
 
-const addPermission = async (permissions)=>{
+const addPermission = async (permissionsAndRoles)=>{
     try {
-        var permissionsAdded = await permissionRepository.save(permissions);
-        return permissionsAdded
+
+        var {
+            role_id,
+            permissions
+        } = permissionsAndRoles
+
+        var permissionArr = new Array()
+
+        for(let i=0; i<permissions.length; i++){
+            var {menu_id,permission_ids} = permissions[i];
+            let permissionToAdd = {}
+            permissionToAdd.menu_id = menu_id
+            permissionToAdd.view = permission_ids[0]
+            permissionToAdd.detail = permission_ids[1]
+            permissionToAdd.create = permission_ids[2]
+            permissionToAdd.edit = permission_ids[3]
+            permissionToAdd.delete = permission_ids[4]
+            permissionArr.push(permissionToAdd)
+        }
+        var addPermissionAndRole = await permissionRepository.savePermissionAndRole(role_id,permissionArr)
+        return addPermissionAndRole
     } catch (error) {
-        throw error
+        return serviceResponse(500,err.message)
     }
 }
 

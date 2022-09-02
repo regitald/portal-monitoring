@@ -7,13 +7,38 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    name: {
-      type: DataTypes.STRING(255),
-      allowNull: true
+    menu_id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+      references: {
+        model: 'menu',
+        key: 'id'
+      }
     },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: true
+    view: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue:false
+    },
+    create: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue:false
+    },
+    edit: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue:false
+    },
+    delete: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue:false
+    },
+    detail: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue:false
     }
   }, {
     sequelize,
@@ -30,6 +55,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "menu_id",
+        using: "BTREE",
+        fields: [
+          { name: "menu_id" },
         ]
       },
     ]

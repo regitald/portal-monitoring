@@ -17,15 +17,18 @@ module.exports = function(sequelize, DataTypes) {
     },
     username: {
       type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: false,
+      unique: "username"
     },
     email: {
       type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: false,
+      unique: "email"
     },
     phone_number: {
       type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: false,
+      unique: "phone_number"
     },
     password: {
       type: DataTypes.STRING(255),
@@ -54,6 +57,14 @@ module.exports = function(sequelize, DataTypes) {
     reset_password_token: {
       type: DataTypes.STRING(255),
       allowNull: true
+    },
+    role_id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: true,
+      references: {
+        model: 'roles',
+        key: 'id'
+      }
     }
   }, {
     sequelize,
@@ -70,6 +81,37 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "username",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "username" },
+        ]
+      },
+      {
+        name: "email",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "email" },
+        ]
+      },
+      {
+        name: "phone_number",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "phone_number" },
+        ]
+      },
+      {
+        name: "role_id",
+        using: "BTREE",
+        fields: [
+          { name: "role_id" },
         ]
       },
     ]

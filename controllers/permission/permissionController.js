@@ -14,7 +14,7 @@ const getPermissionById = async (req,res,next)=>{
     var id = req.params.id
     try {
         var permissions = await permissionService.getPermissionById(id);
-        if(userRole != null){
+        if(permissions != null){
             res.send(response("succes",permissions));
         }else{
             res.status(404).send(response("permission not found"))
@@ -28,7 +28,7 @@ const addPermission = async (req,res,next)=>{
     try {
         var permissions = req.body
         var permissionsAdded = await permissionService.addPermission(permissions);
-        res.status(201).send(response("success"));
+        res.status(permissionsAdded.code).send(response(permissionsAdded.message));
     } catch (error) {
         res.status(500).send("error : "+error)
     }
