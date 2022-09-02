@@ -1,10 +1,10 @@
 {
   "development": {
-    "username": "sammy",
-    "password": "allyoucan#34T",
-    "database": "andon_aji_temp",
-    "host": "103.214.112.156",
-    "dialect": "mysql"
+    "username": "",
+    "password": "",
+    "database": "",
+    "host": "",
+    "dialect": ""
   },
   "test": {
     "username": "root",
