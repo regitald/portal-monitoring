@@ -17,11 +17,7 @@ const getUserById = async (req,res,next)=>{
     var id = req.params.id
     try {
         var user = await userService.getUserById(id);
-        if(user != null){
-            res.send(response("succes",user));
-        }else{
-            res.status(404).send(response("user not found"))
-        }
+        res.status(user.code).send(user.message);
     } catch (error) {
         res.status(500).send("error : "+error)
     }

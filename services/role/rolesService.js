@@ -1,3 +1,4 @@
+const serviceResponse = require('../../models/responses/serviceResponse');
 var roleRepository = require('../../repositories/rolesRepository')
 
 const getAllRoles = async ()=>{
@@ -36,9 +37,22 @@ const updateRole = async(id,role)=>{
     }
 }
 
+const deleteRole = async(id)=>{
+    try {
+        let role = await getRoleById(id);
+        if(!role.content){
+            return serviceResponse(404,"role not found")
+        }
+        return roleRepository.deleteRole(id);
+    } catch (error) {
+        return serviceResponse(500,error.message)
+    }
+}
+
 module.exports = {
     getAllRoles,
     getRoleById,
     addRole,
-    updateRole
+    updateRole,
+    deleteRole
 }

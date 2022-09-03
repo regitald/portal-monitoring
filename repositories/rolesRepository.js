@@ -1,3 +1,4 @@
+const serviceResponse = require('../models/responses/serviceResponse')
 const { permissions } = require('./initDatabaseModel')
 
 const rolesModel = require('./initDatabaseModel').roles
@@ -24,10 +25,10 @@ const findAll = async ()=>{
 
 const findById = async (id)=>{
     try {
-        var roles = await rolesModel.findByPk(id);
-        return roles
+        var role = await rolesModel.findByPk(id);
+        return serviceResponse(200,"success",role)
     } catch (error) {
-        throw error
+        return serviceResponse(500,error.message)
     }
 }
 
@@ -44,9 +45,19 @@ const update = async (id,roles)=> {
     }
 }
 
+const deleteRole = async(id)=>{
+    try {
+        await rolesModel.destroy({where:{id}})
+        return serviceResponse(200,"success")
+    } catch (error) {
+        return serviceResponse(500,error.message)
+    }
+}
+
 module.exports = {
     findAll,
     findById,
     update,
-    save
+    save,
+    deleteRole
 }

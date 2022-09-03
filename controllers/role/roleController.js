@@ -13,7 +13,7 @@ const getRoleById = async (req,res,next)=>{
     var id = req.params.id
     try {
         var role = await roleService.getRoleById(id);
-        if(role != null){
+        if(role.content != null){
             res.send(response("succes",role));
         }else{
             res.status(404).send(response("role not found"))
@@ -44,9 +44,19 @@ const updateRole = async(req,res,next)=>{
     }
 }
 
+const deleteRole = async(req,res,next)=>{
+    try {
+        var deleted = await roleService.deleteRole(req.params.id);
+        res.status(deleted.code).send(response(deleted.message))
+    } catch (error) {
+        res.send(500,error.message)
+    }
+}
+
 module.exports = {
     getAllRoles,
     getRoleById,
     addRole,
-    updateRole
+    updateRole,
+    deleteRole
 }

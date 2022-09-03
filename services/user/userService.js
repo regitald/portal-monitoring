@@ -15,7 +15,11 @@ const getAllUser = async ()=>{
 const getUserById = async (id)=>{
     try {
         var user = await userRepository.findById(id);
-        return user
+        if(!user.content){
+            return serviceResponse(404,"user not found")
+        }else{
+            return user
+        }
     } catch (error) {
         throw error
     }
