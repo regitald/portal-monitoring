@@ -15,9 +15,12 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^2.2.0",
     "morgan": "~1.9.1",
+    "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "node-request-model": "^1.0.5",
     "sequelize": "^6.21.4",
-    "sequelize-auto": "^0.8.8"
+    "sequelize-auto": "^0.8.8",
+    "websocket": "^1.0.34",
+    "ws": "^8.8.1"
   }
 }

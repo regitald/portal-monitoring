@@ -1,5 +1,5 @@
 const permissionsModel = require('./initDatabaseModel').permissions
-var sequelize = require('./iniDbConnection')
+var {sequelize} = require('./iniDbConnection')
 var serviceReponse = require('../models/responses/serviceResponse')
 const { permission_role } = require('./initDatabaseModel')
 
