@@ -7,7 +7,7 @@ var {
 } = require('../controllers/planning/planningController')
 
 router.get('/',getPlanningList)
-router.put('/:id',updatePlanning)
-router.post('/',addPlanning)
+router.put('/:period/:id',updatePlanning)
+router.post('/:period',addPlanning)
 
 module.exports = router;

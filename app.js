@@ -10,6 +10,7 @@ var permissionRoleRouter = require('./routes/permissionRole')
 var userActivitiesRouter = require('./routes/userActivities')
 var moRouter = require('./routes/planning')
 var logUserActivityMiddleware = require('./controllers/userActivity/userActivityMiddlewares')
+var maintenanceRouter = require('./routes/maintenance')
 
 var baseResponse = require('./models/responses/baseResponse')
 var app = express();
@@ -26,6 +27,7 @@ app.use('/api/permission-role',permissionRoleRouter)
 app.use('/api/user-activities',userActivitiesRouter)
 app.use('/api/authentication',authRouter)
 app.use('/api/planning',moRouter)
+app.use('/api/maintenance',maintenanceRouter)
 
 app.use(logUserActivityMiddleware.logActivity)
 

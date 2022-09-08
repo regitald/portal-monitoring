@@ -1,52 +1,84 @@
+const { newPlanningReq } = require('../../models/objects/plan')
 const serviceResponse = require('../../models/responses/serviceResponse')
-const moRepository = require('../../repositories/planningRepository')
+const dailyPlanningRepository = require('../../repositories/dailyPlanningRepository')
+const monthlyPlanningRepository = require('../../repositories/monthlyPlanningRepository')
 
 const getPlanningList = async()=>{
     try {
-        var moList = await moRepository.findAll()
+        var moList = await dailyPlanningRepository.findAll()
         return moList
     } catch (error) {
         return serviceResponse(500,error.meesage)
     }
 }
 
-const getPlanningById = async(id)=>{
+const getPlanningById = async(period,id)=>{
     try {
-        var mo = await moRepository.findById()
+        var mo = await dailyPlanningRepository.findById()
     } catch (error) {
         return serviceResponse(500,error.message)
     }
 }
 
-const addPlanning = async(mo)=>{
+const addPlanning = async(period,planning)=>{
     try {
-        var maxOrderId =await moRepository.findMaxOrderId(
-            {
-                production_date : mo.production_date,
-                part_category: mo.part_category,
-                line_number: mo.line_number
+        var newPlanning = newPlanningReq(planning);
+        newPlanning.status = newPlanning.status.toUpperCase()
+
+        if(period.toUpperCase() === 'DAILY' ){
+            var maxOrderId =await dailyPlanningRepository.findMaxOrderId(
+                {
+                    production_date : newPlanning.production_date,
+                    part_category: newPlanning.part_category,
+                    line_number: newPlanning.line_number
+                }
+            )
+            if(maxOrderId.content != null){
+                newPlanning.order_id = maxOrderId.content[0].maxOrderId + 1
+            }else{
+                newPlanning.order_id = 1
             }
-        )
-        if(maxOrderId.content != null){
-            mo.order_id = maxOrderId.content[0].maxOrderId + 1
+
+            return await dailyPlanningRepository.save(newPlanning);
+
+        }else if(period.toUpperCase() === 'MONTHLY'){
+            var maxOrderId =await monthlyPlanningRepository.findMaxOrderId(
+                {
+                    production_date : newPlanning.production_date,
+                    part_category: newPlanning.part_category,
+                    line_number: newPlanning.line_number
+                }
+            )
+            if(maxOrderId.content != null){
+                newPlanning.order_id = maxOrderId.content[0].maxOrderId + 1
+            }else{
+                newPlanning.order_id = 1
+            }
+            return await monthlyPlanningRepository.save(newPlanning);
         }else{
-            mo.order_id = 1
+            return serviceResponse(400,"period not defined/recognize, please chose daily or monthly")
         }
 
-        var created = await moRepository.save(mo)
-        return created
     } catch (error) {
-        return serviceResponse(500,error.meesage)
+        return serviceResponse(500,error.message)
     }
 }
 
-const updatePlanning = async(id,moReq)=>{
+const updatePlanning = async(id,period,newPlanning)=>{
     try {
-        moReq.production_date = new Date(moReq.production_date);
-        var updated = await moRepository.update(id,moReq);
-        return updated;
+        newPlanning.production_date = new Date(newPlanning.production_date);
+        newPlanning.status = newPlanning.status.toUpperCase();
+
+        if(period.toUpperCase() === 'DAILY'){
+            return await dailyPlanningRepository.update(id,newPlanning);
+        }else if(period.toUpperCase() === 'MONTHLY'){
+            return await monthlyPlanningRepository.update(id,newPlanning);
+        }else{
+            return serviceResponse(400,"period not defined/recognize, please chose daily or monthly")
+        }
+
     } catch (error) {
-        return serviceResponse(500,error.meesage)
+        return serviceResponse(500,error.message)
     }
 }
 

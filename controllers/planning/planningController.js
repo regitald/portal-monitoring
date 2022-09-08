@@ -2,21 +2,22 @@ const baseResponse = require('../../models/responses/baseResponse');
 const planningService = require('../../services/planning/planningService')
 
 const getPlanningList = async(req,res,next)=>{
-    var moList  = await planningService.getPlanningList();
-    res.status(moList.code).send(baseResponse(moList.message,moList.content))
+    var planningList  = await planningService.getPlanningList();
+    res.status(planningList.code).send(baseResponse(planningList.message,planningList.content))
 }
 
 const updatePlanning = async(req,res,next)=>{
-    var id = req.params
-    var moReq = req.body
-    var updated = await planningService.updatePlanning(id,moReq)
+    var {id,period} = req.params
+    var planningReq = req.body
+    var updated = await planningService.updatePlanning(id,period,planningReq)
     res.status(updated.code).send(baseResponse(updated.message,updated.content))
 }
 
 const addPlanning = async(req,res,next)=>{
+    var {period} = req.params
     var planning = req.body
-    var planningAdded = await planningService.addPlanning(planning);
-    res.status(planningAdded.code).send(baseResponse(planningAdded.message,planningAdded.content))
+    var added = await planningService.addPlanning(period,planning);
+    res.status(added.code).send(baseResponse(added.message,added.content))
 }
 
 module.exports = {

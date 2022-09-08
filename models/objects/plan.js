@@ -1,6 +1,6 @@
-const mo = (production_date,line_number,shift_no,no_mo,part_no,
+const newPlanningReq = ({production_date,line_number,shift_no,no_mo,part_no,
     part_name,part_category,target_production,cycle_time,start_production,
-    finish_production,work_hours,status)=>{
+    finish_production,work_hour,status})=>{
         return {
             production_date,
             line_number,
@@ -13,10 +13,11 @@ const mo = (production_date,line_number,shift_no,no_mo,part_no,
             cycle_time,
             start_production,
             finish_production,
-            work_hours
+            work_hour,
+            status
         }
 }
 
 module.exports = {
-    mo
+    newPlanningReq
 }

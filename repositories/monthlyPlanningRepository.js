@@ -3,14 +3,14 @@ const {knex} = require('./iniDbConnection')
 
 const findAll = async()=>{
     try {
-        var moList = await knex.select().from('list_mo')
+        var moList = await knex.select().from('planning_mo')
         return serviceResponse(200,"success",moList)
     } catch (error) {
         return serviceResponse(500,error.message)
     }
 }
 
-const update = async(id,moObject)=>{
+const update = async(id,plan)=>{
     var {
         production_date,
         line_number,
@@ -25,9 +25,9 @@ const update = async(id,moObject)=>{
         finish_production,
         work_hours,
         status
-    } = moObject
+    } = plan
     try {
-        var moUpdated = await knex('list_mo').where(id).update({
+        var [planAdded] = await knex('planning_mo').where(id).update({
             production_date,
             line_number,
             shift_no,
@@ -40,10 +40,11 @@ const update = async(id,moObject)=>{
             start_production,
             finish_production,
             work_hours,
-            status
+            status,
+            updated_at : new Date()
         })
-        console.log(moUpdated);
-        return serviceResponse(200,"success",moUpdated)
+        plan.id = planAdded
+        return serviceResponse(201,"success",plan)
     } catch (error) {
         return serviceResponse(500,error.message)
     }
@@ -63,10 +64,12 @@ const save = async(mo)=>{
         cycle_time,
         start_production,
         finish_production,
-        work_hour
+        work_hour,
+        status
         } = mo
     try {
-    (await knex('list_mo').insert({
+    var planAdded = 
+    await knex('planning_mo').insert({
             order_id,
             production_date,
             line_number,
@@ -79,8 +82,11 @@ const save = async(mo)=>{
             cycle_time,
             start_production,
             finish_production,
-            work_hour       }))
-        return serviceResponse(200,"success",mo)
+            work_hour,
+            status,
+            updated_at : new Date()
+    })
+        return serviceResponse(201,"success",planAdded)
     } catch (error) {
         return serviceResponse(500,error.message)
     }
@@ -93,7 +99,7 @@ const findMaxOrderId = async(params)=>{
             part_category,
             line_number
         } = params   
-        var orderId = await knex('list_mo').max('order_id',{as: 'maxOrderId'}).where(
+        var orderId = await knex('planning_mo').max('order_id',{as: 'maxOrderId'}).where(
             {production_date,part_category,line_number}
         )
         return serviceResponse(200,'success',orderId)
@@ -104,7 +110,7 @@ const findMaxOrderId = async(params)=>{
 
 const findById = async(id)=>{
     try {
-        var mo = knex.select().where(id).from('list_mo')
+        var mo = knex.select().where(id).from('planning_mo')
         return serviceResponse(200,'success',mo)
     } catch (error) {
         return serviceResponse(500,error.message)
