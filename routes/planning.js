@@ -6,7 +6,7 @@ var {
     addPlanning
 } = require('../controllers/planning/planningController')
 
-router.get('/',getPlanningList)
+router.get('/:period',getPlanningList)
 router.put('/:period/:id',updatePlanning)
 router.post('/:period',addPlanning)
 

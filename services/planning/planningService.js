@@ -3,10 +3,18 @@ const serviceResponse = require('../../models/responses/serviceResponse')
 const dailyPlanningRepository = require('../../repositories/dailyPlanningRepository')
 const monthlyPlanningRepository = require('../../repositories/monthlyPlanningRepository')
 
-const getPlanningList = async()=>{
+const getPlanningList = async({period})=>{
     try {
-        var moList = await dailyPlanningRepository.findAll()
-        return moList
+        if(period == undefined){
+            return serviceResponse(500,"Period is not defined, please choose daily/monthly")
+        }
+
+        if(period.toUpperCase() == 'DAILY'){
+            return await dailyPlanningRepository.findAll()
+        }else if(period.toUpperCase() == 'MONTHLY'){
+            return await monthlyPlanningRepository.findAll()
+        }
+
     } catch (error) {
         return serviceResponse(500,error.meesage)
     }

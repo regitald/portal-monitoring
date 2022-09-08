@@ -2,7 +2,8 @@ const baseResponse = require('../../models/responses/baseResponse');
 const planningService = require('../../services/planning/planningService')
 
 const getPlanningList = async(req,res,next)=>{
-    var planningList  = await planningService.getPlanningList();
+    var period = req.params
+    var planningList  = await planningService.getPlanningList(period);
     res.status(planningList.code).send(baseResponse(planningList.message,planningList.content))
 }
 
