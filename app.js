@@ -11,9 +11,16 @@ var userActivitiesRouter = require('./routes/userActivities')
 var moRouter = require('./routes/planning')
 var logUserActivityMiddleware = require('./controllers/userActivity/userActivityMiddlewares')
 var maintenanceRouter = require('./routes/maintenance')
+var fileUpload = require('express-fileupload');
 
 var baseResponse = require('./models/responses/baseResponse')
 var app = express();
+
+app.use(fileUpload({
+  tempFileDir : 'tmp',
+  createParentPath: true
+}));
+
 
 app.use(logger('dev'));
 app.use(express.json());

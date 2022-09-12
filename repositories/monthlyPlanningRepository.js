@@ -84,7 +84,7 @@ const save = async(mo)=>{
             finish_production,
             work_hour,
             status,
-            updated_at : new Date()
+            created_at : new Date()
     })
         return serviceResponse(201,"success",planAdded)
     } catch (error) {

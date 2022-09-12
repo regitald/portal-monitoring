@@ -7,10 +7,13 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "convert-excel-to-json": "^1.7.0",
     "cookie-parser": "~1.4.4",
+    "date-and-time": "^2.4.1",
     "debug": "~2.6.9",
     "dotenv": "^16.0.1",
     "express": "~4.16.1",
+    "express-fileupload": "^1.4.0",
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
     "knex": "^2.2.0",
@@ -21,6 +24,7 @@
     "sequelize": "^6.21.4",
     "sequelize-auto": "^0.8.8",
     "websocket": "^1.0.34",
-    "ws": "^8.8.1"
+    "ws": "^8.8.1",
+    "xlsx": "^0.18.5"
   }
 }

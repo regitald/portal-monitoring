@@ -2,6 +2,8 @@ const { newPlanningReq } = require('../../models/objects/plan')
 const serviceResponse = require('../../models/responses/serviceResponse')
 const dailyPlanningRepository = require('../../repositories/dailyPlanningRepository')
 const monthlyPlanningRepository = require('../../repositories/monthlyPlanningRepository')
+const { getPlanModel } = require('../../models/objects/planImport');
+const {convertToJson} = require('../../utils/xlsxConverter')
 
 const getPlanningList = async({period})=>{
     try {
@@ -31,7 +33,16 @@ const getPlanningById = async(period,id)=>{
 const addPlanning = async(period,planning)=>{
     try {
         var newPlanning = newPlanningReq(planning);
-        newPlanning.status = newPlanning.status.toUpperCase()
+        var newProdutcionDate = new Date(newPlanning.production_date)
+        if(isNaN(newProdutcionDate.getTime())){
+            return serviceResponse(500,"invalid production date")
+        }
+
+        newPlanning.production_date = newProdutcionDate
+        if(newPlanning.status != undefined){
+            newPlanning.status = newPlanning.status.toUpperCase()
+        }
+
 
         if(period.toUpperCase() === 'DAILY' ){
             var maxOrderId =await dailyPlanningRepository.findMaxOrderId(
@@ -90,9 +101,48 @@ const updatePlanning = async(id,period,newPlanning)=>{
     }
 }
 
+
+const importPlanning = async (period,file)=>{
+    try {
+        var inserted = 0;
+        var failed = 0;
+        var messages = new Array()
+        var planImportFormat = getPlanModel()
+
+        var planObjArr = await convertToJson(file.data,planImportFormat)
+        var counter = 1;
+        for(let i = 0;i<=planObjArr.length-1;i++){
+            var message = "data "+counter+" ";
+            counter++;
+            var newstartProd = new Date(planObjArr[i].start_production).getHours()
+            var added = await addPlanning(period,planObjArr[i])
+    
+            if(added.code == 201){
+                inserted++
+            }else{
+                failed++
+            }
+
+            message += added.message
+            messages.push(message)
+        }
+
+        var response = {
+            inserted,
+            failed,
+            data : planObjArr
+        }
+        return serviceResponse(200,messages,response)
+        
+    } catch (error) {
+        return serviceResponse(500,error.message)
+    }
+}
+
 module.exports = {
     getPlanningList,
     updatePlanning,
     getPlanningById,
-    addPlanning
+    addPlanning,
+    importPlanning
 }
