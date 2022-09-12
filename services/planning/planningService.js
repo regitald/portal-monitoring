@@ -4,6 +4,7 @@ const dailyPlanningRepository = require('../../repositories/dailyPlanningReposit
 const monthlyPlanningRepository = require('../../repositories/monthlyPlanningRepository')
 const { getPlanModel } = require('../../models/objects/planImport');
 const {convertToJson} = require('../../utils/xlsxConverter')
+const {getHourAndMinutesFromDate} =  require('../../utils/dateUtils')
 
 const getPlanningList = async({period})=>{
     try {
@@ -114,8 +115,16 @@ const importPlanning = async (period,file)=>{
         for(let i = 0;i<=planObjArr.length-1;i++){
             var message = "data "+counter+" ";
             counter++;
-            var newstartProd = new Date(planObjArr[i].start_production).getHours()
-            var added = await addPlanning(period,planObjArr[i])
+
+            var planObj = planObjArr[i]
+
+            var newStartProd = await getHourAndMinutesFromDate(planObj.start_production)
+            var newFinishProd = await getHourAndMinutesFromDate(planObj.finish_production)
+
+            planObj.start_production = newStartProd
+            planObj.finish_production = newFinishProd
+                                
+            var added = await addPlanning(period,planObj)
     
             if(added.code == 201){
                 inserted++
