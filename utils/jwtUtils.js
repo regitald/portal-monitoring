@@ -1,14 +1,11 @@
 const jwt = require('jsonwebtoken')
+const serviceResponse = require('../models/responses/serviceResponse')
 const keys = process.env.JWT_KEY
 
 const generateAuthUserToken = async(user)=>{
 
     if(keys == null){
-        return {
-            error : true,
-            message : "keys not found",
-            token : null
-        }
+        return serviceResponse(500,"keys not found")
     }
 
     let data = {
@@ -23,7 +20,7 @@ const generateAuthUserToken = async(user)=>{
         expiresIn: 60 * 60
     });
 
-    return token
+    return serviceResponse(200,"success",token)
 }
 
 const validateJwt = async(token)=>{

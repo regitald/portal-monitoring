@@ -19,7 +19,7 @@ const login = async (userReq)=>{
 
         if(passValid){
             var jwt = await jwtGenerator.generateAuthUserToken(user);
-            return serviceResponse(200,"success",{jwt})
+            return jwt
         }else{
             return serviceResponse(401,"username password not match")
         }   
