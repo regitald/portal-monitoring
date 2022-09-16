@@ -1,41 +1,34 @@
 const userService = require('../user/userService')
 const bcrypt = require('bcrypt')
 const jwtGenerator = require('../../utils/jwtUtils')
+const serviceResponse = require('../../models/responses/serviceResponse')
 
 const login = async (userReq)=>{
-    var passwordValid = Boolean(false)
+    try {    
+        var user = await userService.getUserByUsername(userReq.username)
     
-    var user = await userService.getUserByUsername(userReq.username)
-
-    if(user==null){
-        return {
-            authenticated : false,
-            errorCode : 404,
-            message : "user not found"
+        if(user.code == 500){
+            return serviceResponse(user.code,user.message)
         }
-    }
 
-    passwordValid = await comparePassword(user.password,userReq.password);
-
-    if(passwordValid){
-        var {error,message,token} = await jwtGenerator.generateAuthUserToken(user);
-        return {
-            authenticated : true,
-            jwtResponse : {
-                token
-            }}
-    }else{
-        return {
-            authenticated : false
+        if(user.content == null){
+            return serviceResponse("404","user not found")
         }
+    
+        var passValid = await bcrypt.compare(userReq.password,user.content.password);
+
+        if(passValid){
+            var jwt = await jwtGenerator.generateAuthUserToken(user);
+            return serviceResponse(200,"success",{jwt})
+        }else{
+            return serviceResponse(401,"username password not match")
+        }   
+    } catch (error) {
+        return serviceResponse(500,error.message)
     }
 }
 
-const comparePassword = async(encryptedPassword,plainPassword)=>{
-    var salt = await bcrypt.genSalt(10)
-    var passValid = await bcrypt.compare(plainPassword,encryptedPassword);
-    return passValid
-}
+
 
 module.exports = {
     login

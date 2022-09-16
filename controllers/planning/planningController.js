@@ -1,11 +1,21 @@
 const baseResponse = require('../../models/responses/baseResponse');
 const planningService = require('../../services/planning/planningService')
-const {getNewPlanImportFormat} = require('../../models/objects/planImport')
 
 const getPlanningList = async(req,res,next)=>{
-    var period = req.params
-    var planningList  = await planningService.getPlanningList(period);
+    var {period} = req.params
+    var paramsQuery = req.query
+    var planningList  = await planningService.getPlanningList(period,paramsQuery);
     res.status(planningList.code).send(baseResponse(planningList.message,planningList.content))
+}
+
+const getPlanningById = async(req,res,next)=>{
+    try {
+        var {period,id} = req.params
+        var plan = await planningService.getPlanningById(period,id)
+        res.status(plan.code).send(baseResponse(plan.message,plan.content))   
+    } catch (error) {
+        res.status(500).send(baseResponse(error.message))
+    }
 }
 
 const updatePlanning = async(req,res,next)=>{
@@ -38,5 +48,6 @@ module.exports = {
     getPlanningList,
     updatePlanning,
     addPlanning,
-    importPlanning
+    importPlanning,
+    getPlanningById
 }

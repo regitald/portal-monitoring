@@ -1,31 +1,15 @@
-const {newMaintenanceReq} = require('../../models/objects/maintenance')
+const {getMaintenanceArrObj,getMaintenanceObj} = require('../../models/objects/maintenance')
 const serviceResponse = require('../../models/responses/serviceResponse')
 const maintenanceRepository = require('../../repositories/maintenanceRepository')
+const {fetchSortBy,buildCondition} = require('../../repositories/conditionBuilder/knexConditionBuilder')
 
 const getAllMaintenanceList = async (paramsQuery)=>{
     try {
-        var params = (builder)=>{
-            if(paramsQuery.line_number != undefined){
-                builder.where('line_number',paramsQuery.line_number)
-            }
 
-            if(paramsQuery.dateFrom != undefined && paramsQuery.dateTo != undefined){
-                builder.whereBetween('maintenance_date',[
-                    new Date(paramsQuery.dateFrom),
-                    new Date(paramsQuery.dateTo)
-                ])
-            }
-
-            if(paramsQuery.desc != undefined){
-                builder.whereILike('desc',"%"+paramsQuery.desc.toLowerCase()+"%")
-            }
-
-            if(paramsQuery.status != undefined){
-                builder.where('status',paramsQuery.status)
-            }
-        }
-
-        var maintenanceList = await maintenanceRepository.findAll(params);
+        var order =await fetchSortBy(paramsQuery)
+        var params =await buildCondition(getMaintenanceArrObj(),paramsQuery)
+        
+        var maintenanceList = await maintenanceRepository.findAll(params,order);
         return maintenanceList
     } catch (error) {
         return serviceResponse(500,error.message)
@@ -34,7 +18,7 @@ const getAllMaintenanceList = async (paramsQuery)=>{
 
 const addMaintenance = async(maintenanceReq)=>{
     try {
-        var maintenance = newMaintenanceReq(maintenanceReq)
+        var maintenance = getMaintenanceObj(maintenanceReq)
         maintenance.maintenance_date = new Date(maintenance.maintenance_date)
         maintenance.created_at = new Date()
 
@@ -47,7 +31,7 @@ const addMaintenance = async(maintenanceReq)=>{
 
 const updatedMaintenance = async(id,maintenanceReq)=>{
     try {
-        var maintenance = newMaintenanceReq(maintenanceReq)
+        var maintenance = getMaintenanceObj(maintenanceReq)
         maintenance.maintenance_date = new Date(maintenance.maintenance_date)
         maintenance.updated_at = new Date()
 

@@ -4,11 +4,13 @@ var {
     getPlanningList,
     updatePlanning,
     addPlanning,
-    importPlanning
+    importPlanning,
+    getPlanningById
 } = require('../controllers/planning/planningController')
 
 router.post('/import',importPlanning)
 router.get('/:period',getPlanningList)
+router.get('/:period/:id',getPlanningById)
 router.put('/:period/:id',updatePlanning)
 router.post('/:period',addPlanning)
 

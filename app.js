@@ -32,7 +32,7 @@ app.use('/api/roles', rolesRouter)
 app.use('/api/permission',permissionRouter)
 app.use('/api/permission-role',permissionRoleRouter)
 app.use('/api/user-activities',userActivitiesRouter)
-app.use('/api/authentication',authRouter)
+app.use('/api/auth',authRouter)
 app.use('/api/planning',moRouter)
 app.use('/api/maintenance',maintenanceRouter)
 

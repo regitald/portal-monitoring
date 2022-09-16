@@ -1,9 +1,9 @@
 const serviceResponse = require('../models/responses/serviceResponse');
 const {knex} = require('./iniDbConnection')
 
-const findAll = async()=>{
+const findAll = async(params,order)=>{
     try {
-        var moList = await knex.select().from('planning_mo')
+        var moList = await knex('planning_mo').where(params).orderBy(order)
         return serviceResponse(200,"success",moList)
     } catch (error) {
         return serviceResponse(500,error.message)
@@ -50,7 +50,7 @@ const update = async(id,plan)=>{
     }
 }
 
-const save = async(mo)=>{
+const save = async(plan)=>{
     var {
         order_id,
         production_date,
@@ -66,9 +66,9 @@ const save = async(mo)=>{
         finish_production,
         work_hour,
         status
-        } = mo
+        } = plan
     try {
-    var planAdded = 
+    var [planAdded] = 
     await knex('planning_mo').insert({
             order_id,
             production_date,
@@ -86,7 +86,8 @@ const save = async(mo)=>{
             status,
             created_at : new Date()
     })
-        return serviceResponse(201,"success",planAdded)
+    plan.id = planAdded
+        return serviceResponse(201,"success",plan)
     } catch (error) {
         return serviceResponse(500,error.message)
     }

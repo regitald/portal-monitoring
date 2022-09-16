@@ -23,11 +23,7 @@ const generateAuthUserToken = async(user)=>{
         expiresIn: 60 * 60
     });
 
-    return {
-        error : false,
-        message : "success",
-        token : token
-    }
+    return token
 }
 
 const validateJwt = async(token)=>{

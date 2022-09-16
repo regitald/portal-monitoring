@@ -1,10 +1,10 @@
 const serviceResponse = require('../models/responses/serviceResponse')
 const {knex} = require('./iniDbConnection')
 
-const findAll = async (params)=>{
+const findAll = async (params,order)=>{
     try {
-        var maintenanceList = await knex('maintenance').where(params).select()
-        return serviceResponse(200,"success",maintenanceList)        
+        var maintenanceList = await knex('maintenance').where(params).orderBy(order)
+        return serviceResponse(200,"success",maintenanceList)
     } catch (error) {
         return serviceResponse(500,error.message)
     }

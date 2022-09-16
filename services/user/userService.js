@@ -1,15 +1,18 @@
 var userRepository = require('../../repositories/usersRepository')
 var serviceResponse = require('../../models/responses/serviceResponse')
 const bycrypt = require('bcrypt');
+const {getUserArrObj} = require('../../models/objects/users')
+const {buildCondition,fetchSortBy} = require('../../repositories/conditionBuilder/sequelizeConditionBuilder')
 
-
-const getAllUser = async ()=>{
+const getAllUser = async (paramsQuery)=>{
     try {
-        var users = await userRepository.findAllWithRolesAndPersmissions();
-        return users
+        var params = await buildCondition(getUserArrObj(),paramsQuery)
+        var order = await fetchSortBy(paramsQuery)
+        var allUsers = await userRepository.findAllWithRolesAndPersmissions(params,order);
+        return allUsers
     } catch (error) {
         throw error
-    }    
+    }
 }
 
 const getUserById = async (id)=>{
@@ -18,10 +21,10 @@ const getUserById = async (id)=>{
         if(!user.content){
             return serviceResponse(404,"user not found")
         }else{
-            return user
+            return serviceResponse(200,"success",user.content)
         }
     } catch (error) {
-        throw error
+        return serviceResponse(500,error.message)
     }
 }
 
@@ -30,7 +33,7 @@ const getUserByUsername = async (username)=>{
         var user = await userRepository.findByUserName(username);
         return user
     } catch (error) {
-        throw error
+        return serviceResponse(500,error.message)
     }
 }
 

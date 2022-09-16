@@ -1,31 +1,45 @@
-const { newPlanningReq } = require('../../models/objects/plan')
+const { getPlanObj } = require('../../models/objects/plan')
 const serviceResponse = require('../../models/responses/serviceResponse')
 const dailyPlanningRepository = require('../../repositories/dailyPlanningRepository')
 const monthlyPlanningRepository = require('../../repositories/monthlyPlanningRepository')
-const { getPlanModel } = require('../../models/objects/planImport');
+const { getPlanArrObj } = require('../../models/objects/plan');
 const {convertToJson} = require('../../utils/xlsxConverter')
-const {getHourAndMinutesFromDate} =  require('../../utils/dateUtils')
+const {getHourAndMinutesFromDate,getDateFromDateTime, getRoundedDateFromDateTime} =  require('../../utils/dateUtils')
+const {buildCondition,fetchSortBy} = require('../../repositories/conditionBuilder/knexConditionBuilder')
 
-const getPlanningList = async({period})=>{
+const getPlanningList = async(period,paramsQuery)=>{
     try {
         if(period == undefined){
             return serviceResponse(500,"Period is not defined, please choose daily/monthly")
         }
 
+        var paramsBuilder = await buildCondition(getPlanArrObj(),paramsQuery)
+
+        var order = await fetchSortBy(paramsQuery)
+
         if(period.toUpperCase() == 'DAILY'){
-            return await dailyPlanningRepository.findAll()
+            return await dailyPlanningRepository.findAll(paramsBuilder,order)
         }else if(period.toUpperCase() == 'MONTHLY'){
-            return await monthlyPlanningRepository.findAll()
+            return await monthlyPlanningRepository.findAll(paramsBuilder,order)
         }
 
     } catch (error) {
-        return serviceResponse(500,error.meesage)
+        return serviceResponse(500,error.message)
     }
 }
 
 const getPlanningById = async(period,id)=>{
     try {
-        var mo = await dailyPlanningRepository.findById()
+
+        if(period.toUpperCase() == 'DAILY'){
+            return await dailyPlanningRepository.findById(id)
+
+        }else if(period.toUpperCase() == 'MONTHLY'){
+            return await monthlyPlanningRepository.findById(id)
+        }else{
+            return serviceResponse(500,"period not recognized")
+        }
+
     } catch (error) {
         return serviceResponse(500,error.message)
     }
@@ -33,13 +47,12 @@ const getPlanningById = async(period,id)=>{
 
 const addPlanning = async(period,planning)=>{
     try {
-        var newPlanning = newPlanningReq(planning);
-        var newProdutcionDate = new Date(newPlanning.production_date)
-        if(isNaN(newProdutcionDate.getTime())){
+        var newPlanning = getPlanObj(planning);
+        if(isNaN(new Date(newPlanning.production_date).getTime())){
             return serviceResponse(500,"invalid production date")
         }
 
-        newPlanning.production_date = newProdutcionDate
+        newPlanning.production_date = await getDateFromDateTime(new Date(newPlanning.production_date))
         if(newPlanning.status != undefined){
             newPlanning.status = newPlanning.status.toUpperCase()
         }
@@ -53,10 +66,19 @@ const addPlanning = async(period,planning)=>{
                     line_number: newPlanning.line_number
                 }
             )
-            if(maxOrderId.content != null){
-                newPlanning.order_id = maxOrderId.content[0].maxOrderId + 1
+            if(maxOrderId.code == 200){
+                if(maxOrderId.content != null){
+                    if(maxOrderId.content.length > 0){
+                        newPlanning.order_id = maxOrderId.content[0].maxOrderId + 1
+
+                    }else{
+                        newPlanning.order_id = 1                        
+                    }
+                }else{
+                    newPlanning.order_id = 1
+                }
             }else{
-                newPlanning.order_id = 1
+                return serviceResponse(500,"error find order id")
             }
 
             return await dailyPlanningRepository.save(newPlanning);
@@ -76,7 +98,7 @@ const addPlanning = async(period,planning)=>{
             }
             return await monthlyPlanningRepository.save(newPlanning);
         }else{
-            return serviceResponse(400,"period not defined/recognize, please chose daily or monthly")
+            return serviceResponse(400,"period not recognize, please chose daily or monthly")
         }
 
     } catch (error) {
@@ -86,7 +108,7 @@ const addPlanning = async(period,planning)=>{
 
 const updatePlanning = async(id,period,newPlanning)=>{
     try {
-        newPlanning.production_date = new Date(newPlanning.production_date);
+        newPlanning.production_date = await getDateFromDateTime(new Date(newPlanning.production_date))
         newPlanning.status = newPlanning.status.toUpperCase();
 
         if(period.toUpperCase() === 'DAILY'){
@@ -94,7 +116,7 @@ const updatePlanning = async(id,period,newPlanning)=>{
         }else if(period.toUpperCase() === 'MONTHLY'){
             return await monthlyPlanningRepository.update(id,newPlanning);
         }else{
-            return serviceResponse(400,"period not defined/recognize, please chose daily or monthly")
+            return serviceResponse(400,"period not recognize, please chose daily or monthly")
         }
 
     } catch (error) {
@@ -108,10 +130,11 @@ const importPlanning = async (period,file)=>{
         var inserted = 0;
         var failed = 0;
         var messages = new Array()
-        var planImportFormat = getPlanModel()
+        var planImportFormat = getPlanArrObj()
 
         var planObjArr = await convertToJson(file.data,planImportFormat)
         var counter = 1;
+        var planAddedArr = []
         for(let i = 0;i<=planObjArr.length-1;i++){
             var message = "data "+counter+" ";
             counter++;
@@ -120,18 +143,21 @@ const importPlanning = async (period,file)=>{
 
             var newStartProd = await getHourAndMinutesFromDate(planObj.start_production)
             var newFinishProd = await getHourAndMinutesFromDate(planObj.finish_production)
-
+            
             planObj.start_production = newStartProd
             planObj.finish_production = newFinishProd
+            planObj.production_date = await getRoundedDateFromDateTime(
+                planObj.production_date
+            )
                                 
             var added = await addPlanning(period,planObj)
     
             if(added.code == 201){
                 inserted++
+                planAddedArr.push(added.content)
             }else{
                 failed++
             }
-
             message += added.message
             messages.push(message)
         }
@@ -139,7 +165,7 @@ const importPlanning = async (period,file)=>{
         var response = {
             inserted,
             failed,
-            data : planObjArr
+            data : planAddedArr
         }
         return serviceResponse(200,messages,response)
         

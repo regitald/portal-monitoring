@@ -2,12 +2,14 @@ var userService = require('../../services/user/userService')
 var response = require('../../models/responses/baseResponse');
 const bycrypt = require('bcrypt');
 const { update } = require('../../repositories/usersRepository');
+const baseResponse = require('../../models/responses/baseResponse');
 
 
 const getAllUser = async (req,res,next)=>{
     try {
-        var users = await userService.getAllUser();
-        res.send(response("succes",users));
+        var paramsQuery = req.query
+        var users = await userService.getAllUser(paramsQuery);
+        res.status(users.code).send(response(users.message,users.content))
     } catch (error) {
         res.status(500).send("err: "+error)
     }    
@@ -17,7 +19,7 @@ const getUserById = async (req,res,next)=>{
     var id = req.params.id
     try {
         var user = await userService.getUserById(id);
-        res.status(user.code).send(user.message);
+        res.status(user.code).send(baseResponse(user.message,user.content));
     } catch (error) {
         res.status(500).send("error : "+error)
     }
@@ -27,7 +29,7 @@ const addUser = async (req,res,next)=>{
     try {
         var userReq = req.body 
         var userAdded = await userService.addUser(userReq)        
-        res.status(userAdded.code).send(response(userAdded.message));
+        res.status(userAdded.code).send(response(userAdded.message,userAdded.content));
     } catch (error) {
         res.status(500).send("error : "+error)
     }
@@ -71,12 +73,6 @@ const deleteUser = async(req,res,next)=>{
     } catch (error) {
         res.status(500).send(error.message)        
     }
-}
-
-const encryptPassword = async (plainPassword)=>{
-    const salt = await bycrypt.genSalt(10);
-    const encryptedPassword = bycrypt.hash(plainPassword,salt);
-    return encryptedPassword;
 }
 
 module.exports = {

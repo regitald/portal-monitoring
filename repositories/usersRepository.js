@@ -19,8 +19,9 @@ const save = async (user)=>{
 
 const saveUserAndRole =async (user)=>{
     try {
-        await userModel.create(user);
-        return serviceResponse(201,"success")         
+        var saved = await userModel.create(user);
+        saved.password = ''
+        return serviceResponse(201,"success",saved)     
     } catch (error) {
         return {
             "code":500,
@@ -29,18 +30,11 @@ const saveUserAndRole =async (user)=>{
     }
 }
 
-const findAll = async ()=>{
-    try {
-        var users = await userModel.findAll();
-        return users
-    } catch (error) {
-        throw error
-    }
-}
-
-const findAllWithRolesAndPersmissions = async()=>{
+const findAllWithRolesAndPersmissions = async(where,order)=>{
     try {
         var users = await userModel.findAll({
+            where,
+            order,
             include : [{
                 model: roles,
                 as : "role",
@@ -55,7 +49,7 @@ const findAllWithRolesAndPersmissions = async()=>{
                 ]
             }]
         });
-        return users
+        return serviceResponse(200,"success",users)
     } catch (error) {
         throw error
     }
@@ -89,15 +83,16 @@ const findByUserName = async(username)=>{
             include : [
                 {
                     model : roles,
+                    as : 'role',
                     include : [
                         permissions
                     ]
                 }
             ]
         })
-        return user
+        return serviceResponse(200,"success",user)
     } catch (error) {
-        throw user
+        return serviceResponse(500,error.message)
     }
 }
 
@@ -143,7 +138,6 @@ const findUser = async(condition)=>{
 
 
 module.exports = {
-    findAll,
     findById,
     save,
     updateStatus,

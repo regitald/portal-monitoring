@@ -1,27 +1,27 @@
 const authenticationService = require('../../services/authentication/authenticationService')
-const response = require('../../models/responses/baseResponse')
+const baseResponse = require('../../models/responses/baseResponse');
+const { getUserById } = require('../../services/user/userService');
 
 const authenticate = async (req,res,next)=>{
     try {
-        var authenticationReq = req.body
-        var {authenticated,errorCode,
-            message,jwtResponse} = await authenticationService.login(authenticationReq);
-    
-        if(authenticated){
-            res.status(200).send(response("success",jwtResponse))
-        }else{
-            if(errorCode == 404){
-                res.status(404).send(response(message))
-            }else{
-                res.status(401).send(response("wrong username or password"))
-            }
-        }        
+        var authenticated = await authenticationService.login(req.body);
+        res.status(authenticated.code).send(baseResponse(authenticated.message,authenticated.content))
     } catch (error) {
-        res.status(500).send(response(error.message))
+        res.status(500).send(baseResponse(error.message))
     }
 
 }
 
+const getWhoAmI = async(req,res,next)=>{
+    try {
+        var user = await getUserById(req.params.id)
+        res.status(user.code).send(baseResponse(user.message,user.content))
+    } catch (error) {
+        res.status(500).send(baseResponse(error.message))
+    }
+}
+
 module.exports = {
+    getWhoAmI,
     authenticate
 }

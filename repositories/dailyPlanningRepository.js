@@ -1,9 +1,9 @@
 const serviceResponse = require('../models/responses/serviceResponse');
 const {knex} = require('./iniDbConnection')
 
-const findAll = async()=>{
+const findAll = async(params,order)=>{
     try {
-        var moList = await knex.select().from('list_mo')
+        var moList = await knex('list_mo').where(params).orderBy(order)
         return serviceResponse(200,"success",moList)
     } catch (error) {
         return serviceResponse(500,error.message)
@@ -27,7 +27,7 @@ const update = async(id,plan)=>{
         status
     } = plan
     try {
-        var planUpdated = await knex('list_mo').where({id}).update({
+        await knex('list_mo').where({id}).update({
             production_date,
             line_number,
             shift_no,
@@ -43,7 +43,9 @@ const update = async(id,plan)=>{
             status,
             updated_at : new Date()
         })
-        return serviceResponse(201,"success",planUpdated)
+
+        var newPlan = await findById(id)
+        return serviceResponse(201,"success",newPlan.content)
     } catch (error) {
         return serviceResponse(500,error.message)
     }
@@ -110,7 +112,7 @@ const findMaxOrderId = async(params)=>{
 
 const findById = async(id)=>{
     try {
-        var mo = knex.select().where(id).from('list_mo')
+        var mo = await knex.select().where({id}).from('list_mo')
         return serviceResponse(200,'success',mo)
     } catch (error) {
         return serviceResponse(500,error.message)
