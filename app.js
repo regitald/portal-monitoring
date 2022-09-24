@@ -10,6 +10,7 @@ var permissionRoleRouter = require('./routes/permissionRole')
 var userActivitiesRouter = require('./routes/userActivities')
 var moRouter = require('./routes/planning')
 var logUserActivityMiddleware = require('./controllers/userActivity/userActivityMiddlewares')
+var productionResultRouter = require('./routes/productionResult')
 var maintenanceRouter = require('./routes/maintenance')
 var fileUpload = require('express-fileupload');
 
@@ -35,6 +36,7 @@ app.use('/api/user-activities',userActivitiesRouter)
 app.use('/api/auth',authRouter)
 app.use('/api/planning',moRouter)
 app.use('/api/maintenance',maintenanceRouter)
+app.use('/api/production/result',productionResultRouter)
 
 app.use(logUserActivityMiddleware.logActivity)
 

@@ -1,0 +1,1058 @@
+{
+    "info": {
+        "_postman_id": "0c319c1d-f947-4432-b091-0678cb194f4d",
+        "name": "Portal Monitoring Mock",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Server",
+            "item": [
+                {
+                    "name": "Users",
+                    "item": [
+                        {
+                            "name": "Create User",
+                            "id": "b61b2c9f-22f3-4938-b847-76dad1160ae8",
+                            "request": {
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\r\n    \"first_name\": \"Mardiana\",\r\n    \"last_name\": \"Ahmad\",\r\n    \"username\": \"ahmad00\",\r\n    \"email\": \"ahmad00@yopmail.com\",\r\n    \"phone_number\": \"985959859\",\r\n    \"password\": \"123456789\",\r\n    \"roles\": [\r\n        {\r\n            \"id\": \"5\",\r\n            \"name\": \"DEVELOPER\"\r\n        }\r\n    ]\r\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": "{{url}}/users"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Assign Permission",
+                            "id": "0db053f5-b58f-4bb6-91e3-b11b04730dc6",
+                            "request": {
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\r\n    \"role_id\": 8,\r\n    \"permissions\": [\r\n        {\r\n            \"menu_id\": 1,\r\n            \"permission_ids\": [\r\n                0,\r\n                1,\r\n                0,\r\n                1,\r\n                0\r\n            ]\r\n        },\r\n        {\r\n            \"menu_id\": 2,\r\n            \"permission_ids\": [\r\n                0,\r\n                0,\r\n                0,\r\n                0,\r\n                0\r\n            ]\r\n        }\r\n    ]\r\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": "{{url}}/permission"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Roles",
+                            "id": "720d0756-2c3b-4155-82b2-7dd968ec0237",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": "{{url}}/roles"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Get User",
+                            "id": "8f8215d5-862f-410d-b2b5-e411dff5c8ce",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": "{{url}}/users/17"
+                            },
+                            "response": []
+                        }
+                    ],
+                    "id": "f7043b0d-56b2-4632-85b5-4dfc9eab07c5"
+                },
+                {
+                    "name": "Planning",
+                    "item": [
+                        {
+                            "name": "Create Planning",
+                            "id": "b392b3b6-0f7c-4441-aa5c-39dd3a70ca10",
+                            "request": {
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\r\n    \"production_date\": \"2022-01-25\",\r\n    \"line_number\": \"INJECTION/MC06\",\r\n    \"shift_no\": \"1\",\r\n    \"no_mo\": \"179/PILOC/XII/2021\",\r\n    \"part_mo\": \"20-0G49BI\",\r\n    \"part_name\": \"HOUSING VT01 RH\",\r\n    \"part_category\": \"RH\",\r\n    \"target_production\": \"300\",\r\n    \"cycle_time\": \"86\",\r\n    \"start_production\": \"70:30\",\r\n    \"finish_production\": \"20:00\",\r\n    \"work_hours\": \"480\",\r\n    \"status\": \"open\",\r\n    \"created_date\": \"2022-01-25 07:40:48\"\r\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": "{{url}}/planning/daily"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Import Planning",
+                            "id": "b8a5f111-8446-49f2-a80b-5486f8494393",
+                            "request": {
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "module",
+                                            "value": "monthly",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "file",
+                                            "type": "file",
+                                            "src": "/C:/Users/Ideapad L340/Downloads/Sample Monthly.xlsx"
+                                        }
+                                    ]
+                                },
+                                "url": "{{url}}/planning/import"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Create Planning Monthly",
+                            "id": "27b5b6f5-d9ea-4c49-a4ff-4a10e452a09d",
+                            "request": {
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\r\n    \"production_date\": \"2022-01-25\",\r\n    \"line_number\": \"INJECTION/MC06\",\r\n    \"shift_no\": \"1\",\r\n    \"part_mo\": \"20-0G49BI\",\r\n    \"part_name\": \"HOUSING VT01 RH\",\r\n    \"part_category\": \"RH\",\r\n    \"target_production\": \"300\",\r\n    \"cycle_time\": \"86\",\r\n    \"start_production\": \"70:30\",\r\n    \"finish_production\": \"20:00\",\r\n    \"work_hours\": \"480\",\r\n    \"status\": \"open\",\r\n    \"created_date\": \"2022-01-25 07:40:48\"\r\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": "{{url}}/planning/monthly"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Create Planning Monthly Copy",
+                            "id": "17a445a4-e1b0-4b49-9170-395f12464330",
+                            "request": {
+                                "method": "PUT",
+                                "header": [],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\r\n    \"part_name\": \"test\",\r\n    \"status\": \"ON_PROGRESS\"\r\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": "{{url}}/planning/monthly/146"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Get Planning",
+                            "id": "87a5aff0-b1d3-462d-b863-fdb967e21ecb",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": "{{url}}/planning/daily"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Get Planning Monthly",
+                            "id": "ee0f8ea3-8511-46b7-ad30-e3c44369cf15",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": "{{url}}/planning/monthly"
+                            },
+                            "response": []
+                        }
+                    ],
+                    "id": "ae746faf-e6e6-4842-82b9-21df91137b6f"
+                }
+            ],
+            "id": "2794d66c-9089-4a5d-8393-9f0ddd616b40"
+        },
+        {
+            "name": "Mock",
+            "item": [
+                {
+                    "name": "Assign Role Permisson",
+                    "id": "5ebb22c7-052d-4626-9111-a624f9bea802",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"role_id\" : 1, //int relation to table roles\r\n    \"permisions\" : [\r\n        {\r\n            \"menu_id\" : 1, //int relation to table menu\r\n            \"permission_ids\" : [0,1,1,0,1] // store to column view,detail,create,edit,delete with type enum (true.false)  \r\n        },\r\n        {\r\n            \"menu_id\" : 2, //int relation to table menu\r\n            \"permission_ids\" : [1,1,0,0,1] // store to column view,detail,create,edit,delete with type enum (true.false) \r\n        }\r\n    ]\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": "http://localhost:3000/api/role/permission/assign"
+                    },
+                    "response": [
+                        {
+                            "id": "9fd55189-13e0-4a03-8518-b35feb62cf22",
+                            "name": "Assign Role Permisson",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\r\n    \"role_id\" : 1, //int relation to table roles\r\n    \"permisions\" : [\r\n        {\r\n            \"menu_id\" : 1, //int relation to table menu\r\n            \"permission_ids\" : [0,1,1,0,1] // store to column view,detail,create,edit,delete with type enum (true.false)  \r\n        },\r\n        {\r\n            \"menu_id\" : 2, //int relation to table menu\r\n            \"permission_ids\" : [1,1,0,0,1] // store to column view,detail,create,edit,delete with type enum (true.false) \r\n        }\r\n    ]\r\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": "http://localhost:3000/api/role/permission/assign"
+                            },
+                            "status": "Created",
+                            "code": 201,
+                            "_postman_previewlanguage": "json",
+                            "header": null,
+                            "cookie": [],
+                            "body": "{\r\n    \"status\" : true,\r\n    \"message\" : \"permission successfully updated\"\r\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Get Permission",
+                    "id": "b5d33b81-56a9-4740-888f-d5d56376a9cd",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"role_id\" : 1, //int relation to table roles\r\n    \"permisions\" : [\r\n        {\r\n            \"menu_id\" : 1, //int relation to table menu\r\n            \"permission_ids\" : [0,1,1,0,1] // store to column view,detail,create,edit,delete with type enum (true.false)  \r\n        },\r\n        {\r\n            \"menu_id\" : 2, //int relation to table menu\r\n            \"permission_ids\" : [1,1,0,0,1] // store to column view,detail,create,edit,delete with type enum (true.false) \r\n        }\r\n    ]\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": "http://localhost:3000/api/role/permission"
+                    },
+                    "response": [
+                        {
+                            "id": "0818b62c-43d0-48f4-9927-fe6e6ae192de",
+                            "name": "Get Permission Success",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": "http://localhost:3000/api/role/permission"
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": null,
+                            "cookie": [],
+                            "body": "{\n    \"status\": true,\n    \"message\": \"permission fetched\",\n    \"data\" : {\n        \"role_id\" : 1,\n        \"permisions\" : [\n        {\n            \"menu_id\" : 1, //int relation to table menu\n            \"menu\" : \"User\",\n            \"permission_ids\" : [0,1,1,0,1] // store to column view,detail,create,edit,delete with type enum (true.false)  \n        },\n        {\n            \"menu_id\" : 2, //int relation to table menu\n            \"menu\" : \"Role\",\n            \"permission_ids\" : [1,1,0,0,1] // store to column view,detail,create,edit,delete with type enum (true.false) \n        },\n        {\n            \"menu_id\" : 3, //int relation to table menu\n            \"menu\" : \"Planning Daily\",\n            \"permission_ids\" : [1,1,0,0,1] // store to column view,detail,create,edit,delete with type enum (true.false) \n        }\n    ]\n    }\n}"
+                        },
+                        {
+                            "id": "b10db1ba-7c52-4866-839d-c7c1ed127380",
+                            "name": "Get Permission Failed",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": "http://localhost:3000/api/role/permission"
+                            },
+                            "status": "Bad Request",
+                            "code": 400,
+                            "_postman_previewlanguage": "json",
+                            "header": null,
+                            "cookie": [],
+                            "body": "{\n    \"status\": false,\n    \"message\": \"failed fetch permission data\",\n    \"data\" : {}\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Menu",
+                    "id": "0999a643-d483-4ca8-a409-efea2b711c40",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"role_id\" : 1, //int relation to table roles\r\n    \"permisions\" : [\r\n        {\r\n            \"menu_id\" : 1, //int relation to table menu\r\n            \"permission_ids\" : [0,1,1,0,1] // store to column view,detail,create,edit,delete with type enum (true.false)  \r\n        },\r\n        {\r\n            \"menu_id\" : 2, //int relation to table menu\r\n            \"permission_ids\" : [1,1,0,0,1] // store to column view,detail,create,edit,delete with type enum (true.false) \r\n        }\r\n    ]\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": "http://localhost:3000/api/role/permission"
+                    },
+                    "response": [
+                        {
+                            "id": "b9f2d516-1295-407d-b14d-ba772867fb48",
+                            "name": "Get Menu Success",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": "http://localhost:3000/api/menu"
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": null,
+                            "cookie": [],
+                            "body": "{\n    \"status\": true,\n    \"message\": \"menu fetched\",\n    \"data\" :  [\n        {\n            \"menu_id\" : 1,\n            \"type\" : \"dashboard-1\",\n            \"menu\" : \"User\",\n            \"url\" : \"/user\"\n        },\n        {\n            \"menu_id\" :2,\n            \"type\" : \"dashboard-2\",\n            \"menu\" : \"Role\",\n            \"url\" : \"/role\"\n        },\n        {\n            \"menu_id\" :3,\n            \"type\" : \"dashboard-3\",\n            \"menu\" : \"Daily Planning\",\n            \"url\" : \"/planning\"\n        }\n    ]\n}"
+                        },
+                        {
+                            "id": "e465ffdc-1fc9-417d-8ded-a3dab087b80f",
+                            "name": "Get Menu Failed",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": "http://localhost:3000/api/menu"
+                            },
+                            "status": "Bad Request",
+                            "code": 400,
+                            "_postman_previewlanguage": "json",
+                            "header": null,
+                            "cookie": [],
+                            "body": "[\n    {\n        \"id\": 3201,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Bogor\"\n    },\n    {\n        \"id\": 3202,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Sukabumi\"\n    },\n    {\n        \"id\": 3203,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Cianjur\"\n    },\n    {\n        \"id\": 3204,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Bandung\"\n    },\n    {\n        \"id\": 3205,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Garut\"\n    },\n    {\n        \"id\": 3206,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Tasikmalaya\"\n    },\n    {\n        \"id\": 3207,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Ciamis\"\n    },\n    {\n        \"id\": 3208,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Kuningan\"\n    },\n    {\n        \"id\": 3209,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Cirebon\"\n    },\n    {\n        \"id\": 3210,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Majalengka\"\n    },\n    {\n        \"id\": 3211,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Sumedang\"\n    },\n    {\n        \"id\": 3212,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Indramayu\"\n    },\n    {\n        \"id\": 3213,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Subang\"\n    },\n    {\n        \"id\": 3214,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Purwakarta\"\n    },\n    {\n        \"id\": 3215,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Karawang\"\n    },\n    {\n        \"id\": 3216,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Bekasi\"\n    },\n    {\n        \"id\": 3217,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Bandung Barat\"\n    },\n    {\n        \"id\": 3218,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Pangandaran\"\n    },\n    {\n        \"id\": 3271,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kota Bogor\"\n    },\n    {\n        \"id\": 3272,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kota Sukabumi\"\n    },\n    {\n        \"id\": 3273,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kota Bandung\"\n    },\n    {\n        \"id\": 3274,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kota Cirebon\"\n    },\n    {\n        \"id\": 3275,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kota Bekasi\"\n    },\n    {\n        \"id\": 3276,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kota Depok\"\n    },\n    {\n        \"id\": 3277,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kota Cimahi\"\n    },\n    {\n        \"id\": 3278,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kota Tasikmalaya\"\n    },\n    {\n        \"id\": 3279,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kota Banjar\"\n    }\n]"
+                        }
+                    ]
+                },
+                {
+                    "name": "Post Import | Planning MO (Table Baru)",
+                    "id": "fdbed00b-2ee4-4844-9fee-28c4cc81e97f",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "module",
+                                    "value": "planning_monthly",
+                                    "description": "planning_monthly | planning daily",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "file",
+                                    "type": "file",
+                                    "src": []
+                                }
+                            ]
+                        },
+                        "url": "http://localhost:3000/api/planning/import"
+                    },
+                    "response": [
+                        {
+                            "id": "b2b566af-8edc-4cc7-95a3-31bdd24487dd",
+                            "name": "Post Import",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "module",
+                                            "value": "planning_monthly",
+                                            "description": "planning_monthly | planning daily",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "file",
+                                            "description": "kasih validasi harus xls|xlsx",
+                                            "type": "file",
+                                            "src": []
+                                        }
+                                    ]
+                                },
+                                "url": "http://localhost:3000/api/planning/import"
+                            },
+                            "_postman_previewlanguage": "json",
+                            "header": null,
+                            "cookie": [],
+                            "body": "{\r\n    \"status\": true,\r\n    \"message\": \"monthly planning imported\",\r\n    \"data\" : {\r\n        \"total_imported\" : 3,\r\n        \"total_fail\" : 0\r\n    }\r\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Maintenance List",
+                    "id": "a5410ba1-0b8d-4f26-8502-c61a575e7e5f",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"id\": 1,\r\n    \"maintenance_date\": \"2022-11-11\",\r\n    \"line_number\": \"INJECTION/MC06/08/08\",\r\n    \"desc\": \"regita\",\r\n    \"status\": \"open\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": "{{url}}/maintenance"
+                    },
+                    "response": [
+                        {
+                            "id": "5f54b55f-368d-4bda-bf13-9c9b3b7ec89f",
+                            "name": "Create Maintenance",
+                            "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "name": "Content-Type",
+                                        "value": "application/json",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\r\n    \"maintenance_date\" : \"datetime Y-m-d\",\r\n    \"line_number\" : \"string\",\r\n    \"desc\" : \"optional\",\r\n    \"status\" : \"Open\" //default dari BE kalo save lgsg open (open, on progress,done) \r\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": "http://localhost:3000/api/maintenance"
+                            },
+                            "_postman_previewlanguage": "json",
+                            "header": null,
+                            "cookie": [],
+                            "body": "{\r\n    \"status\": true,\r\n    \"message\": \"maintenance created\",\r\n    \"data\" :  {\r\n        \"maintenance_date\" : \"2022-01-25\",\r\n        \"line_number\" : \"InjectionM12\",\r\n        \"desc\" : \"optional\",\r\n        \"status\" : \"Open\"\r\n    }\r\n}"
+                        },
+                        {
+                            "id": "a5b81633-6524-41f5-89c6-6c45084717ab",
+                            "name": "Update Maintenance",
+                            "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "name": "Content-Type",
+                                        "value": "application/json",
+                                        "type": "text"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\r\n    \"maintenance_date\" : \"datetime Y-m-d\",\r\n    \"line_number\" : \"string\",\r\n    \"desc\" : \"optional\",\r\n    \"status\" : \"Closed\" //default dari BE kalo save lgsg open (open, on progress,done) \r\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": "http://localhost:3000/api/maintenance/1"
+                            },
+                            "_postman_previewlanguage": "json",
+                            "header": null,
+                            "cookie": [],
+                            "body": "{\r\n    \"status\": true,\r\n    \"message\": \"maintenance created\",\r\n    \"data\" :  {\r\n        \"maintenance_date\" : \"2022-01-25\",\r\n        \"maintener\" : [\"Regita\"],\r\n        \"desc\" : \"optional\",\r\n        \"status\" : \"Closed\"\r\n    }\r\n}"
+                        },
+                        {
+                            "id": "721b2c4d-5926-4aae-b99c-48bb7822014c",
+                            "name": "Get Maintenance",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "name": "Content-Type",
+                                        "value": "application/json",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "http://localhost:3000/api/maintenance?status=enum(open,onprogress,done)&date=2022-01-25",
+                                    "protocol": "http",
+                                    "host": [
+                                        "localhost"
+                                    ],
+                                    "port": "3000",
+                                    "path": [
+                                        "api",
+                                        "maintenance"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "status",
+                                            "value": "enum(open,onprogress,done)",
+                                            "description": "//untuk filter by status"
+                                        },
+                                        {
+                                            "key": "date",
+                                            "value": "2022-01-25",
+                                            "description": "// untuk filter by date"
+                                        }
+                                    ]
+                                }
+                            },
+                            "_postman_previewlanguage": "json",
+                            "header": null,
+                            "cookie": [],
+                            "body": "{\r\n    \"status\": true,\r\n    \"message\": \"daily planning created\",\r\n    \"data\" :  [\r\n        { \r\n            \"maintenance_date\" : \"2022-01-25\",\r\n            \"line_number\" : \"INJECTION/MC05\",\r\n            \"desc\" : \"optional\",\r\n            \"status\" : \"Open\"\r\n        },\r\n        { \r\n            \"maintenance_date\" : \"2022-01-25\",\r\n            \"line_number\" : \"INJECTION/MC05\",\r\n            \"desc\" : \"optional\",\r\n            \"status\" : \"Open\"\r\n        },\r\n        { \r\n            \"maintenance_date\" : \"2022-01-25\",\r\n            \"line_number\" : \"INJECTION/MC05\",\r\n            \"desc\" : \"optional\",\r\n            \"status\" : \"Open\"\r\n        }\r\n\r\n    ]\r\n}"
+                        }
+                    ]
+                }
+            ],
+            "id": "766428d1-d9be-4e02-95ac-48e68b5e85b8"
+        },
+        {
+            "name": "Post Planning | List MO",
+            "id": "31e33920-38ca-4c2c-ad14-300e8abdd447",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "url": "http://localhost:3000/api/planning/daily"
+            },
+            "response": [
+                {
+                    "id": "bd1c6484-0b93-40b5-93f0-c8f7d7f1f466",
+                    "name": "Post Planning",
+                    "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"type\" : \"daily | enum (daily |montly)\",\r\n    \"production_date\" : \"date Y-m-d\",\r\n    \"line_number\" : \"string| eg : INJECTION/MC06\",\r\n    //\"order_id\" : \"number eg :1\", //seharusnya tidak ada di input tapi kalkulasi di result json \r\n    \"shift_no\" : \"number eg : 1\",\r\n    \"no_mo\" : \"string|eg : 179/PILOC/XII/2021\",\r\n    \"part_mo\" : \"string|eg : 20-0G49BI\",\r\n    \"part_name\" : \"string|eg : HOUSING VT01 RH\",\r\n    \"part_category\" : \"string|eg : RH\",\r\n    \"target_production\" : \"number eg : 100\",\r\n    \"cycle_time\" : \"number eg : 30\",\r\n    \"start_production\" : \"time hours eg : 30:00 / hh:ii\",\r\n    \"finish_production\" : \"time hours eg : 30:00 / hh:ii\",\r\n    \"work_hours\" : \"number eg : 30\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": "http://localhost:3000/api/planning"
+                    },
+                    "_postman_previewlanguage": "json",
+                    "header": null,
+                    "cookie": [],
+                    "body": "{\r\n    \"status\": true,\r\n    \"message\": \"daily planning created\",\r\n    \"data\" :  {\r\n        \"production_date\" : \"2022-01-25\",\r\n        \"line_number\" : \"INJECTION/MC06\",\r\n        \"order_id\" : \"1\", //order_id perhitungan dari jenis part category misal sudah ada part category RH di linenumber,no mo, part no dan part name value selanjutnya jadi 2\r\n        \"shift_no\" : \"1\",\r\n        \"no_mo\" : \"179/PILOC/XII/2021\",\r\n        \"part_mo\" : \"20-0G49BI\",\r\n        \"part_name\" : \"HOUSING VT01 RH\",\r\n        \"part_category\" : \"RH\",\r\n        \"target_production\" : \"300\",\r\n        \"cycle_time\" : \"86\",\r\n        \"start_production\" : \"70:30\",\r\n        \"finish_production\" : \"20:00\",\r\n        \"work_hours\" : \"480\",\r\n        \"status\" : \"open\",\r\n        \"created_date\" : \"2022-01-25 07:40:48\"\r\n    }\r\n}"
+                },
+                {
+                    "id": "e1cb0406-9589-4db5-bd0f-5cf4c2649819",
+                    "name": "List Planning Grafik - Belum",
+                    "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost:3000/api/planning/grafik?date=&time_start=&time_finish=&status=",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "api",
+                                "planning",
+                                "grafik"
+                            ],
+                            "query": [
+                                {
+                                    "key": "date",
+                                    "value": ""
+                                },
+                                {
+                                    "key": "time_start",
+                                    "value": ""
+                                },
+                                {
+                                    "key": "time_finish",
+                                    "value": ""
+                                },
+                                {
+                                    "key": "status",
+                                    "value": ""
+                                }
+                            ]
+                        }
+                    },
+                    "_postman_previewlanguage": "json",
+                    "header": null,
+                    "cookie": [],
+                    "body": "{\r\n    \"status\": true,\r\n    \"message\": \"daily planning fetched\",\r\n    \"data\" :  [\r\n        {\r\n            \"line_number\" : \"INJECTION/MC06\",\r\n            \"data\" : [\r\n                {\r\n                    \"date\" : \"22-10-10\",            \r\n                    \"day\" : \"fri\",\r\n                    \"range_start\" : \"12:00\",\r\n                    \"range_end\" : \"20:00\",\r\n                    \"data\" : [\r\n                        {\r\n                            \"line_number\" : \"INJECTION/MC06\",\r\n                            \"no_mo\" : \"20/PILOK/X/2022\",\r\n                            \"status\" : \"open\"\r\n                        },\r\n                        {\r\n                            \"line_number\" : \"INJECTION/MC06\",\r\n                            \"no_mo\" : \"20/PILOK/X/2022\",\r\n                            \"status\" : \"open\"\r\n                        }\r\n                    ]\r\n                }\r\n            ]       \r\n        }\r\n    ]\r\n}"
+                }
+            ]
+        },
+        {
+            "name": "Get Planning",
+            "id": "01f2823f-85cb-4b49-acab-3dbd7e2f41a1",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "url": "http://localhost:3000/api/planning/daily"
+            },
+            "response": [
+                {
+                    "id": "876e005b-f553-4690-bbc9-04401bcd8bed",
+                    "name": "List Planning MQTT | Historical MO",
+                    "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"type\" : \"daily | enum (daily |montly)\",\r\n    \"production_date\" : \"datetime Y-m-d\",\r\n    \"line_number\" : \"string| eg : INJECTION/MC06\",\r\n    \"order_id\" : \"number eg :1\", //seharusnya tidak ada di input tapi kalkulasi di result json\r\n    \"shift_no\" : \"number eg : 1\",\r\n    \"no_mo\" : \"string|eg : 179/PILOC/XII/2021\",\r\n    \"part_mo\" : \"string|eg : 20-0G49BI\",\r\n    \"part_name\" : \"string|eg : HOUSING VT01 RH\",\r\n    \"part_category\" : \"string|eg : RH\",\r\n    \"target_production\" : \"number eg : 100\",\r\n    \"cycle_time\" : \"number eg : 30\",\r\n    \"start_production\" : \"time hours eg : 30:00 / hh:ii\",\r\n    \"finish_production\" : \"time hours eg : 30:00 / hh:ii\",\r\n    \"work_hours\" : \"number eg : 30\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "mqtt://${host}:${port}?topic=planning",
+                            "protocol": "mqtt",
+                            "host": [
+                                "${host}"
+                            ],
+                            "port": "${port}",
+                            "query": [
+                                {
+                                    "key": "topic",
+                                    "value": "planning"
+                                }
+                            ]
+                        }
+                    },
+                    "_postman_previewlanguage": "json",
+                    "header": null,
+                    "cookie": [],
+                    "body": "{\r\n    \"status\": true,\r\n    \"message\": \"daily planning fetched from machine\",\r\n    \"data\" :  [\r\n        {\r\n            \"production_date\" : \"2022-01-25\",\r\n            \"line_number\" : \"INJECTION/MC06\",\r\n            \"order_id\" : \"1\",\r\n            \"shift_no\" : \"1\",\r\n            \"no_mo\" : \"179/PILOC/XII/2021\",\r\n            \"part_mo\" : \"20-0G49BI\",\r\n            \"part_name\" : \"HOUSING VT01 RH\",\r\n            \"part_category\" : \"RH\",\r\n            \"target_production\" : \"300\",\r\n            \"cycle_time\" : \"86\",\r\n            \"start_production\" : \"70:30\",\r\n            \"finish_production\" : \"20:00\",\r\n            \"work_hours\" : \"480\",\r\n            \"status\" : \"open\",\r\n            \"created_date\" : \"2022-01-25 07:40:48\"\r\n        },\r\n        {\r\n            \"production_date\" : \"2022-01-25\",\r\n            \"line_number\" : \"INJECTION/MC06\",\r\n            \"order_id\" : \"1\",\r\n            \"shift_no\" : \"1\",\r\n            \"no_mo\" : \"179/PILOC/XII/2021\",\r\n            \"part_mo\" : \"20-0G49BI\",\r\n            \"part_name\" : \"HOUSING VT01 RH\",\r\n            \"part_category\" : \"RH\",\r\n            \"target_production\" : \"300\",\r\n            \"cycle_time\" : \"86\",\r\n            \"start_production\" : \"70:30\",\r\n            \"finish_production\" : \"20:00\",\r\n            \"work_hours\" : \"480\",\r\n            \"status\" : \"open\",\r\n            \"created_date\" : \"2022-01-25 07:40:48\"\r\n        }\r\n    ]\r\n}"
+                }
+            ]
+        },
+        {
+            "name": "Export Daily Report",
+            "id": "0030064d-6fe2-4d53-be9a-acfb177cc2ec",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "url": "http://localhost:3000/api/planning/daily"
+            },
+            "response": [
+                {
+                    "id": "5da7eb77-5bd9-4f5f-9eee-f9f8dadb45dd",
+                    "name": "Export to PDF",
+                    "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://localhost:3000/api/planning/grafik?date&shift&line_number&range_hour_start&range_hour_finish",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "api",
+                                "planning",
+                                "grafik"
+                            ],
+                            "query": [
+                                {
+                                    "key": "date",
+                                    "value": null
+                                },
+                                {
+                                    "key": "shift",
+                                    "value": null
+                                },
+                                {
+                                    "key": "line_number",
+                                    "value": null
+                                },
+                                {
+                                    "key": "range_hour_start",
+                                    "value": null
+                                },
+                                {
+                                    "key": "range_hour_finish",
+                                    "value": null
+                                }
+                            ]
+                        }
+                    },
+                    "_postman_previewlanguage": "json",
+                    "header": null,
+                    "cookie": [],
+                    "body": "{\r\n    \"status\": true,\r\n    \"message\": \"monthly planning exported\"\r\n}"
+                }
+            ]
+        },
+        {
+            "name": "Product Analytic",
+            "id": "c878bd03-9020-4426-bb62-7e2f15d094b8",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "url": "http://localhost:3000/api/planning/daily"
+            },
+            "response": [
+                {
+                    "id": "11fef97f-6654-48f3-aaa0-32323de84938",
+                    "name": "List Mesin",
+                    "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"type\" : \"daily | enum (daily |montly)\",\r\n    \"production_date\" : \"datetime Y-m-d\",\r\n    \"line_number\" : \"string| eg : INJECTION/MC06\",\r\n    \"order_id\" : \"number eg :1\", //seharusnya tidak ada di input tapi kalkulasi di result json\r\n    \"shift_no\" : \"number eg : 1\",\r\n    \"no_mo\" : \"string|eg : 179/PILOC/XII/2021\",\r\n    \"part_mo\" : \"string|eg : 20-0G49BI\",\r\n    \"part_name\" : \"string|eg : HOUSING VT01 RH\",\r\n    \"part_category\" : \"string|eg : RH\",\r\n    \"target_production\" : \"number eg : 100\",\r\n    \"cycle_time\" : \"number eg : 30\",\r\n    \"start_production\" : \"time hours eg : 30:00 / hh:ii\",\r\n    \"finish_production\" : \"time hours eg : 30:00 / hh:ii\",\r\n    \"work_hours\" : \"number eg : 30\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "mqtt://${host}:${port}?topic=analytic",
+                            "protocol": "mqtt",
+                            "host": [
+                                "${host}"
+                            ],
+                            "port": "${port}",
+                            "query": [
+                                {
+                                    "key": "topic",
+                                    "value": "analytic"
+                                }
+                            ]
+                        }
+                    },
+                    "_postman_previewlanguage": "json",
+                    "header": null,
+                    "cookie": [],
+                    "body": "{\r\n    \"status\": true,\r\n    \"message\": \"list machine progress fetched\",\r\n    \"data\" :  [\r\n        {\r\n            \"line_number\" : \"INJECTION/MC06\",\r\n            \"oee_percentage\" : \"30%\",\r\n            \"ava_percentage\" : \"30%\",\r\n            \"perf_percentage\" : \"30%\",\r\n            \"qua_percentage\" : \"30%\",\r\n            \"total_runtime\" : \"60s\" //BE must convert this data to hours\r\n        },\r\n         {\r\n            \"line_number\" : \"INJECTION/MC06\",\r\n            \"oee_percentage\" : \"30%\",\r\n            \"ava_percentage\" : \"30%\",\r\n            \"perf_percentage\" : \"30%\",\r\n            \"qua_percentage\" : \"30%\",\r\n            \"total_runtime\" : \"60s\" //BE must convert this data to hours\r\n        },\r\n         {\r\n            \"line_number\" : \"INJECTION/MC06\",\r\n            \"oee_percentage\" : \"30%\",\r\n            \"ava_percentage\" : \"30%\",\r\n            \"perf_percentage\" : \"30%\",\r\n            \"qua_percentage\" : \"30%\",\r\n            \"total_runtime\" : \"60s\" //BE must convert this data to hours\r\n        },\r\n         {\r\n            \"line_number\" : \"INJECTION/MC06\",\r\n            \"oee_percentage\" : \"30%\",\r\n            \"ava_percentage\" : \"30%\",\r\n            \"perf_percentage\" : \"30%\",\r\n            \"qua_percentage\" : \"30%\",\r\n            \"total_runtime\" : \"60s\" //BE must convert this data to hours\r\n        }\r\n    ]\r\n}"
+                },
+                {
+                    "id": "b4e1cbed-ebe5-487d-9768-ab15648c83bc",
+                    "name": "Detail KPI Realtime",
+                    "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"type\" : \"daily | enum (daily |montly)\",\r\n    \"production_date\" : \"datetime Y-m-d\",\r\n    \"line_number\" : \"string| eg : INJECTION/MC06\",\r\n    \"order_id\" : \"number eg :1\", //seharusnya tidak ada di input tapi kalkulasi di result json\r\n    \"shift_no\" : \"number eg : 1\",\r\n    \"no_mo\" : \"string|eg : 179/PILOC/XII/2021\",\r\n    \"part_mo\" : \"string|eg : 20-0G49BI\",\r\n    \"part_name\" : \"string|eg : HOUSING VT01 RH\",\r\n    \"part_category\" : \"string|eg : RH\",\r\n    \"target_production\" : \"number eg : 100\",\r\n    \"cycle_time\" : \"number eg : 30\",\r\n    \"start_production\" : \"time hours eg : 30:00 / hh:ii\",\r\n    \"finish_production\" : \"time hours eg : 30:00 / hh:ii\",\r\n    \"work_hours\" : \"number eg : 30\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "mqtt://${host}:${port}?topic=analytic&line_number=INJECTION/MC0",
+                            "protocol": "mqtt",
+                            "host": [
+                                "${host}"
+                            ],
+                            "port": "${port}",
+                            "query": [
+                                {
+                                    "key": "topic",
+                                    "value": "analytic"
+                                },
+                                {
+                                    "key": "line_number",
+                                    "value": "INJECTION/MC0"
+                                }
+                            ]
+                        }
+                    },
+                    "_postman_previewlanguage": "json",
+                    "header": null,
+                    "cookie": [],
+                    "body": "{\r\n    \"status\": true,\r\n    \"message\": \"detail machine progress fetched\",\r\n    \"data\" :  {\r\n            \"no_mo\" : \"52/PILOC/VI/2020\",\r\n            \"line_number\" : \"INJECTION/MC06\",\r\n            \"oee_percentage\" : \"30%\", //BE must convert this data to percentage\r\n            \"ava_percentage\" : \"30%\",\r\n            \"perf_percentage\" : \"30%\",\r\n            \"qua_percentage\" : \"30%\",\r\n            \"acv_percentage\" : \"30%\",\r\n            \"total_runtime\" : \"60s\", //BE must convert this data to hours\r\n            \"created_at\" : \"2020-07-14 00:00:00\",\r\n            \"npk\" : \"0373\", // nullable\r\n            \"cycle_time\" : \"80s\", //BE must convert this data to hours\r\n            \"downtime\" : \"60s\",//BE must convert this data to hours\r\n            \"total_ok\" : \"30\",\r\n            \"total_ng\" : \"30\",\r\n            \"total_ng_setting\" : \"30\"\r\n    }\r\n}"
+                },
+                {
+                    "id": "dd14015d-67de-49bf-9152-2cb0fb2f86e8",
+                    "name": "Detail KPI Filtered - Production Result",
+                    "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"type\" : \"daily | enum (daily |montly)\",\r\n    \"production_date\" : \"datetime Y-m-d\",\r\n    \"line_number\" : \"string| eg : INJECTION/MC06\",\r\n    \"order_id\" : \"number eg :1\", //seharusnya tidak ada di input tapi kalkulasi di result json\r\n    \"shift_no\" : \"number eg : 1\",\r\n    \"no_mo\" : \"string|eg : 179/PILOC/XII/2021\",\r\n    \"part_mo\" : \"string|eg : 20-0G49BI\",\r\n    \"part_name\" : \"string|eg : HOUSING VT01 RH\",\r\n    \"part_category\" : \"string|eg : RH\",\r\n    \"target_production\" : \"number eg : 100\",\r\n    \"cycle_time\" : \"number eg : 30\",\r\n    \"start_production\" : \"time hours eg : 30:00 / hh:ii\",\r\n    \"finish_production\" : \"time hours eg : 30:00 / hh:ii\",\r\n    \"work_hours\" : \"number eg : 30\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{url}}detail/machine/?line_number=INJECTION/MC06&date&shift&data_length",
+                            "host": [
+                                "{{url}}detail"
+                            ],
+                            "path": [
+                                "machine",
+                                ""
+                            ],
+                            "query": [
+                                {
+                                    "key": "line_number",
+                                    "value": "INJECTION/MC06"
+                                },
+                                {
+                                    "key": "date",
+                                    "value": null
+                                },
+                                {
+                                    "key": "shift",
+                                    "value": null,
+                                    "description": "shift range : 1 = 07:00-20:00 shift 2 = 21:00-07:00"
+                                },
+                                {
+                                    "key": "data_length",
+                                    "value": null,
+                                    "description": "total filter days"
+                                }
+                            ]
+                        }
+                    },
+                    "_postman_previewlanguage": "json",
+                    "header": null,
+                    "cookie": [],
+                    "body": "{\r\n    \"status\": true,\r\n    \"message\": \"detail machine progress fetched\",\r\n    \"data\" :  {\r\n            \"no_mo\" : \"52/PILOC/VI/2020\",\r\n            \"line_number\" : \"INJECTION/MC06\",\r\n            \"oee_percentage\" : \"30%\", //BE must convert this data to percentage\r\n            \"ava_percentage\" : \"30%\",\r\n            \"perf_percentage\" : \"30%\",\r\n            \"qua_percentage\" : \"30%\",\r\n            \"acv_percentage\" : \"30%\",\r\n            \"total_runtime\" : \"10h\", //BE must convert this data to hours\r\n            \"created_at\" : \"2020-07-14 00:00:00\",\r\n            \"npk\" : \"0373\", // nullable\r\n            \"cycle_time\" : \"10h\", //BE must convert this data to hours : tambah cycle_time samain kaya total_stop_line\r\n            \"downtime\" : \"10h\",//BE must convert this data to hours : field total_stop_line\r\n            \"total_ok\" : 30, \r\n            \"total_ng\" : 30,\r\n            \"total_ng_setting\" : 30,\r\n            \"total_qty\" : 20 //kalkulasi ok + ng\r\n    }\r\n}"
+                },
+                {
+                    "id": "f05e99ab-c2ec-4c20-abe2-7e763bdae957",
+                    "name": "DETAIL MQTT",
+                    "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"type\" : \"daily | enum (daily |montly)\",\r\n    \"production_date\" : \"datetime Y-m-d\",\r\n    \"line_number\" : \"string| eg : INJECTION/MC06\",\r\n    \"order_id\" : \"number eg :1\", //seharusnya tidak ada di input tapi kalkulasi di result json\r\n    \"shift_no\" : \"number eg : 1\",\r\n    \"no_mo\" : \"string|eg : 179/PILOC/XII/2021\",\r\n    \"part_mo\" : \"string|eg : 20-0G49BI\",\r\n    \"part_name\" : \"string|eg : HOUSING VT01 RH\",\r\n    \"part_category\" : \"string|eg : RH\",\r\n    \"target_production\" : \"number eg : 100\",\r\n    \"cycle_time\" : \"number eg : 30\",\r\n    \"start_production\" : \"time hours eg : 30:00 / hh:ii\",\r\n    \"finish_production\" : \"time hours eg : 30:00 / hh:ii\",\r\n    \"work_hours\" : \"number eg : 30\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "mqtt://${host}:${port}?topic=analytic&line_number=INJECTION/MC06",
+                            "protocol": "mqtt",
+                            "host": [
+                                "${host}"
+                            ],
+                            "port": "${port}",
+                            "query": [
+                                {
+                                    "key": "topic",
+                                    "value": "analytic"
+                                },
+                                {
+                                    "key": "line_number",
+                                    "value": "INJECTION/MC06"
+                                }
+                            ]
+                        }
+                    },
+                    "_postman_previewlanguage": "json",
+                    "header": null,
+                    "cookie": [],
+                    "body": "{\r\n    \"d\": {\r\n        \"part_name_lh\": [ \"abcd\" ],\r\n        \"achievement_lh\": [ 0.12345679104328156 ],\r\n        \"no_mo_lh\": [ \"abcd\" ],\r\n        \"ok_lh\": [ 65535 ],\r\n        \"ng_lh\": [ 65535 ],\r\n        \"ng_setting_lh\": [ 65535 ],\r\n        \"part_name_rh\": [ \"abcd\" ],\r\n        \"achievement_rh\": [ 0.12345679104328156 ],\r\n        \"no_mo_rh\": [ \"abcd\" ],\r\n        \"ok_rh\": [ 65535 ],\r\n        \"ng_rh\": [ 65535 ],\r\n        \"ng_setting_rh\": [ 65535 ],\r\n        \"part_name_mid\": [ \"abcd\" ],\r\n        \"achievement_mid\": [ 0.12345679104328156 ],\r\n        \"no_mo_mid\": [ \"abcd\" ],\r\n        \"ok_mid\": [ 65535 ],\r\n        \"ng_mid\": [ 65535 ],\r\n        \"ng_setting\": [ 65535 ],\r\n        \"current_target\": [ 65535 ],\r\n        \"oee\": [ 0.12345679104328156 ],\r\n        \"ava\": [ 0.12345679104328156 ],\r\n        \"perf\": [ 0.12345679104328156 ],\r\n        \"qua\": [ 0.12345679104328156 ]\r\n    },\r\n    \"ts\": \"2022-09-13T09:37:04.731104\"\r\n}"
+                },
+                {
+                    "id": "4b1ec59a-f3e9-4f8a-b227-e66e4b4e5096",
+                    "name": "Grafik",
+                    "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"type\" : \"daily | enum (daily |montly)\",\r\n    \"production_date\" : \"datetime Y-m-d\",\r\n    \"line_number\" : \"string| eg : INJECTION/MC06\",\r\n    \"order_id\" : \"number eg :1\", //seharusnya tidak ada di input tapi kalkulasi di result json\r\n    \"shift_no\" : \"number eg : 1\",\r\n    \"no_mo\" : \"string|eg : 179/PILOC/XII/2021\",\r\n    \"part_mo\" : \"string|eg : 20-0G49BI\",\r\n    \"part_name\" : \"string|eg : HOUSING VT01 RH\",\r\n    \"part_category\" : \"string|eg : RH\",\r\n    \"target_production\" : \"number eg : 100\",\r\n    \"cycle_time\" : \"number eg : 30\",\r\n    \"start_production\" : \"time hours eg : 30:00 / hh:ii\",\r\n    \"finish_production\" : \"time hours eg : 30:00 / hh:ii\",\r\n    \"work_hours\" : \"number eg : 30\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "mqtt://${host}:${port}?topic=analytic",
+                            "protocol": "mqtt",
+                            "host": [
+                                "${host}"
+                            ],
+                            "port": "${port}",
+                            "query": [
+                                {
+                                    "key": "topic",
+                                    "value": "analytic"
+                                }
+                            ]
+                        }
+                    },
+                    "_postman_previewlanguage": "json",
+                    "header": null,
+                    "cookie": [],
+                    "body": "{\r\n    \"status\": true,\r\n    \"message\": \"list machine progress fetched\",\r\n    \"data\" :  [\r\n        {\r\n            \"line_number\" : \"INJECTION/MC06\",\r\n            \"oee_percentage\" : \"30%\",\r\n            \"ava_percentage\" : \"30%\",\r\n            \"perf_percentage\" : \"30%\",\r\n            \"qua_percentage\" : \"30%\",\r\n            \"total_runtime\" : \"60s\" //BE must convert this data to hours\r\n        },\r\n         {\r\n            \"line_number\" : \"INJECTION/MC06\",\r\n            \"oee_percentage\" : \"30%\",\r\n            \"ava_percentage\" : \"30%\",\r\n            \"perf_percentage\" : \"30%\",\r\n            \"qua_percentage\" : \"30%\",\r\n            \"total_runtime\" : \"60s\" //BE must convert this data to hours\r\n        },\r\n         {\r\n            \"line_number\" : \"INJECTION/MC06\",\r\n            \"oee_percentage\" : \"30%\",\r\n            \"ava_percentage\" : \"30%\",\r\n            \"perf_percentage\" : \"30%\",\r\n            \"qua_percentage\" : \"30%\",\r\n            \"total_runtime\" : \"60s\" //BE must convert this data to hours\r\n        },\r\n         {\r\n            \"line_number\" : \"INJECTION/MC06\",\r\n            \"oee_percentage\" : \"30%\",\r\n            \"ava_percentage\" : \"30%\",\r\n            \"perf_percentage\" : \"30%\",\r\n            \"qua_percentage\" : \"30%\",\r\n            \"total_runtime\" : \"60s\" //BE must convert this data to hours\r\n        }\r\n    ]\r\n}"
+                }
+            ]
+        },
+        {
+            "name": "Input Data Production Result",
+            "id": "2e224360-80d0-4edb-b718-d2368fdebf8c",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"no_mo\" : \"string eg : 129/ASSY/X/2020\",\r\n    \"production_date\" : \"datetime\",\r\n    \"line_number\" : \"string eg : INJECTION/MC-08\",\r\n    \"part_name\" : \"string\", //field baru\r\n    \"part_no\" : \"string\",//field baru\r\n    \"part_category\" : \"string\",//field baru\r\n    \"total_ok\" : \"int eg : 50\",\r\n    \"total_ng\" : \"int eg : 50\",\r\n    \"total_ng_setting\" : \"int eg : 0\",\r\n    \"total_stopline\" : \"int eg : 13515\",\r\n    \"total_running_time\" : \"int eg : 13515\",\r\n    \"NPK\" : \"Varchar eg : 13515\",\r\n    \"achivement\" : \"float eg : 57,33\",\r\n    \"availability\" : \"float eg : 68,3\",\r\n    \"performance\" : \"float eg : 76,83\",\r\n    \"quality\" : \"float eg : 76,83\",\r\n    \"oee\" : \"float eg : 76,83\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": "http://localhost:3000/api/production/result"
+            },
+            "response": [
+                {
+                    "id": "2eb8b7cc-e07c-42ab-9893-b92315846423",
+                    "name": "Input Data Production Result",
+                    "originalRequest": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"no_mo\" : \"string eg : 129/ASSY/X/2020\",\r\n    \"production_date\" : \"datetime\",\r\n    \"line_number\" : \"string eg : INJECTION/MC-08\",\r\n    \"part_name\" : \"string\", //field baru\r\n    \"part_no\" : \"string\",//field baru\r\n    \"part_category\" : \"string\",//field baru\r\n    \"total_ok\" : \"int eg : 50\",\r\n    \"total_ng\" : \"int eg : 50\",\r\n    \"total_ng_setting\" : \"int eg : 0\",\r\n    \"total_stopline\" : \"int eg : 13515\",\r\n    \"total_running_time\" : \"int eg : 13515\",\r\n    \"NPK\" : \"Varchar eg : 13515\",\r\n    \"achivement\" : \"float eg : 57,33\",\r\n    \"availability\" : \"float eg : 68,3\",\r\n    \"performance\" : \"float eg : 76,83\",\r\n    \"quality\" : \"float eg : 76,83\",\r\n    \"oee\" : \"float eg : 76,83\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": "http://localhost:3000/api/production/result"
+                    },
+                    "_postman_previewlanguage": null,
+                    "header": null,
+                    "cookie": [],
+                    "body": null
+                }
+            ]
+        }
+    ],
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "id": "8c44fbdb-6db9-4564-989c-281ea21d58aa",
+                "type": "text/javascript",
+                "exec": [
+                    ""
+                ]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "id": "b102d91f-b947-4f49-a2bf-28ca4022fa14",
+                "type": "text/javascript",
+                "exec": [
+                    ""
+                ]
+            }
+        }
+    ],
+    "variable": [
+        {
+            "id": "e8ad52dc-f228-4f5c-be08-0901ddd5a561",
+            "key": "url",
+            "value": "http://103.214.112.156:3000/api",
+            "type": "string"
+        }
+    ]
+}
