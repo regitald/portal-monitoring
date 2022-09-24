@@ -13,6 +13,10 @@ const getPlanningList = async(period,paramsQuery)=>{
             return serviceResponse(500,"Period is not defined, please choose daily/monthly")
         }
 
+        if(paramsQuery.sort == undefined){
+            paramsQuery.sort = 'id,desc'
+        }
+
         var paramsBuilder = await buildCondition(getPlanArrObj(),paramsQuery)
 
         var order = await fetchSortBy(paramsQuery)
