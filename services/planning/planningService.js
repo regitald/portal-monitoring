@@ -139,9 +139,9 @@ const getGraphicPlan = async(paramsQuery)=>{
 
         for(let machine of machineList.content){
             var lineNumber = machine.type +"/"+machine.name
-            var params = {
-                line_number : lineNumber
-            }
+            paramsQuery.line_number = lineNumber
+
+            var params = await buildCondition(getPlanArrObj(),paramsQuery)
     
             var plans = await dailyPlanningRepository.findAll(params,[]);
 
