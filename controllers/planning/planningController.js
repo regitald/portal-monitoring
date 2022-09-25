@@ -44,10 +44,20 @@ const importPlanning = async(req,res,next)=>{
     }
 }
 
+const getGraphicPlan = async(req,res,next)=>{
+    try {
+        var graphicPlan = await planningService.getGraphicPlan(req.query)
+        res.status(graphicPlan.code).send(baseResponse(graphicPlan.message,graphicPlan.content))
+    } catch (error) {
+        res.status(500).send(baseResponse(error.message))
+    }
+}
+
 module.exports = {
     getPlanningList,
     updatePlanning,
     addPlanning,
     importPlanning,
-    getPlanningById
+    getPlanningById,
+    getGraphicPlan
 }

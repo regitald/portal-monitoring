@@ -10,17 +10,16 @@ const generateAuthUserToken = async(user)=>{
 
     let data = {
         user_id : user.id,
-        username : user.username,
         email : user.email,
-        role : user.role,
-        permission : user.permission
+        username : user.username,
+        role : user.role.id
     }
 
     const token = await jwt.sign(data, keys,{
         expiresIn: 60 * 60
     });
 
-    return serviceResponse(200,"success",token)
+    return token
 }
 
 const validateJwt = async(token)=>{

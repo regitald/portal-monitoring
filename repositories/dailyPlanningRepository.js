@@ -1,9 +1,10 @@
 const serviceResponse = require('../models/responses/serviceResponse');
 const {knex} = require('./iniDbConnection')
+var dailyPlan = 'list_mo';
 
 const findAll = async(params,order)=>{
     try {
-        var moList = await knex('list_mo').where(params).orderBy(order)
+        var moList = await knex(dailyPlan).where(params).orderBy(order)
         return serviceResponse(200,"success",moList)
     } catch (error) {
         return serviceResponse(500,error.message)
@@ -27,7 +28,7 @@ const update = async(id,plan)=>{
         status
     } = plan
     try {
-        await knex('list_mo').where({id}).update({
+        await knex(dailyPlan).where({id}).update({
             production_date,
             line_number,
             shift_no,
@@ -69,7 +70,7 @@ const save = async(plan)=>{
         status
         } = plan
     try {
-    var [planAdded] = (await knex('list_mo').insert({
+    var [planAdded] = (await knex(dailyPlan).insert({
             order_id,
             production_date,
             line_number,
@@ -101,7 +102,7 @@ const findMaxOrderId = async(params)=>{
             part_category,
             line_number
         } = params   
-        var orderId = await knex('list_mo').max('order_id',{as: 'maxOrderId'}).where(
+        var orderId = await knex(dailyPlan).max('order_id',{as: 'maxOrderId'}).where(
             {production_date,part_category,line_number}
         )
         return serviceResponse(200,'success',orderId)
@@ -119,10 +120,40 @@ const findById = async(id)=>{
     }
 }
 
+const findDistinct = async(fields)=>{
+    try {
+        var distinct = await knex(dailyPlan).distinct(fields)
+        return serviceResponse(200,'',distinct);
+    } catch (error) {
+        return serviceResponse(500,error.message)   
+    }
+}
+
+const findLineNumberByProductionTimes = async(params)=>{
+    try {
+        var {
+            production_date,
+            start_production,
+            finish_production
+        } = params
+        var plan = await knex(dailyPlan).where({
+            production_date,
+            start_production,
+            finish_production
+        }).select('line_number')
+        return serviceResponse(200,'success',plan)
+    } catch (error) {
+        return serviceResponse(500,error.message)    
+    }
+}
+
+
 module.exports = {
+    findDistinct,
     update,
     findAll,
     save,
     findById,
-    findMaxOrderId
+    findMaxOrderId,
+    findLineNumberByProductionTimes
 }

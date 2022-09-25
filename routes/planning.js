@@ -5,10 +5,11 @@ var {
     updatePlanning,
     addPlanning,
     importPlanning,
-    getPlanningById
+    getPlanningById,getGraphicPlan
 } = require('../controllers/planning/planningController')
 
 router.post('/import',importPlanning)
+router.get('/:period/graphic',getGraphicPlan)
 router.get('/:period',getPlanningList)
 router.get('/:period/:id',getPlanningById)
 router.put('/:period/:id',updatePlanning)

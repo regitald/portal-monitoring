@@ -9,6 +9,7 @@ const {buildCondition,fetchSortBy} = require('../../repositories/conditionBuilde
 
 const getPlanningList = async(period,paramsQuery)=>{
     try {
+
         if(period == undefined){
             return serviceResponse(500,"Period is not defined, please choose daily/monthly")
         }
@@ -25,6 +26,8 @@ const getPlanningList = async(period,paramsQuery)=>{
             return await dailyPlanningRepository.findAll(paramsBuilder,order)
         }else if(period.toUpperCase() == 'MONTHLY'){
             return await monthlyPlanningRepository.findAll(paramsBuilder,order)
+        }else{
+            return serviceResponse(400,"plan period required")
         }
 
     } catch (error) {
@@ -128,6 +131,49 @@ const updatePlanning = async(id,period,newPlanning)=>{
     }
 }
 
+const getGraphicPlan = async(paramsQuery)=>{
+    try {
+        var responses = []
+        var groupByProductionDate =[]
+
+        var distinctProdDate = [
+           'production_date','start_production','finish_production'
+        ]
+
+        var params = {
+            production_date : paramsQuery.production_date,
+            start_production: paramsQuery.start_production,
+            finish_production: paramsQuery.finish_production
+        }
+
+        var plans = await dailyPlanningRepository.findLineNumberByProductionTimes(params);
+
+        if(plans.code != 200){
+            throw new Error(plans.message)
+        }
+
+        var lineNumbers = []
+        
+        for(let plan of plans.content){
+            lineNumbers.push({
+                line_number:plan.line_number
+            })
+        }
+
+        var planGrouped = {
+            production_date : paramsQuery.production_date,
+            start_production : paramsQuery.start_production,
+            finish_production :paramsQuery.finish_production,
+            data : lineNumbers
+        }
+
+        return serviceResponse(200,"success",planGrouped)
+        
+    } catch (error) {
+        return serviceResponse(500,error.message)
+    }
+}
+
 
 const importPlanning = async (period,file)=>{
     try {
@@ -183,5 +229,6 @@ module.exports = {
     updatePlanning,
     getPlanningById,
     addPlanning,
-    importPlanning
+    importPlanning,
+    getGraphicPlan
 }
