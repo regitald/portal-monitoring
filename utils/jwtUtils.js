@@ -12,7 +12,10 @@ const generateAuthUserToken = async(user)=>{
         user_id : user.id,
         email : user.email,
         username : user.username,
-        role : user.role.id
+    }
+
+    if(user.role != null){
+        data.role_id = user.role.id
     }
 
     const token = await jwt.sign(data, keys,{
