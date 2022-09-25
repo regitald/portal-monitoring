@@ -6,6 +6,7 @@ const { getPlanArrObj } = require('../../models/objects/plan');
 const {convertToJson} = require('../../utils/xlsxConverter')
 const {getHourAndMinutesFromDate,getDateFromDateTime, getRoundedDateFromDateTime} =  require('../../utils/dateUtils')
 const {buildCondition,fetchSortBy} = require('../../repositories/conditionBuilder/knexConditionBuilder')
+const lineNumberRepository = require('../../repositories/lineNumbersRepository');
 
 const getPlanningList = async(period,paramsQuery)=>{
     try {
@@ -134,46 +135,53 @@ const updatePlanning = async(id,period,newPlanning)=>{
 const getGraphicPlan = async(paramsQuery)=>{
     try {
         var responses = []
-        var groupByProductionDate =[]
+        var machineList = await lineNumberRepository.findAll()
 
-        var distinctProdDate = [
-           'production_date','start_production','finish_production'
-        ]
+        for(let machine of machineList.content){
+            var lineNumber = machine.type +"/"+machine.name
+            var params = {
+                line_number : lineNumber
+            }
+    
+            var plans = await dailyPlanningRepository.findAll(params,[]);
 
-        var params = {
-            production_date : paramsQuery.production_date,
-            start_production: paramsQuery.start_production,
-            finish_production: paramsQuery.finish_production
-        }
+            if(plans.code != 200){
+                throw new Error(plans.message)
+            }
+            
+            var data = []
+            
+            for(let plan of plans.content){
+                var filteredPlan = await filterPlanGraphicRespnse(plan)
+                data.push(filteredPlan)
+            }
 
-        var plans = await dailyPlanningRepository.findLineNumberByProductionTimes(params);
-
-        if(plans.code != 200){
-            throw new Error(plans.message)
-        }
-
-        var lineNumbers = []
-        
-        for(let plan of plans.content){
-            lineNumbers.push({
-                line_number:plan.line_number
+            responses.push({
+                line_number : lineNumber,
+                data
             })
         }
 
-        var planGrouped = {
-            production_date : paramsQuery.production_date,
-            start_production : paramsQuery.start_production,
-            finish_production :paramsQuery.finish_production,
-            data : lineNumbers
-        }
-
-        return serviceResponse(200,"success",planGrouped)
+        return serviceResponse(200,"success",responses)
         
     } catch (error) {
         return serviceResponse(500,error.message)
     }
 }
 
+const filterPlanGraphicRespnse = async(plan)=>{
+    try {
+        return {
+            no_mo: plan.no_mo,
+            production_date : plan.production_date,
+            start_production : plan.start_production,
+            finish_production : plan.finish_production,
+            status : plan.status
+        }
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}
 
 const importPlanning = async (period,file)=>{
     try {
