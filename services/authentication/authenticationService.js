@@ -26,10 +26,13 @@ const login = async (userReq)=>{
             var jwt = await jwtGenerator.generateAuthUserToken(user.content);
             var authResponse = {
                 id : userContent.id, 
-                fullname : userContent.first_name +" "+ userContent.fullname,
+                fullname : userContent.first_name +" "+ 
+                userContent.last_name != null ? userContent.last_name : "",
                 email : userContent.email,
                 status : userContent.status,
                 role_id : userContent.role != null ? userContent.role.id : userContent.role,
+                role_name : userContent.role != null ? userContent.role.name : "",
+                permissions : userContent.role != null ? userContent.role.permissions : "",
                 token : jwt
             }
             return serviceResponse(200,"success",authResponse)

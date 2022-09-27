@@ -1,0 +1,2122 @@
+{
+	"info": {
+		"_postman_id": "1718a38d-87d3-4bc8-b5ed-f09f1db3cab2",
+		"name": "Portal Monitoring",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6669607"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users?first_name=dadang",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "first_name",
+									"value": "dadang"
+								},
+								{
+									"key": "username",
+									"value": "12323",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "amdtkj1122@yopmail.com",
+									"disabled": true
+								},
+								{
+									"key": "phone_number",
+									"value": "082125573466143",
+									"disabled": true
+								},
+								{
+									"key": "created_at_from",
+									"value": "2022-09-13",
+									"disabled": true
+								},
+								{
+									"key": "created_at_to",
+									"value": "2023-09-15",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "id,desc",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "first_name,desc",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 ok",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/users",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "3177"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"c69-58vtqWl6jEWJmwONaHLEpK5fdRo\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 01 Sep 2022 02:09:36 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"succes\",\n    \"content\": [\n        {\n            \"id\": 17,\n            \"first_name\": \"Ahmad\",\n            \"last_name\": \"Mardiana\",\n            \"username\": \"ahmad1m1\",\n            \"email\": \"amdtkj11@yopmail.com\",\n            \"phone_number\": \"0821255734661\",\n            \"password\": \"$2b$10$9ElOQlhwqAmHVRBRHsA5T./fQIu.g8tReg/GDqQbPHQk4JsWHctca\",\n            \"bio\": null,\n            \"location\": null,\n            \"status\": null,\n            \"verified\": null,\n            \"verified_at\": null,\n            \"reset_password_token\": null,\n            \"created_at\": \"2022-08-31T08:44:13.000Z\",\n            \"updated_at\": \"2022-08-31T08:44:13.000Z\",\n            \"deleted_at\": null,\n            \"roles\": []\n        },\n        {\n            \"id\": 18,\n            \"first_name\": \"Ahmad\",\n            \"last_name\": \"Mardiana\",\n            \"username\": \"ahmad1m12\",\n            \"email\": \"amdtkj112@yopmail.com\",\n            \"phone_number\": \"08212557346614\",\n            \"password\": \"$2b$10$xAEelpx/qLO5tzJ6WAHppeDBPhXc6jszwVVDXYhewbovWrYL1MD4S\",\n            \"bio\": null,\n            \"location\": null,\n            \"status\": null,\n            \"verified\": null,\n            \"verified_at\": null,\n            \"reset_password_token\": null,\n            \"created_at\": \"2022-08-31T08:55:44.000Z\",\n            \"updated_at\": \"2022-08-31T08:55:44.000Z\",\n            \"deleted_at\": null,\n            \"roles\": []\n        },\n        {\n            \"id\": 19,\n            \"first_name\": \"Ahmad\",\n            \"last_name\": \"Mardiana\",\n            \"username\": \"ahmad1m112\",\n            \"email\": \"amdtkj1122@yopmail.com\",\n            \"phone_number\": \"082125573466143\",\n            \"password\": \"$2b$10$i92khx0KTyA8H//1EOLcJu7dU8P4.hVlH9ZhxvEh0z4IQX3cxhAJy\",\n            \"bio\": null,\n            \"location\": null,\n            \"status\": null,\n            \"verified\": null,\n            \"verified_at\": null,\n            \"reset_password_token\": null,\n            \"created_at\": \"2022-08-31T08:57:20.000Z\",\n            \"updated_at\": \"2022-08-31T08:57:20.000Z\",\n            \"deleted_at\": null,\n            \"roles\": []\n        },\n        {\n            \"id\": 20,\n            \"first_name\": \"Ahmad\",\n            \"last_name\": \"Mardiana\",\n            \"username\": \"ahmad11m112\",\n            \"email\": \"amdtkj11122@yopmail.com\",\n            \"phone_number\": \"0821255734616143\",\n            \"password\": \"$2b$10$X4sXrZh8sJb8hW6d7OvUOu3VQ7d0KymRILZh/aKOXX4rCMxan1Mie\",\n            \"bio\": null,\n            \"location\": null,\n            \"status\": null,\n            \"verified\": null,\n            \"verified_at\": null,\n            \"reset_password_token\": null,\n            \"created_at\": \"2022-08-31T09:25:15.000Z\",\n            \"updated_at\": \"2022-08-31T09:25:15.000Z\",\n            \"deleted_at\": null,\n            \"roles\": []\n        },\n        {\n            \"id\": 35,\n            \"first_name\": \"Ahmad\",\n            \"last_name\": \"Mardiana\",\n            \"username\": \"ahmad111m112\",\n            \"email\": \"amdtkj121122@yopmail.com\",\n            \"phone_number\": \"08212255734616143\",\n            \"password\": \"$2b$10$ygiA5QOxTfc0.aFBlVy7Q./LKwuQnqW79inlkqE/fPG66XHhCWi6W\",\n            \"bio\": null,\n            \"location\": null,\n            \"status\": null,\n            \"verified\": null,\n            \"verified_at\": null,\n            \"reset_password_token\": null,\n            \"created_at\": \"2022-08-31T13:22:56.000Z\",\n            \"updated_at\": \"2022-08-31T13:22:56.000Z\",\n            \"deleted_at\": null,\n            \"roles\": [\n                {\n                    \"id\": 8,\n                    \"name\": \"SUPER_ADMIN\",\n                    \"is_active\": true,\n                    \"created_at\": \"2022-08-31T13:23:37.000Z\",\n                    \"updated_at\": \"2022-08-31T13:23:37.000Z\",\n                    \"deleted_at\": null,\n                    \"role_user\": {\n                        \"id\": 10,\n                        \"user_id\": 35,\n                        \"role_id\": 8,\n                        \"created_at\": \"2022-08-31T16:11:01.000Z\",\n                        \"updated_at\": \"2022-08-31T16:11:01.000Z\"\n                    },\n                    \"permissions\": []\n                }\n            ]\n        },\n        {\n            \"id\": 36,\n            \"first_name\": \"Dun\",\n            \"last_name\": \"Dun\",\n            \"username\": \"dundun\",\n            \"email\": \"amdtkj55@yopmail.com\",\n            \"phone_number\": \"0821225573323\",\n            \"password\": \"$2b$10$ypv2p2oBVqZ5yO7jTrmZAuU63882lO8vaS8Yg74NhIn1JVofViHLe\",\n            \"bio\": null,\n            \"location\": null,\n            \"status\": null,\n            \"verified\": null,\n            \"verified_at\": null,\n            \"reset_password_token\": null,\n            \"created_at\": \"2022-09-01T02:01:54.000Z\",\n            \"updated_at\": \"2022-09-01T02:01:54.000Z\",\n            \"deleted_at\": null,\n            \"roles\": [\n                {\n                    \"id\": 5,\n                    \"name\": \"Developer\",\n                    \"is_active\": true,\n                    \"created_at\": \"2022-08-31T08:12:52.000Z\",\n                    \"updated_at\": \"2022-08-31T08:12:52.000Z\",\n                    \"deleted_at\": null,\n                    \"role_user\": {\n                        \"id\": 16,\n                        \"user_id\": 36,\n                        \"role_id\": 5,\n                        \"created_at\": \"2022-09-01T02:01:54.000Z\",\n                        \"updated_at\": \"2022-09-01T02:01:54.000Z\"\n                    },\n                    \"permissions\": []\n                }\n            ]\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "add user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"Dadang\",\n    \"last_name\": \"Dudung\",\n    \"username\": \"dadang222\",\n    \"email\": \"dadang223@yopmail.com\",\n    \"phone_number\": \"08212553122233\",\n    \"password\": \"password\",\n    \"role_id\":5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "409 conflict",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"first_name\": \"Mardiana\",\n    \"last_name\": \"Ahmad\",\n    \"username\": \"ahmad111m112\",\n    \"email\": \"amdtkj121122@yopmail.com\",\n    \"phone_number\": \"08212255734616143\",\n    \"password\": \"123456789\",\n    \"roles\": [\n        {\n            \"id\": \"5\",\n            \"name\": \"DEVELOPER\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/users",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "46"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2e-UC6iNovf+94Im/SIhry3gKStQ2c\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 01 Sep 2022 01:59:22 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"user with ahmad111m112 is exists\"\n}"
+						},
+						{
+							"name": "200 ok",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"first_name\": \"Dun\",\n    \"last_name\": \"Dun\",\n    \"username\": \"dundun\",\n    \"email\": \"amdtkj55@yopmail.com\",\n    \"phone_number\": \"0821225573323\",\n    \"password\": \"password\",\n    \"roles\": [\n        {\n            \"id\": \"5\",\n            \"name\": \"DEVELOPER\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/users",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "21"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"15-ga8EF/lp+ThIsc8w/OHbk4hPrME\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 01 Sep 2022 02:01:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "update user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\":true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "43"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "409 conflict",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"first_name\": \"Mardiana\",\n    \"last_name\": \"Ahmad\",\n    \"username\": \"ahmad111m112\",\n    \"email\": \"amdtkj121122@yopmail.com\",\n    \"phone_number\": \"08212255734616143\",\n    \"password\": \"123456789\",\n    \"roles\": [\n        {\n            \"id\": \"5\",\n            \"name\": \"DEVELOPER\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/users",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "46"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2e-UC6iNovf+94Im/SIhry3gKStQ2c\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 01 Sep 2022 01:59:22 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"user with ahmad111m112 is exists\"\n}"
+						},
+						{
+							"name": "200 ok",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"first_name\": \"Dun\",\n    \"last_name\": \"Dun\",\n    \"username\": \"dundun\",\n    \"email\": \"amdtkj55@yopmail.com\",\n    \"phone_number\": \"0821225573323\",\n    \"password\": \"password\",\n    \"roles\": [\n        {\n            \"id\": \"5\",\n            \"name\": \"DEVELOPER\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/users",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "21"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"15-ga8EF/lp+ThIsc8w/OHbk4hPrME\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 01 Sep 2022 02:01:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"success\"\n}"
+						}
+					]
+				},
+				{
+					"name": "get user by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "43"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "404 not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/users/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "15"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "28"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1c-AvgRziILRQT4TS+D2lz8Y9KAAHo\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 01 Sep 2022 02:11:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"user not found\"\n}"
+						},
+						{
+							"name": "200 ok",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/users/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "35"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "755"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2f3-vzytkMsPbamsW5UFOjmHhEaI84A\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 01 Sep 2022 02:11:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"succes\",\n    \"content\": {\n        \"id\": 35,\n        \"first_name\": \"Ahmad\",\n        \"last_name\": \"Mardiana\",\n        \"username\": \"ahmad111m112\",\n        \"email\": \"amdtkj121122@yopmail.com\",\n        \"phone_number\": \"08212255734616143\",\n        \"password\": \"$2b$10$ygiA5QOxTfc0.aFBlVy7Q./LKwuQnqW79inlkqE/fPG66XHhCWi6W\",\n        \"bio\": null,\n        \"location\": null,\n        \"status\": null,\n        \"verified\": null,\n        \"verified_at\": null,\n        \"reset_password_token\": null,\n        \"created_at\": \"2022-08-31T13:22:56.000Z\",\n        \"updated_at\": \"2022-08-31T13:22:56.000Z\",\n        \"deleted_at\": null,\n        \"roles\": [\n            {\n                \"id\": 8,\n                \"name\": \"SUPER_ADMIN\",\n                \"is_active\": true,\n                \"created_at\": \"2022-08-31T13:23:37.000Z\",\n                \"updated_at\": \"2022-08-31T13:23:37.000Z\",\n                \"deleted_at\": null,\n                \"role_user\": {\n                    \"id\": 10,\n                    \"user_id\": 35,\n                    \"role_id\": 8,\n                    \"created_at\": \"2022-08-31T16:11:01.000Z\",\n                    \"updated_at\": \"2022-08-31T16:11:01.000Z\"\n                },\n                \"permissions\": []\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "41"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Role",
+			"item": [
+				{
+					"name": "get all roles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/roles",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add role",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"OPERATOR\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/roles",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit role",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"ADMIN_OPERATOR\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/roles/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"roles",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "12"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "role by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/roles/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"roles",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "12"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "role",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/roles/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"roles",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "12"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Permission",
+			"item": [
+				{
+					"name": "get all permission",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/permission",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"permission"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "assign role to permission Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"role_id\": 8,\n    \"permissions\": [\n        {\n            \"menu_id\": 1,\n            \"permission_ids\": [\n                0,\n                1,\n                0,\n                1,\n                0\n            ]\n        },\n        {\n            \"menu_id\": 2,\n            \"permission_ids\": [\n                0,\n                0,\n                0,\n                0,\n                0\n            ]\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/permission",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"permission"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Menu",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"role_id\" : 1, //int relation to table roles\r\n    \"permisions\" : [\r\n        {\r\n            \"menu_id\" : 1, //int relation to table menu\r\n            \"permission_ids\" : [0,1,1,0,1] // store to column view,detail,create,edit,delete with type enum (true.false)  \r\n        },\r\n        {\r\n            \"menu_id\" : 2, //int relation to table menu\r\n            \"permission_ids\" : [1,1,0,0,1] // store to column view,detail,create,edit,delete with type enum (true.false) \r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/role/permission",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"role",
+								"permission"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Menu Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/menu",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"menu"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"menu fetched\",\n    \"data\" :  [\n        {\n            \"menu_id\" : 1,\n            \"type\" : \"dashboard-1\",\n            \"menu\" : \"User\",\n            \"url\" : \"/user\"\n        },\n        {\n            \"menu_id\" :2,\n            \"type\" : \"dashboard-2\",\n            \"menu\" : \"Role\",\n            \"url\" : \"/role\"\n        },\n        {\n            \"menu_id\" :3,\n            \"type\" : \"dashboard-3\",\n            \"menu\" : \"Daily Planning\",\n            \"url\" : \"/planning\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Get Menu Failed",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/menu",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"menu"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 3201,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Bogor\"\n    },\n    {\n        \"id\": 3202,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Sukabumi\"\n    },\n    {\n        \"id\": 3203,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Cianjur\"\n    },\n    {\n        \"id\": 3204,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Bandung\"\n    },\n    {\n        \"id\": 3205,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Garut\"\n    },\n    {\n        \"id\": 3206,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Tasikmalaya\"\n    },\n    {\n        \"id\": 3207,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Ciamis\"\n    },\n    {\n        \"id\": 3208,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Kuningan\"\n    },\n    {\n        \"id\": 3209,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Cirebon\"\n    },\n    {\n        \"id\": 3210,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Majalengka\"\n    },\n    {\n        \"id\": 3211,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Sumedang\"\n    },\n    {\n        \"id\": 3212,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Indramayu\"\n    },\n    {\n        \"id\": 3213,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Subang\"\n    },\n    {\n        \"id\": 3214,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Purwakarta\"\n    },\n    {\n        \"id\": 3215,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Karawang\"\n    },\n    {\n        \"id\": 3216,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Bekasi\"\n    },\n    {\n        \"id\": 3217,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Bandung Barat\"\n    },\n    {\n        \"id\": 3218,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kabupaten Pangandaran\"\n    },\n    {\n        \"id\": 3271,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kota Bogor\"\n    },\n    {\n        \"id\": 3272,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kota Sukabumi\"\n    },\n    {\n        \"id\": 3273,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kota Bandung\"\n    },\n    {\n        \"id\": 3274,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kota Cirebon\"\n    },\n    {\n        \"id\": 3275,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kota Bekasi\"\n    },\n    {\n        \"id\": 3276,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kota Depok\"\n    },\n    {\n        \"id\": 3277,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kota Cimahi\"\n    },\n    {\n        \"id\": 3278,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kota Tasikmalaya\"\n    },\n    {\n        \"id\": 3279,\n        \"id_provinsi\": \"32\",\n        \"nama\": \"Kota Banjar\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get Permission",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"role_id\" : 1, //int relation to table roles\r\n    \"permisions\" : [\r\n        {\r\n            \"menu_id\" : 1, //int relation to table menu\r\n            \"permission_ids\" : [0,1,1,0,1] // store to column view,detail,create,edit,delete with type enum (true.false)  \r\n        },\r\n        {\r\n            \"menu_id\" : 2, //int relation to table menu\r\n            \"permission_ids\" : [1,1,0,0,1] // store to column view,detail,create,edit,delete with type enum (true.false) \r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/role/permission",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"role",
+								"permission"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Permission Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/role/permission",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"role",
+										"permission"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"permission fetched\",\n    \"data\" : {\n        \"role_id\" : 1,\n        \"permisions\" : [\n        {\n            \"menu_id\" : 1, //int relation to table menu\n            \"menu\" : \"User\",\n            \"permission_ids\" : [0,1,1,0,1] // store to column view,detail,create,edit,delete with type enum (true.false)  \n        },\n        {\n            \"menu_id\" : 2, //int relation to table menu\n            \"menu\" : \"Role\",\n            \"permission_ids\" : [1,1,0,0,1] // store to column view,detail,create,edit,delete with type enum (true.false) \n        },\n        {\n            \"menu_id\" : 3, //int relation to table menu\n            \"menu\" : \"Planning Daily\",\n            \"permission_ids\" : [1,1,0,0,1] // store to column view,detail,create,edit,delete with type enum (true.false) \n        }\n    ]\n    }\n}"
+						},
+						{
+							"name": "Get Permission Failed",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/role/permission",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"role",
+										"permission"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"failed fetch permission data\",\n    \"data\" : {}\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Permission Role",
+			"item": [
+				{
+					"name": "all permission role",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/permission-role",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"permission-role"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Role Permisson",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"role_id\" : 1, //int relation to table roles\r\n    \"permisions\" : [\r\n        {\r\n            \"menu_id\" : 1, //int relation to table menu\r\n            \"permission_ids\" : [0,1,1,0,1] // store to column view,detail,create,edit,delete with type enum (true.false)  \r\n        },\r\n        {\r\n            \"menu_id\" : 2, //int relation to table menu\r\n            \"permission_ids\" : [1,1,0,0,1] // store to column view,detail,create,edit,delete with type enum (true.false) \r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/role/permission/assign",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"role",
+								"permission",
+								"assign"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Assign Role Permisson",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"role_id\" : 1, //int relation to table roles\r\n    \"permisions\" : [\r\n        {\r\n            \"menu_id\" : 1, //int relation to table menu\r\n            \"permission_ids\" : [0,1,1,0,1] // store to column view,detail,create,edit,delete with type enum (true.false)  \r\n        },\r\n        {\r\n            \"menu_id\" : 2, //int relation to table menu\r\n            \"permission_ids\" : [1,1,0,0,1] // store to column view,detail,create,edit,delete with type enum (true.false) \r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/role/permission/assign",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"role",
+										"permission",
+										"assign"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\r\n    \"status\" : true,\r\n    \"message\" : \"permission successfully updated\"\r\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Menu",
+			"item": [
+				{
+					"name": "all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/permission-role",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"permission-role"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Socket",
+			"item": []
+		},
+		{
+			"name": "Planning",
+			"item": [
+				{
+					"name": "Post Planning | List MO",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"production_date\" : \"2022-01-16T06:39:21.603Z\",\n        \"line_number\" : \"INJECTION/MC06\",\n        \"shift_no\" : \"1\",\n        \"no_mo\" : \"179/PILOC/XII/2021\",\n        \"part_no\" : \"20-0G49BI\",\n        \"part_name\" : \"HOUSING VT01 RH\",\n        \"part_category\" : \"RH\",\n        \"target_production\" : \"300\",\n        \"cycle_time\" : \"86\",\n        \"start_production\" : \"70:30\",\n        \"finish_production\" : \"20:00\",\n        \"work_hour\" : \"480\",\n        \"created_date\" : \"2022-01-25 07:40:48\"    \n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/planning/:period",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"planning",
+								":period"
+							],
+							"variable": [
+								{
+									"key": "period",
+									"value": "monthly",
+									"description": "daily | monthly"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Post Planning",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\" : \"daily | enum (daily |montly)\",\r\n    \"production_date\" : \"datetime Y-m-d\",\r\n    \"line_number\" : \"string| eg : INJECTION/MC06\",\r\n    \"order_id\" : \"number eg :1\", //seharusnya tidak ada di input tapi kalkulasi di result json\r\n    \"shift_no\" : \"number eg : 1\",\r\n    \"no_mo\" : \"string|eg : 179/PILOC/XII/2021\",\r\n    \"part_mo\" : \"string|eg : 20-0G49BI\",\r\n    \"part_name\" : \"string|eg : HOUSING VT01 RH\",\r\n    \"part_category\" : \"string|eg : RH\",\r\n    \"target_production\" : \"number eg : 100\",\r\n    \"cycle_time\" : \"number eg : 30\",\r\n    \"start_production\" : \"time hours eg : 30:00 / hh:ii\",\r\n    \"finish_production\" : \"time hours eg : 30:00 / hh:ii\",\r\n    \"work_hours\" : \"number eg : 30\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/planning",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"planning"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\r\n    \"status\": true,\r\n    \"message\": \"daily planning created\",\r\n    \"data\" :  {\r\n        \"production_date\" : \"2022-01-25\",\r\n        \"line_number\" : \"INJECTION/MC06\",\r\n        \"order_id\" : \"1\", //order_id perhitungan dari jenis part category misal sudah ada part category RH di linenumber,no mo, part no dan part name value selanjutnya jadi 2\r\n        \"shift_no\" : \"1\",\r\n        \"no_mo\" : \"179/PILOC/XII/2021\",\r\n        \"part_mo\" : \"20-0G49BI\",\r\n        \"part_name\" : \"HOUSING VT01 RH\",\r\n        \"part_category\" : \"RH\",\r\n        \"target_production\" : \"300\",\r\n        \"cycle_time\" : \"86\",\r\n        \"start_production\" : \"70:30\",\r\n        \"finish_production\" : \"20:00\",\r\n        \"work_hours\" : \"480\",\r\n        \"status\" : \"open\",\r\n        \"created_date\" : \"2022-01-25 07:40:48\"\r\n    }\r\n}"
+						},
+						{
+							"name": "201",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"production_date\" : \"2022-01-25\",\n        \"line_number\" : \"INJECTION/MC06\",\n        \"shift_no\" : \"1\",\n        \"no_mo\" : \"179/PILOC/XII/2021\",\n        \"part_no\" : \"20-0G49BI\",\n        \"part_name\" : \"HOUSING VT01 RH\",\n        \"part_category\" : \"RH\",\n        \"target_production\" : \"300\",\n        \"cycle_time\" : \"86\",\n        \"start_production\" : \"70:30\",\n        \"finish_production\" : \"20:00\",\n        \"work_hour\" : \"480\",\n        \"created_date\" : \"2022-01-25 07:40:48\"\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/planning",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"planning"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "379"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"17b-k1ClTLQuSmOQY26t8NJFiLC4zYA\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 06 Sep 2022 04:34:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"success\",\n    \"content\": {\n        \"production_date\": \"2022-01-25\",\n        \"line_number\": \"INJECTION/MC06\",\n        \"shift_no\": \"1\",\n        \"no_mo\": \"179/PILOC/XII/2021\",\n        \"part_no\": \"20-0G49BI\",\n        \"part_name\": \"HOUSING VT01 RH\",\n        \"part_category\": \"RH\",\n        \"target_production\": \"300\",\n        \"cycle_time\": \"86\",\n        \"start_production\": \"70:30\",\n        \"finish_production\": \"20:00\",\n        \"work_hour\": \"480\",\n        \"created_date\": \"2022-01-25 07:40:48\",\n        \"order_id\": 5\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Post Import | Planning MO (Table Baru)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "module",
+									"value": "monthly",
+									"description": "planning_monthly | planning daily",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/home/merdoit/Documents/portal-monitoring kontrak/Sample Monthly(1).xlsx"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/planning/import",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"planning",
+								"import"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Post Import",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "module",
+											"value": "planning_monthly",
+											"description": "planning_monthly | planning daily",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"description": "kasih validasi harus xls|xlsx",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/planning/import",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"planning",
+										"import"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\r\n    \"status\": true,\r\n    \"message\": \"monthly planning imported\",\r\n    \"data\" : {\r\n        \"total_imported\" : 3,\r\n        \"total_fail\" : 0\r\n    }\r\n}"
+						}
+					]
+				},
+				{
+					"name": "Maintenance List",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/maintenance",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"maintenance"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Maintenance",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"maintenance_date\" : \"datetime Y-m-d\",\r\n    \"maintener\" : [\"Regita\",\"Sahril\",\"Ahmad\"],\r\n    \"desc\" : \"optional\",\r\n    \"status\" : \"Open\" //default dari BE kalo save lgsg open (open, on progress,done) \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/maintenance",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"maintenance"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\r\n    \"status\": true,\r\n    \"message\": \"maintenance created\",\r\n    \"data\" :  {\r\n        \"maintenance_date\" : \"2022-01-25\",\r\n        \"line_number\":\"INJECTION/MC06/08/08\",\r\n        \"desc\" : \"optional\",\r\n        \"status\" : \"Open\"\r\n    }\r\n}"
+						},
+						{
+							"name": "Update Maintenance",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"maintenance_date\" : \"datetime Y-m-d\",\r\n    \"maintener\" : [\"Regita\"],\r\n    \"desc\" : \"optional\",\r\n    \"status\" : \"Closed\" //default dari BE kalo save lgsg open (open, on progress,done) \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/maintenance/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"maintenance",
+										"1"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\r\n    \"status\": true,\r\n    \"message\": \"maintenance created\",\r\n    \"data\" :  {\r\n        \"maintenance_date\" : \"2022-01-25\",\r\n        \"maintener\" : [\"Regita\"],\r\n        \"desc\" : \"optional\",\r\n        \"status\" : \"Closed\"\r\n    }\r\n}"
+						},
+						{
+							"name": "Get Maintenance",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:3000/api/maintenance?status=enum(open,onprogress,done)&date=2022-01-25",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"maintenance"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "enum(open,onprogress,done)",
+											"description": "//untuk filter by status"
+										},
+										{
+											"key": "date",
+											"value": "2022-01-25",
+											"description": "// untuk filter by date"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\r\n    \"status\": true,\r\n    \"message\": \"daily planning created\",\r\n    \"data\" :  [\r\n        { \r\n            \"maintenance_date\" : \"2022-01-25\",\r\n            \"maintener\" : [\"Regita\",\"Sahril\",\"Ahmad\"],\r\n            \"desc\" : \"optional\",\r\n            \"status\" : \"Open\"\r\n        },\r\n        { \r\n            \"maintenance_date\" : \"2022-01-25\",\r\n            \"maintener\" : [\"Regita\",\"Sahril\",\"Ahmad\"],\r\n            \"desc\" : \"optional\",\r\n            \"status\" : \"Open\"\r\n        },\r\n        { \r\n            \"maintenance_date\" : \"2022-01-25\",\r\n            \"maintener\" : [\"Regita\",\"Sahril\",\"Ahmad\"],\r\n            \"desc\" : \"optional\",\r\n            \"status\" : \"Open\"\r\n        }\r\n\r\n    ]\r\n}"
+						}
+					]
+				},
+				{
+					"name": "get monthly plan by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/planning/:period/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"planning",
+								":period",
+								":id"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "period",
+									"value": "daily"
+								},
+								{
+									"key": "id",
+									"value": "2292"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get daily plan by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/planning/:period/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"planning",
+								":period",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "period",
+									"value": "daily"
+								},
+								{
+									"key": "id",
+									"value": "2279"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all monthly plan",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/planning/:period",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"planning",
+								":period"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "created_at,desc",
+									"disabled": true
+								},
+								{
+									"key": "created_at_from",
+									"value": "2021-10-10",
+									"disabled": true
+								},
+								{
+									"key": "created_at_to",
+									"value": "2022-09-11",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "id,asc",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "period",
+									"value": "monthly"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all daily plan",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/planning/:period?sort=order_id,desc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"planning",
+								":period"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "order_id,desc"
+								},
+								{
+									"key": "sort",
+									"value": "id,asc",
+									"disabled": true
+								},
+								{
+									"key": "no_mo",
+									"value": "123232",
+									"disabled": true
+								},
+								{
+									"key": "line_number",
+									"value": "Rename434",
+									"disabled": true
+								},
+								{
+									"key": "part_name",
+									"value": "test",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "ON_PROGRESS",
+									"disabled": true
+								},
+								{
+									"key": "production_date",
+									"value": "2022-01-09",
+									"disabled": true
+								},
+								{
+									"key": "line_number",
+									"value": "INJECTION/MC06",
+									"disabled": true
+								},
+								{
+									"key": "part_category",
+									"value": "RH",
+									"disabled": true
+								},
+								{
+									"key": "created_at_from",
+									"value": "2022-09-10",
+									"disabled": true
+								},
+								{
+									"key": "created_at_to",
+									"value": "2022-09-11",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "period",
+									"value": "daily"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update mo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"line_number\":\"line hah\",\n    \"production_date\":\"2022-01-09\",\n    \"part_name\":\"test\",\n    \"status\":\"ON_PROGRESS\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/planning/:period/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"planning",
+								":period",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "period",
+									"value": "daily",
+									"description": "daily | monthly"
+								},
+								{
+									"key": "id",
+									"value": "2279"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Import Planning from XLSX",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "module",
+									"value": "daily",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/home/merdoit/Downloads/Input Daily Plan.xlsx"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/planning/import",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"planning",
+								"import"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get graphic plan",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/planning/:period/graphic?production_date_from=2022-01-27&production_date_to=2022-01-30",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"planning",
+								":period",
+								"graphic"
+							],
+							"query": [
+								{
+									"key": "production_date",
+									"value": "2022-01-25",
+									"disabled": true
+								},
+								{
+									"key": "start_production",
+									"value": "07:30",
+									"disabled": true
+								},
+								{
+									"key": "finish_production",
+									"value": "20:00",
+									"disabled": true
+								},
+								{
+									"key": "production_date_from",
+									"value": "2022-01-27"
+								},
+								{
+									"key": "production_date_to",
+									"value": "2022-01-30"
+								}
+							],
+							"variable": [
+								{
+									"key": "period",
+									"value": "daily"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Maintenance",
+			"item": [
+				{
+					"name": "maintenance list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/maintenance?maintenance_date_from=2022-11-10&maintenance_date_to=2022-12-22&sort=created_at,desc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"maintenance"
+							],
+							"query": [
+								{
+									"key": "line_number",
+									"value": "INJECTION/MC26/18/18",
+									"disabled": true
+								},
+								{
+									"key": "maintenance_date_from",
+									"value": "2022-11-10"
+								},
+								{
+									"key": "maintenance_date_to",
+									"value": "2022-12-22"
+								},
+								{
+									"key": "desc",
+									"value": "like(1)",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "close",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "created_at,desc"
+								},
+								{
+									"key": "created_at_from",
+									"value": "2021-01-21",
+									"disabled": true
+								},
+								{
+									"key": "created_at_to",
+									"value": "2021-01-21",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add maintenance",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"maintenance_date\" : \"2022-01-25\",\n    \"line_number\":\"INJECTION/MC26/18/18\",\n    \"desc\" : \"test desc\",\n    \"status\" : \"Open\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/maintenance",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"maintenance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update maintenance",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"maintenance_date\" : \"2022-01-25\",\n    \"line_number\":\"INJECTION/MC06/08/08\",\n    \"desc\" : \"test\",\n    \"status\" : \"Open\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/maintenance/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"maintenance",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "maintenance by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/maintenance/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"maintenance",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"admin\",\n    \"password\":\"admin123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Production Result",
+			"item": [
+				{
+					"name": "Input Data Production Result Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"no_mo\" : \"129/ASSY/X/2020\",\r\n    \"production_date\" : \"2022-09-01\",\r\n    \"line_number\" : \"INJECTION/MC-08\",\r\n    \"part_name\" : \"string\",\r\n    \"part_no\" : \"string\",\r\n    \"part_category\" : \"string\",\r\n    \"total_ok\" : \"50\",\r\n    \"total_ng\" : \"50\",\r\n    \"total_ng_setting\" : \"0\",\r\n    \"total_stopline\" : \"13515\",\r\n    \"total_running_time\" : \"13515\",\r\n    \"NPK\" : \"13515\",\r\n    \"achievement\" : \"57.3\",\r\n    \"availability\" : \"68\",\r\n    \"performance\" : \"76.83\",\r\n    \"quality\" : \"76.83\",\r\n    \"oee\" : \"76.83\",\r\n    \"line\":\"test\",\r\n    \"npk\":\"test\",\r\n    \"shift_no\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/production/result",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"production",
+								"result"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Input Data Production Result",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"no_mo\" : \"string eg : 129/ASSY/X/2020\",\r\n    \"production_date\" : \"datetime\",\r\n    \"line_number\" : \"string eg : INJECTION/MC-08\",\r\n    \"part_name\" : \"string\", //field baru\r\n    \"part_no\" : \"string\",//field baru\r\n    \"part_category\" : \"string\",//field baru\r\n    \"total_ok\" : \"int eg : 50\",\r\n    \"total_ng\" : \"int eg : 50\",\r\n    \"total_ng_setting\" : \"int eg : 0\",\r\n    \"total_stopline\" : \"int eg : 13515\",\r\n    \"total_running_time\" : \"int eg : 13515\",\r\n    \"NPK\" : \"Varchar eg : 13515\",\r\n    \"achivement\" : \"float eg : 57,33\",\r\n    \"availability\" : \"float eg : 68,3\",\r\n    \"performance\" : \"float eg : 76,83\",\r\n    \"quality\" : \"float eg : 76,83\",\r\n    \"oee\" : \"float eg : 76,83\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/production/result",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"production",
+										"result"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "201",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"no_mo\" : \"129/ASSY/X/2020\",\r\n    \"production_date\" : \"2022-09-19\",\r\n    \"line_number\" : \"INJECTION/MC-08\",\r\n    \"part_name\" : \"string\",\r\n    \"part_no\" : \"string\",\r\n    \"part_category\" : \"string\",\r\n    \"total_ok\" : \"50\",\r\n    \"total_ng\" : \"50\",\r\n    \"total_ng_setting\" : \"0\",\r\n    \"total_stopline\" : \"13515\",\r\n    \"total_running_time\" : \"13515\",\r\n    \"NPK\" : \"13515\",\r\n    \"achievement\" : \"57.3\",\r\n    \"availability\" : \"68\",\r\n    \"performance\" : \"76.83\",\r\n    \"quality\" : \"76.83\",\r\n    \"oee\" : \"76.83\",\r\n    \"line\":\"test\",\r\n    \"npk\":\"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/production/result",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"production",
+										"result"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "323"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"143-yvBn/iHKhh0By37qHGZiwzkoxT4\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 19 Sep 2022 16:11:07 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"success\",\n    \"content\": [\n        {\n            \"id\": 50292,\n            \"no_mo\": \"129/ASSY/X/2020\",\n            \"total_ok\": 50,\n            \"total_ng\": 50,\n            \"total_ng_setting\": 0,\n            \"total_running_time\": 13515,\n            \"total_stopline\": 13515,\n            \"npk\": \"test\",\n            \"line\": \"test\",\n            \"achievement\": 57.3,\n            \"availability\": 68,\n            \"performance\": 76.83,\n            \"quality\": 76.83,\n            \"oee\": 76.83,\n            \"created_at\": \"2022-09-19T16:11:05.000Z\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Detail Machine Progres",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/production/result",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"production",
+								"result"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "49869",
+									"disabled": true
+								},
+								{
+									"key": "production_date_from",
+									"value": "2022-01-01",
+									"disabled": true
+								},
+								{
+									"key": "production_date_to",
+									"value": "2022-01-010",
+									"disabled": true
+								},
+								{
+									"key": "created_at_from",
+									"value": "2022-01-05",
+									"disabled": true
+								},
+								{
+									"key": "created_at_to",
+									"value": "2022-02-07",
+									"disabled": true
+								},
+								{
+									"key": "npk",
+									"value": "0615",
+									"disabled": true
+								},
+								{
+									"key": "line",
+									"value": "INJECTION/MC05",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "id,asc",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "total_ok,asc",
+									"disabled": true
+								},
+								{
+									"key": "shift_no",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "no_mo",
+									"value": "EMERGENCY",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,4 +1,4 @@
-const { roles, permissions,role_user, menu } = require('./initDatabaseModel')
+const { roles, permissions,role_user, menu, permission_role } = require('./initDatabaseModel')
 const userModel = require('./initDatabaseModel').users
 const serviceResponse = require('../models/responses/serviceResponse')
 
@@ -85,7 +85,10 @@ const findByUserName = async(username)=>{
                     model : roles,
                     as : 'role',
                     include : [
-                        permissions
+                        {
+                            model: permissions,
+                            through: {attributes : []}
+                        }
                     ]
                 }
             ]

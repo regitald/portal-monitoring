@@ -10,6 +10,15 @@ const findAll = async (params,order)=>{
     }
 }
 
+const findById = async(id)=>{
+    try {
+        var maintenance = await knex('maintenance').where({id})
+        return serviceResponse(200,'',maintenance)
+    } catch (error) {
+        return serviceResponse(500,error.message)
+    }  
+}
+
 const save = async(maintenance)=>{
     try {
         var {
@@ -44,5 +53,6 @@ const update = async(id,maintenance)=>{
 module.exports = {
     findAll,
     save,
-    update
+    update,
+    findById
 }

@@ -1,6 +1,4 @@
 const baseResponse = require("../../models/responses/baseResponse")
-const { update } = require("../../repositories/maintenanceRepository")
-
 const maintenanceService = require('../../services/maintenance/maintenanceService')
 
 const getMaintenanceList = async(req,res,next)=>{
@@ -34,8 +32,19 @@ const updatedMaintenance = async(req,res,next)=>{
     }
 }
 
+const getMaintenanceById = async(req,res,next)=>{
+    try {
+        var {id} = req.params
+        var maintenance = await maintenanceService.getMaintenanceById(id)
+        res.status(maintenance.code).send(baseResponse(maintenance.message,maintenance.content))
+    } catch (error) {
+        res.status(500).send(baseResponse(error.message))
+    }
+}
+
 module.exports = {
     getMaintenanceList,
     addMaintenance,
-    updatedMaintenance
+    updatedMaintenance,
+    getMaintenanceById
 }

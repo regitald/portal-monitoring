@@ -3,6 +3,16 @@ const serviceResponse = require('../../models/responses/serviceResponse')
 const maintenanceRepository = require('../../repositories/maintenanceRepository')
 const {fetchSortBy,buildCondition} = require('../../repositories/conditionBuilder/knexConditionBuilder')
 
+
+const getMaintenanceById = async(id)=>{
+    try {
+        var maintenance = await maintenanceRepository.findById(id)
+        return maintenance
+    } catch (error) {
+        return serviceResponse(500,error.message)
+    }
+}
+
 const getAllMaintenanceList = async (paramsQuery)=>{
     try {
 
@@ -46,5 +56,6 @@ const updatedMaintenance = async(id,maintenanceReq)=>{
 module.exports = {
     getAllMaintenanceList,
     addMaintenance,
-    updatedMaintenance
+    updatedMaintenance,
+    getMaintenanceById
 }
