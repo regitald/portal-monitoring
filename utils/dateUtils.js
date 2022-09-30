@@ -31,7 +31,7 @@ const getDateFromDateTime = async(dateTime)=>{
     return year.toString() + "-"+ newMonth.toString() + "-"+ newDate.toString()
 }
 
-//case when date from excel parsed to date become less 12 ms from the right date
+//case when date from excel parsed to date become less 12 ms from the correct datetime
 const getRoundedDateFromDateTime = async(dateTime)=>{
     dateTime.setSeconds(dateTime.getSeconds() + 30)
     dateTime.setSeconds(0)

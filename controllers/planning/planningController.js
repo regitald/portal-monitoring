@@ -34,8 +34,7 @@ const addPlanning = async(req,res,next)=>{
 
 const importPlanning = async(req,res,next)=>{
     try {
-        var {module,testDate} = req.body
-        console.log(testDate);
+        var {module} = req.body
         var {file} = req.files
         var addPlan = await planningService.importPlanning(module,file)
         res.status(addPlan.code).send(baseResponse(addPlan.message,addPlan.content))

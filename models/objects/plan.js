@@ -19,7 +19,7 @@ const getPlanObj = ({production_date,line_number,shift_no,no_mo,part_no,
 }
 
 const getPlanArrObj = ()=>{
-    return[ 
+    return [ 
         "production_date",
         "shift_no",
         "line_number",

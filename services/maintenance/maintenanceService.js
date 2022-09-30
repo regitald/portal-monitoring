@@ -2,6 +2,8 @@ const {getMaintenanceArrObj,getMaintenanceObj} = require('../../models/objects/m
 const serviceResponse = require('../../models/responses/serviceResponse')
 const maintenanceRepository = require('../../repositories/maintenanceRepository')
 const {fetchSortBy,buildCondition} = require('../../repositories/conditionBuilder/knexConditionBuilder')
+const { convertToJson } = require('../../utils/xlsxConverter')
+const { getRoundedDateFromDateTime } = require('../../utils/dateUtils')
 
 
 const getMaintenanceById = async(id)=>{
@@ -52,10 +54,47 @@ const updatedMaintenance = async(id,maintenanceReq)=>{
     }
 }
 
+const importMaintenance = async(file)=>{
+    try {
+        var inserted = 0;
+        var failed = 0;
+        var messages = []
+        var resData = []
+        var model = getMaintenanceArrObj();
+        var maintenances = await convertToJson(file.data,model)
+        var counter = 0
+        for(let maintenance of maintenances){
+            var message = "data "+counter+" ";
+
+            maintenance.maintenance_date = await getRoundedDateFromDateTime(
+                new Date(maintenance.maintenance_date))
+            var added = await addMaintenance(maintenance)
+            if(added.code == 201){
+                inserted++;
+            }else{
+                failed++
+            }
+            message += added.message
+            messages.push(message)
+            resData.push(maintenance)
+            counter++
+        }
+        var response = {
+            inserted,
+            failed,
+            data : resData
+        }
+        return serviceResponse(201,messages,response)
+    } catch (error) {
+        return serviceResponse(500,error.message)
+    }
+}
+
 
 module.exports = {
     getAllMaintenanceList,
     addMaintenance,
     updatedMaintenance,
-    getMaintenanceById
+    getMaintenanceById,
+    importMaintenance
 }

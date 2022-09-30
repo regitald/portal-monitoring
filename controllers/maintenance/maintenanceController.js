@@ -42,9 +42,20 @@ const getMaintenanceById = async(req,res,next)=>{
     }
 }
 
+const importMaintenance = async(req,res,next)=>{
+    try {
+        var {file} = req.files
+        var importMaintenance = await maintenanceService.importMaintenance(file)
+        res.status(importMaintenance.code).send(baseResponse(importMaintenance.message,importMaintenance.content))
+    } catch (error) {
+        res.status(500).send(baseResponse(error.message))
+    }
+}
+
 module.exports = {
     getMaintenanceList,
     addMaintenance,
     updatedMaintenance,
-    getMaintenanceById
+    getMaintenanceById,
+    importMaintenance
 }
