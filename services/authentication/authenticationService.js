@@ -25,7 +25,8 @@ const login = async (userReq)=>{
             var userContent = user.content
             var jwt = await jwtGenerator.generateAuthUserToken(user.content);
             var authResponse = {
-                id : userContent.id, 
+                id : userContent.id,
+                username : userContent.username, 
                 fullname : userContent.first_name +" "+ 
                 userContent.last_name != null ? userContent.last_name : "",
                 email : userContent.email,
