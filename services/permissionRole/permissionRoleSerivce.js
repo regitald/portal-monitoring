@@ -18,7 +18,7 @@ const getPermissionRoleById = async (id)=>{
     }
 }
 
-const addPermissionRole = async (permissionRole)=>{
+const addPermissionRoleRole = async (permissionRole)=>{
     try {
         var permissionRoleAdded = await permissionRoleRepository.save(permissionRole);
         return permissionRoleAdded
@@ -39,6 +39,6 @@ const updatePermissionRole = async(id,permissionRole)=>{
 module.exports = {
     getAllPermissionRole,
     getPermissionRoleById,
-    addPermissionRole,
+    addPermissionRoleRole,
     updatePermissionRole
 }

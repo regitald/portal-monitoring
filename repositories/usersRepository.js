@@ -87,7 +87,11 @@ const findByUserName = async(username)=>{
                     include : [
                         {
                             model: permissions,
-                            through: {attributes : []}
+                            through: {attributes : []},
+                            include : {
+                                model: menu,
+                                as : 'menu'
+                            }                        
                         }
                     ]
                 }

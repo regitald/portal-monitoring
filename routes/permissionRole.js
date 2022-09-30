@@ -3,12 +3,12 @@ var router = express.Router();
 var {
     getAllPermissionRole,
     getPermissionRoleById,
-    addPermissionRole,
+    addPermissionRoleRole,
     updatePermissionRole
 } = require('../controllers/permissionRole/permissionRoleController')
 
 router.get('/',getAllPermissionRole)
-router.post('/',addPermissionRole)
+router.post('/',addPermissionRoleRole)
 router.get('/:id',getPermissionRoleById)
 router.put('/:id',updatePermissionRole)
 

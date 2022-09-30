@@ -16,18 +16,32 @@ const savePermissionAndRole = async (role_id,permissionsArr)=>{
     try {
         var transaction = await sequelize.transaction(async(t)=>{
             for(let i = 0; i < permissionsArr.length ; i ++){
-                var createPermission = await permissionsModel.create(permissionsArr[i],{
-                    transaction:t
-                })
+                var permissionId; 
+                var isPermissionExists = await permissionsModel.findAll({where:{
+                    menu_id : permissionsArr[i].menu_id,
+                    view : permissionsArr[i].view,
+                    detail : permissionsArr[i].detail,
+                    create : permissionsArr[i].create,
+                    edit : permissionsArr[i].edit,
+                    delete : permissionsArr[i].delete,
+                }})
 
-                if(createPermission.dataValues){
-                    await permission_role.create({
-                        role_id:role_id,
-                        permission_id:createPermission.dataValues.id
-                    },{
+                if(isPermissionExists == undefined){
+                    var createPermission = await permissionsModel.create(permissionsArr[i],{
                         transaction:t
                     })
+                    permissionId = createPermission.dataValues.id
+                }else{
+                    permissionId = isPermissionExists[0].dataValues.id
                 }
+
+                await permission_role.create({
+                    role_id:role_id,
+                    permission_id:permissionId
+                },{
+                    transaction:t
+                })
+            
             }
         })
         return serviceReponse(201,"success")

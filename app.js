@@ -13,12 +13,14 @@ var logUserActivityMiddleware = require('./controllers/userActivity/userActivity
 var productionResultRouter = require('./routes/productionResult')
 var maintenanceRouter = require('./routes/maintenance')
 var fileUpload = require('express-fileupload');
+var {createDoc} = require('./utils/PdfGenerator/pdfGenerator')
+var cors = require('cors')
 
 var baseResponse = require('./models/responses/baseResponse')
 var app = express();
+app.use(cors())
 
 app.use(fileUpload({
-  tempFileDir : 'tmp',
   createParentPath: true
 }));
 
@@ -55,4 +57,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500).send(baseResponse("endpoint not available"));
 });
 
+createDoc()
 module.exports = app;

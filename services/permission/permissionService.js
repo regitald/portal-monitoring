@@ -19,7 +19,7 @@ const getPermissionById = async (id)=>{
     }
 }
 
-const addPermission = async (permissionsAndRoles)=>{
+const addPermissionRole = async (permissionsAndRoles)=>{
     try {
 
         var {
@@ -40,8 +40,8 @@ const addPermission = async (permissionsAndRoles)=>{
             permissionToAdd.delete = permission_ids[4]
             permissionArr.push(permissionToAdd)
         }
-        var addPermissionAndRole = await permissionRepository.savePermissionAndRole(role_id,permissionArr)
-        return addPermissionAndRole
+        var addPermissionRoleAndRole = await permissionRepository.savePermissionAndRole(role_id,permissionArr)
+        return addPermissionRoleAndRole
     } catch (error) {
         return serviceResponse(500,err.message)
     }
@@ -59,6 +59,6 @@ const updatePermission = async(id,permission)=>{
 module.exports = {
     getAllPermissions,
     getPermissionById,
-    addPermission,
+    addPermissionRole,
     updatePermission
 }

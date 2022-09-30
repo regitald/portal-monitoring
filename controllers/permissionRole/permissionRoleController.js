@@ -24,10 +24,10 @@ const getPermissionRoleById = async (req,res,next)=>{
     }
 }
 
-const addPermissionRole = async (req,res,next)=>{
+const addPermissionRoleRole = async (req,res,next)=>{
     try {
         var permissionRole = req.body
-        var permissionRoleAdded = await permissionRoleService.addPermissionRole(permissionRole);
+        var permissionRoleAdded = await permissionRoleService.addPermissionRoleRole(permissionRole);
         res.status(201).send(response("success"));
     } catch (error) {
         res.status(500).send("error : "+error)
@@ -48,6 +48,6 @@ const updatePermissionRole = async(req,res,next)=>{
 module.exports = {
     getAllPermissionRole,
     getPermissionRoleById,
-    addPermissionRole,
+    addPermissionRoleRole,
     updatePermissionRole
 }
