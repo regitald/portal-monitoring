@@ -8,6 +8,109 @@ const createDoc = async ()=>{
   var PdfPrinter = require('pdfmake');
   var printer = new PdfPrinter(Roboto);
   var fs = require('fs');
+  var rows = [
+    [
+      {
+        style : 'body',
+        text:'07:00'
+      },{
+        style : 'body',
+        text:'08:00'
+      },{
+        style : 'body',
+        text:'C'
+      },'',{
+        style : 'body',
+        text:'D'
+      },{
+        style : 'body',
+        text:'E'
+      },{
+        style : 'body',
+        text:'F'
+      },{
+        style : 'body',
+        text:'G'
+      },{
+        style : 'body',
+        text:'H'
+      },{
+        style : 'body',
+        text:'I'
+      },{
+        style : 'body',
+        text:'J'
+      },{
+        style : 'body',
+        text:'K'
+      },{
+        style : 'body',
+        text:'L'
+      },{
+        style : 'body',
+        text:'M'
+      },{
+        style : 'body',
+        text:'N'
+      },{
+        style : 'body',
+        text:'O'
+      },{
+        style : 'body',
+        text:'P'
+      }],
+      [
+        {
+          style : 'body',
+          text:'08:00'
+        },{
+          style : 'body',
+          text:'09:00'
+        },{
+          style : 'body',
+          text:'C'
+        },'',{
+          style : 'body',
+          text:'D'
+        },{
+          style : 'body',
+          text:'E'
+        },{
+          style : 'body',
+          text:'F'
+        },{
+          style : 'body',
+          text:'G'
+        },{
+          style : 'body',
+          text:'H'
+        },{
+          style : 'body',
+          text:'I'
+        },{
+          style : 'body',
+          text:'J'
+        },{
+          style : 'body',
+          text:'K'
+        },{
+          style : 'body',
+          text:'L'
+        },{
+          style : 'body',
+          text:'M'
+        },{
+          style : 'body',
+          text:'N'
+        },{
+          style : 'body',
+          text:'O'
+        },{
+          style : 'body',
+          text:'P'
+        }
+      ]
+  ]
   
   var docDefinition = {
     content: [
@@ -169,9 +272,10 @@ const createDoc = async ()=>{
           {
             colSpan:9,
             style : 'body',
-            text:'6789101112131415'
+            text:'Jenis NG '
           },'','','','','','','','',{
             style : 'body',
+            rowSpan:2,
             text:'Line Stop/Abnormality'
           }
           ],
@@ -196,36 +300,1162 @@ const createDoc = async ()=>{
                 text:'Total'
               },{
                 style : 'body',
-                text:'6'
+                text:'Bocor'
               },{
                 style : 'body',
-                text:'7'
+                text:'Crack'
               },{
                 style : 'body',
-                text:'8'
+                text:'Serabut'
               },{
                 style : 'body',
-                text:'9'
+                text:'Scracth'
               },{
                 style : 'body',
-                text:'10'
+                text:'Setting'
               },{
                 style : 'body',
-                text:'11'
+                text:'Dirty'
               },{
                 style : 'body',
-                text:'12'
+                text:'Slinkmark'
               },{
                 style : 'body',
-                text:'13'
+                text:'Black Dot'
               },{
                 style : 'body',
-                text:'14'
+                text:'Other'
               },{
                 style : 'body',
                 text:''
               }],
-          ]
+              rows[0],
+              rows[1],
+                [
+                  {
+                    style : 'body',
+                    text:'09:00'
+                  },{
+                    style : 'body',
+                    text:'10:00'
+                  },{
+                    style : 'body',
+                    text:'C'
+                  },'',{
+                    style : 'body',
+                    text:'D'
+                  },{
+                    style : 'body',
+                    text:'E'
+                  },{
+                    style : 'body',
+                    text:'F'
+                  },{
+                    style : 'body',
+                    text:'G'
+                  },{
+                    style : 'body',
+                    text:'H'
+                  },{
+                    style : 'body',
+                    text:'I'
+                  },{
+                    style : 'body',
+                    text:'J'
+                  },{
+                    style : 'body',
+                    text:'K'
+                  },{
+                    style : 'body',
+                    text:'L'
+                  },{
+                    style : 'body',
+                    text:'M'
+                  },{
+                    style : 'body',
+                    text:'N'
+                  },{
+                    style : 'body',
+                    text:'O'
+                  },{
+                    style : 'body',
+                    text:'P'
+                  }
+                ],
+                [
+                  {
+                    style : 'body',
+                    text:'10:00'
+                  },{
+                    style : 'body',
+                    text:'11:00'
+                  },{
+                    style : 'body',
+                    text:'C'
+                  },'',{
+                    style : 'body',
+                    text:'D'
+                  },{
+                    style : 'body',
+                    text:'E'
+                  },{
+                    style : 'body',
+                    text:'F'
+                  },{
+                    style : 'body',
+                    text:'G'
+                  },{
+                    style : 'body',
+                    text:'H'
+                  },{
+                    style : 'body',
+                    text:'I'
+                  },{
+                    style : 'body',
+                    text:'J'
+                  },{
+                    style : 'body',
+                    text:'K'
+                  },{
+                    style : 'body',
+                    text:'L'
+                  },{
+                    style : 'body',
+                    text:'M'
+                  },{
+                    style : 'body',
+                    text:'N'
+                  },{
+                    style : 'body',
+                    text:'O'
+                  },{
+                    style : 'body',
+                    text:'P'
+                  }
+                ],
+                [
+                  {
+                    style : 'body',
+                    text:'11:00'
+                  },{
+                    style : 'body',
+                    text:'12:00'
+                  },{
+                    style : 'body',
+                    text:'C'
+                  },'',{
+                    style : 'body',
+                    text:'D'
+                  },{
+                    style : 'body',
+                    text:'E'
+                  },{
+                    style : 'body',
+                    text:'F'
+                  },{
+                    style : 'body',
+                    text:'G'
+                  },{
+                    style : 'body',
+                    text:'H'
+                  },{
+                    style : 'body',
+                    text:'I'
+                  },{
+                    style : 'body',
+                    text:'J'
+                  },{
+                    style : 'body',
+                    text:'K'
+                  },{
+                    style : 'body',
+                    text:'L'
+                  },{
+                    style : 'body',
+                    text:'M'
+                  },{
+                    style : 'body',
+                    text:'N'
+                  },{
+                    style : 'body',
+                    text:'O'
+                  },{
+                    style : 'body',
+                    text:'P'
+                  }
+                ],
+                [
+                  {
+                    style : 'body',
+                    text:'13:00'
+                  },{
+                    style : 'body',
+                    text:'14:00'
+                  },{
+                    style : 'body',
+                    text:'C'
+                  },'',{
+                    style : 'body',
+                    text:'D'
+                  },{
+                    style : 'body',
+                    text:'E'
+                  },{
+                    style : 'body',
+                    text:'F'
+                  },{
+                    style : 'body',
+                    text:'G'
+                  },{
+                    style : 'body',
+                    text:'H'
+                  },{
+                    style : 'body',
+                    text:'I'
+                  },{
+                    style : 'body',
+                    text:'J'
+                  },{
+                    style : 'body',
+                    text:'K'
+                  },{
+                    style : 'body',
+                    text:'L'
+                  },{
+                    style : 'body',
+                    text:'M'
+                  },{
+                    style : 'body',
+                    text:'N'
+                  },{
+                    style : 'body',
+                    text:'O'
+                  },{
+                    style : 'body',
+                    text:'P'
+                  }
+                ],
+                [
+                  {
+                    style : 'body',
+                    text:'14:00'
+                  },{
+                    style : 'body',
+                    text:'15:00'
+                  },{
+                    style : 'body',
+                    text:'C'
+                  },'',{
+                    style : 'body',
+                    text:'D'
+                  },{
+                    style : 'body',
+                    text:'E'
+                  },{
+                    style : 'body',
+                    text:'F'
+                  },{
+                    style : 'body',
+                    text:'G'
+                  },{
+                    style : 'body',
+                    text:'H'
+                  },{
+                    style : 'body',
+                    text:'I'
+                  },{
+                    style : 'body',
+                    text:'J'
+                  },{
+                    style : 'body',
+                    text:'K'
+                  },{
+                    style : 'body',
+                    text:'L'
+                  },{
+                    style : 'body',
+                    text:'M'
+                  },{
+                    style : 'body',
+                    text:'N'
+                  },{
+                    style : 'body',
+                    text:'O'
+                  },{
+                    style : 'body',
+                    text:'P'
+                  }
+                ],
+                [
+                  {
+                    style : 'body',
+                    text:'15:00'
+                  },{
+                    style : 'body',
+                    text:'16:00'
+                  },{
+                    style : 'body',
+                    text:'C'
+                  },'',{
+                    style : 'body',
+                    text:'D'
+                  },{
+                    style : 'body',
+                    text:'E'
+                  },{
+                    style : 'body',
+                    text:'F'
+                  },{
+                    style : 'body',
+                    text:'G'
+                  },{
+                    style : 'body',
+                    text:'H'
+                  },{
+                    style : 'body',
+                    text:'I'
+                  },{
+                    style : 'body',
+                    text:'J'
+                  },{
+                    style : 'body',
+                    text:'K'
+                  },{
+                    style : 'body',
+                    text:'L'
+                  },{
+                    style : 'body',
+                    text:'M'
+                  },{
+                    style : 'body',
+                    text:'N'
+                  },{
+                    style : 'body',
+                    text:'O'
+                  },{
+                    style : 'body',
+                    text:'P'
+                  }
+                ],
+                [
+                  {
+                    style : 'body',
+                    text:'16:00'
+                  },{
+                    style : 'body',
+                    text:'17:00'
+                  },{
+                    style : 'body',
+                    text:'C'
+                  },'',{
+                    style : 'body',
+                    text:'D'
+                  },{
+                    style : 'body',
+                    text:'E'
+                  },{
+                    style : 'body',
+                    text:'F'
+                  },{
+                    style : 'body',
+                    text:'G'
+                  },{
+                    style : 'body',
+                    text:'H'
+                  },{
+                    style : 'body',
+                    text:'I'
+                  },{
+                    style : 'body',
+                    text:'J'
+                  },{
+                    style : 'body',
+                    text:'K'
+                  },{
+                    style : 'body',
+                    text:'L'
+                  },{
+                    style : 'body',
+                    text:'M'
+                  },{
+                    style : 'body',
+                    text:'N'
+                  },{
+                    style : 'body',
+                    text:'O'
+                  },{
+                    style : 'body',
+                    text:'P'
+                  }
+                ],
+                [
+                  {
+                    style : 'body',
+                    text:'17:00'
+                  },{
+                    style : 'body',
+                    text:'18:00'
+                  },{
+                    style : 'body',
+                    text:'C'
+                  },'',{
+                    style : 'body',
+                    text:'D'
+                  },{
+                    style : 'body',
+                    text:'E'
+                  },{
+                    style : 'body',
+                    text:'F'
+                  },{
+                    style : 'body',
+                    text:'G'
+                  },{
+                    style : 'body',
+                    text:'H'
+                  },{
+                    style : 'body',
+                    text:'I'
+                  },{
+                    style : 'body',
+                    text:'J'
+                  },{
+                    style : 'body',
+                    text:'K'
+                  },{
+                    style : 'body',
+                    text:'L'
+                  },{
+                    style : 'body',
+                    text:'M'
+                  },{
+                    style : 'body',
+                    text:'N'
+                  },{
+                    style : 'body',
+                    text:'O'
+                  },{
+                    style : 'body',
+                    text:'P'
+                  }
+                ],
+                [
+                  {
+                    style : 'body',
+                    text:'18:00'
+                  },{
+                    style : 'body',
+                    text:'19:00'
+                  },{
+                    style : 'body',
+                    text:'C'
+                  },'',{
+                    style : 'body',
+                    text:'D'
+                  },{
+                    style : 'body',
+                    text:'E'
+                  },{
+                    style : 'body',
+                    text:'F'
+                  },{
+                    style : 'body',
+                    text:'G'
+                  },{
+                    style : 'body',
+                    text:'H'
+                  },{
+                    style : 'body',
+                    text:'I'
+                  },{
+                    style : 'body',
+                    text:'J'
+                  },{
+                    style : 'body',
+                    text:'K'
+                  },{
+                    style : 'body',
+                    text:'L'
+                  },{
+                    style : 'body',
+                    text:'M'
+                  },{
+                    style : 'body',
+                    text:'N'
+                  },{
+                    style : 'body',
+                    text:'O'
+                  },{
+                    style : 'body',
+                    text:'P'
+                  }
+                ],
+                [
+                  {
+                    colSpan:2,
+                    style : 'body',
+                    text:'Total'
+                  },{
+                    style : 'body',
+                    text:''
+                  },{
+                    style : 'body',
+                    text:'C'
+                  },'',{
+                    style : 'body',
+                    text:'D'
+                  },{
+                    style : 'body',
+                    text:'E'
+                  },{
+                    style : 'body',
+                    text:'F'
+                  },{
+                    style : 'body',
+                    text:'G'
+                  },{
+                    style : 'body',
+                    text:'H'
+                  },{
+                    style : 'body',
+                    text:'I'
+                  },{
+                    style : 'body',
+                    text:'J'
+                  },{
+                    style : 'body',
+                    text:'K'
+                  },{
+                    style : 'body',
+                    text:'L'
+                  },{
+                    style : 'body',
+                    text:'M'
+                  },{
+                    style : 'body',
+                    text:'N'
+                  },{
+                    style : 'body',
+                    text:'O'
+                  },{
+                    style : 'body',
+                    text:'P'
+                  }
+                ],
+                [
+                  {
+                    style : 'body',
+                    text:'19:00'
+                  },{
+                    style : 'body',
+                    text:'20:00'
+                  },{
+                    style : 'body',
+                    text:'C'
+                  },'',{
+                    style : 'body',
+                    text:'D'
+                  },{
+                    style : 'body',
+                    text:'E'
+                  },{
+                    style : 'body',
+                    text:'F'
+                  },{
+                    style : 'body',
+                    text:'G'
+                  },{
+                    style : 'body',
+                    text:'H'
+                  },{
+                    style : 'body',
+                    text:'I'
+                  },{
+                    style : 'body',
+                    text:'J'
+                  },{
+                    style : 'body',
+                    text:'K'
+                  },{
+                    style : 'body',
+                    text:'L'
+                  },{
+                    style : 'body',
+                    text:'M'
+                  },{
+                    style : 'body',
+                    text:'N'
+                  },{
+                    style : 'body',
+                    text:'O'
+                  },{
+                    style : 'body',
+                    text:'P'
+                  }],
+                  [
+                    {
+                      style : 'body',
+                      text:'20:00'
+                    },{
+                      style : 'body',
+                      text:'21:00'
+                    },{
+                      style : 'body',
+                      text:'C'
+                    },'',{
+                      style : 'body',
+                      text:'D'
+                    },{
+                      style : 'body',
+                      text:'E'
+                    },{
+                      style : 'body',
+                      text:'F'
+                    },{
+                      style : 'body',
+                      text:'G'
+                    },{
+                      style : 'body',
+                      text:'H'
+                    },{
+                      style : 'body',
+                      text:'I'
+                    },{
+                      style : 'body',
+                      text:'J'
+                    },{
+                      style : 'body',
+                      text:'K'
+                    },{
+                      style : 'body',
+                      text:'L'
+                    },{
+                      style : 'body',
+                      text:'M'
+                    },{
+                      style : 'body',
+                      text:'N'
+                    },{
+                      style : 'body',
+                      text:'O'
+                    },{
+                      style : 'body',
+                      text:'P'
+                    }
+                  ],
+                  [
+                    {
+                      style : 'body',
+                      text:'21:00'
+                    },{
+                      style : 'body',
+                      text:'22:00'
+                    },{
+                      style : 'body',
+                      text:'C'
+                    },'',{
+                      style : 'body',
+                      text:'D'
+                    },{
+                      style : 'body',
+                      text:'E'
+                    },{
+                      style : 'body',
+                      text:'F'
+                    },{
+                      style : 'body',
+                      text:'G'
+                    },{
+                      style : 'body',
+                      text:'H'
+                    },{
+                      style : 'body',
+                      text:'I'
+                    },{
+                      style : 'body',
+                      text:'J'
+                    },{
+                      style : 'body',
+                      text:'K'
+                    },{
+                      style : 'body',
+                      text:'L'
+                    },{
+                      style : 'body',
+                      text:'M'
+                    },{
+                      style : 'body',
+                      text:'N'
+                    },{
+                      style : 'body',
+                      text:'O'
+                    },{
+                      style : 'body',
+                      text:'P'
+                    }
+                  ],
+                  [
+                    {
+                      style : 'body',
+                      text:'22:00'
+                    },{
+                      style : 'body',
+                      text:'23:00'
+                    },{
+                      style : 'body',
+                      text:'C'
+                    },'',{
+                      style : 'body',
+                      text:'D'
+                    },{
+                      style : 'body',
+                      text:'E'
+                    },{
+                      style : 'body',
+                      text:'F'
+                    },{
+                      style : 'body',
+                      text:'G'
+                    },{
+                      style : 'body',
+                      text:'H'
+                    },{
+                      style : 'body',
+                      text:'I'
+                    },{
+                      style : 'body',
+                      text:'J'
+                    },{
+                      style : 'body',
+                      text:'K'
+                    },{
+                      style : 'body',
+                      text:'L'
+                    },{
+                      style : 'body',
+                      text:'M'
+                    },{
+                      style : 'body',
+                      text:'N'
+                    },{
+                      style : 'body',
+                      text:'O'
+                    },{
+                      style : 'body',
+                      text:'P'
+                    }
+                  ],
+                  [
+                    {
+                      style : 'body',
+                      text:'23:00'
+                    },{
+                      style : 'body',
+                      text:'00:00'
+                    },{
+                      style : 'body',
+                      text:'C'
+                    },'',{
+                      style : 'body',
+                      text:'D'
+                    },{
+                      style : 'body',
+                      text:'E'
+                    },{
+                      style : 'body',
+                      text:'F'
+                    },{
+                      style : 'body',
+                      text:'G'
+                    },{
+                      style : 'body',
+                      text:'H'
+                    },{
+                      style : 'body',
+                      text:'I'
+                    },{
+                      style : 'body',
+                      text:'J'
+                    },{
+                      style : 'body',
+                      text:'K'
+                    },{
+                      style : 'body',
+                      text:'L'
+                    },{
+                      style : 'body',
+                      text:'M'
+                    },{
+                      style : 'body',
+                      text:'N'
+                    },{
+                      style : 'body',
+                      text:'O'
+                    },{
+                      style : 'body',
+                      text:'P'
+                    }
+                  ],
+                  [
+                    {
+                      style : 'body',
+                      text:'00:00'
+                    },{
+                      style : 'body',
+                      text:'01:00'
+                    },{
+                      style : 'body',
+                      text:'C'
+                    },'',{
+                      style : 'body',
+                      text:'D'
+                    },{
+                      style : 'body',
+                      text:'E'
+                    },{
+                      style : 'body',
+                      text:'F'
+                    },{
+                      style : 'body',
+                      text:'G'
+                    },{
+                      style : 'body',
+                      text:'H'
+                    },{
+                      style : 'body',
+                      text:'I'
+                    },{
+                      style : 'body',
+                      text:'J'
+                    },{
+                      style : 'body',
+                      text:'K'
+                    },{
+                      style : 'body',
+                      text:'L'
+                    },{
+                      style : 'body',
+                      text:'M'
+                    },{
+                      style : 'body',
+                      text:'N'
+                    },{
+                      style : 'body',
+                      text:'O'
+                    },{
+                      style : 'body',
+                      text:'P'
+                    }
+                  ],
+                  [
+                    {
+                      style : 'body',
+                      text:'01:00'
+                    },{
+                      style : 'body',
+                      text:'02:00'
+                    },{
+                      style : 'body',
+                      text:'C'
+                    },'',{
+                      style : 'body',
+                      text:'D'
+                    },{
+                      style : 'body',
+                      text:'E'
+                    },{
+                      style : 'body',
+                      text:'F'
+                    },{
+                      style : 'body',
+                      text:'G'
+                    },{
+                      style : 'body',
+                      text:'H'
+                    },{
+                      style : 'body',
+                      text:'I'
+                    },{
+                      style : 'body',
+                      text:'J'
+                    },{
+                      style : 'body',
+                      text:'K'
+                    },{
+                      style : 'body',
+                      text:'L'
+                    },{
+                      style : 'body',
+                      text:'M'
+                    },{
+                      style : 'body',
+                      text:'N'
+                    },{
+                      style : 'body',
+                      text:'O'
+                    },{
+                      style : 'body',
+                      text:'P'
+                    }
+                  ],
+                  [
+                    {
+                      style : 'body',
+                      text:'02:00'
+                    },{
+                      style : 'body',
+                      text:'03:00'
+                    },{
+                      style : 'body',
+                      text:'C'
+                    },'',{
+                      style : 'body',
+                      text:'D'
+                    },{
+                      style : 'body',
+                      text:'E'
+                    },{
+                      style : 'body',
+                      text:'F'
+                    },{
+                      style : 'body',
+                      text:'G'
+                    },{
+                      style : 'body',
+                      text:'H'
+                    },{
+                      style : 'body',
+                      text:'I'
+                    },{
+                      style : 'body',
+                      text:'J'
+                    },{
+                      style : 'body',
+                      text:'K'
+                    },{
+                      style : 'body',
+                      text:'L'
+                    },{
+                      style : 'body',
+                      text:'M'
+                    },{
+                      style : 'body',
+                      text:'N'
+                    },{
+                      style : 'body',
+                      text:'O'
+                    },{
+                      style : 'body',
+                      text:'P'
+                    }
+                  ],
+                  [
+                    {
+                      style : 'body',
+                      text:'03:00'
+                    },{
+                      style : 'body',
+                      text:'04:00'
+                    },{
+                      style : 'body',
+                      text:'C'
+                    },'',{
+                      style : 'body',
+                      text:'D'
+                    },{
+                      style : 'body',
+                      text:'E'
+                    },{
+                      style : 'body',
+                      text:'F'
+                    },{
+                      style : 'body',
+                      text:'G'
+                    },{
+                      style : 'body',
+                      text:'H'
+                    },{
+                      style : 'body',
+                      text:'I'
+                    },{
+                      style : 'body',
+                      text:'J'
+                    },{
+                      style : 'body',
+                      text:'K'
+                    },{
+                      style : 'body',
+                      text:'L'
+                    },{
+                      style : 'body',
+                      text:'M'
+                    },{
+                      style : 'body',
+                      text:'N'
+                    },{
+                      style : 'body',
+                      text:'O'
+                    },{
+                      style : 'body',
+                      text:'P'
+                    }
+                  ],
+                  [
+                    {
+                      style : 'body',
+                      text:'05:00'
+                    },{
+                      style : 'body',
+                      text:'06:00'
+                    },{
+                      style : 'body',
+                      text:'C'
+                    },'',{
+                      style : 'body',
+                      text:'D'
+                    },{
+                      style : 'body',
+                      text:'E'
+                    },{
+                      style : 'body',
+                      text:'F'
+                    },{
+                      style : 'body',
+                      text:'G'
+                    },{
+                      style : 'body',
+                      text:'H'
+                    },{
+                      style : 'body',
+                      text:'I'
+                    },{
+                      style : 'body',
+                      text:'J'
+                    },{
+                      style : 'body',
+                      text:'K'
+                    },{
+                      style : 'body',
+                      text:'L'
+                    },{
+                      style : 'body',
+                      text:'M'
+                    },{
+                      style : 'body',
+                      text:'N'
+                    },{
+                      style : 'body',
+                      text:'O'
+                    },{
+                      style : 'body',
+                      text:'P'
+                    }
+                  ],
+                  [
+                    {
+                      style : 'body',
+                      text:'18:00'
+                    },{
+                      style : 'body',
+                      text:'19:00'
+                    },{
+                      style : 'body',
+                      text:'C'
+                    },'',{
+                      style : 'body',
+                      text:'D'
+                    },{
+                      style : 'body',
+                      text:'E'
+                    },{
+                      style : 'body',
+                      text:'F'
+                    },{
+                      style : 'body',
+                      text:'G'
+                    },{
+                      style : 'body',
+                      text:'H'
+                    },{
+                      style : 'body',
+                      text:'I'
+                    },{
+                      style : 'body',
+                      text:'J'
+                    },{
+                      style : 'body',
+                      text:'K'
+                    },{
+                      style : 'body',
+                      text:'L'
+                    },{
+                      style : 'body',
+                      text:'M'
+                    },{
+                      style : 'body',
+                      text:'N'
+                    },{
+                      style : 'body',
+                      text:'O'
+                    },{
+                      style : 'body',
+                      text:'P'
+                    }
+                  ],
+                  [
+                    {
+                      colSpan:2,
+                      style : 'body',
+                      text:'Total'
+                    },{
+                      style : 'body',
+                      text:''
+                    },{
+                      style : 'body',
+                      text:'C'
+                    },'',{
+                      style : 'body',
+                      text:'D'
+                    },{
+                      style : 'body',
+                      text:'E'
+                    },{
+                      style : 'body',
+                      text:'F'
+                    },{
+                      style : 'body',
+                      text:'G'
+                    },{
+                      style : 'body',
+                      text:'H'
+                    },{
+                      style : 'body',
+                      text:'I'
+                    },{
+                      style : 'body',
+                      text:'J'
+                    },{
+                      style : 'body',
+                      text:'K'
+                    },{
+                      style : 'body',
+                      text:'L'
+                    },{
+                      style : 'body',
+                      text:'M'
+                    },{
+                      style : 'body',
+                      text:'N'
+                    },{
+                      style : 'body',
+                      text:'O'
+                    },{
+                      style : 'body',
+                      text:'P'
+                    }
+                  ]
+          ],
+          
         }
       }
     ],

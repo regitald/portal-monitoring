@@ -1,7 +1,5 @@
 var userService = require('../../services/user/userService')
 var response = require('../../models/responses/baseResponse');
-const bycrypt = require('bcrypt');
-const { update } = require('../../repositories/usersRepository');
 const baseResponse = require('../../models/responses/baseResponse');
 
 
@@ -75,11 +73,33 @@ const deleteUser = async(req,res,next)=>{
     }
 }
 
+const changePassword = async(req,res,next)=>{
+    try {
+        var updated = {}
+        var authHeader = process.env.JWT_HEADER
+        var authToken = req.header(authHeader)
+        var {
+            newPassword,
+            oldPassword
+        } = req.body
+        if(newPassword == undefined || oldPassword == undefined){
+            res.status(400).send(baseResponse("new password and old password required"))
+        }else{
+            var token = authToken.substring(7)
+            var updated = await userService.changePassword(newPassword,oldPassword,token)
+            res.status(updated.code).send(baseResponse(updated.message,updated.status))
+        }
+    } catch (error) {
+        res.status(500).send(baseResponse(error.message))
+    }
+}
+
 module.exports = {
     getAllUser,
     getUserById,
     addUser,
     activeDeactiveUser,
     updateUser,
-    deleteUser    
+    deleteUser,
+    changePassword
 }

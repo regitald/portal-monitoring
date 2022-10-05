@@ -1,8 +1,9 @@
 var userRepository = require('../../repositories/usersRepository')
 var serviceResponse = require('../../models/responses/serviceResponse')
-const bycrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 const {getUserArrObj} = require('../../models/objects/users')
-const {buildCondition,fetchSortBy} = require('../../repositories/conditionBuilder/sequelizeConditionBuilder')
+const {buildCondition,fetchSortBy} = require('../../repositories/conditionBuilder/sequelizeConditionBuilder');
+const { decodeJwt } = require('../../utils/jwtUtils');
 
 const getAllUser = async (paramsQuery)=>{
     try {
@@ -116,7 +117,6 @@ const updateUser = async(id,user)=>{
         if(!isUserExists.content){
             return serviceResponse(404,'user not found')
         }
-
         var userUpdated = await userRepository.update(id,user);
         return userUpdated
     } catch (error) {
@@ -124,9 +124,41 @@ const updateUser = async(id,user)=>{
     }
 }
 
+const changePassword = async(newPassword,oldPassword,token)=>{
+    try {
+        var decodedJwt = await decodeJwt(token)
+
+        if(decodedJwt == null){
+            return serviceResponse(400,"token invalid")
+        }
+
+        var getUser = await getUserById(decodedJwt.user_id)
+        if(getUser.code != 200){
+            return getUser
+        }
+        var user = getUser.content
+        
+        var passValid = await bcrypt.compare(oldPassword,user.password);
+
+        if(!passValid){
+            return serviceResponse(400,"old password incorrect")
+        }
+        var newEncryptedPassword = await encryptPassword(newPassword);
+
+        var updated = await updateUser(user.id,{
+            password : newEncryptedPassword
+        })
+
+        return updated
+
+    } catch (error) {
+        throw error
+    }
+}
+
 const encryptPassword = async (plainPassword)=>{
-    const salt = await bycrypt.genSalt(10);
-    const encryptedPassword = await bycrypt.hash(plainPassword,salt);
+    const salt = await bcrypt.genSalt(10);
+    const encryptedPassword = await bcrypt.hash(plainPassword,salt);
     return encryptedPassword;
 }
 
@@ -137,6 +169,6 @@ module.exports = {
     activeDeactiveUser,
     updateUser,
     getUserByUsername,
-    deleteUser
-    
+    deleteUser,
+    changePassword
 }

@@ -12,6 +12,16 @@ const addProductionResult = async(productionResult)=>{
     }
 }
 
+const getProductionResultById = async(id)=>{
+    try {
+        var prodRes = await productionResultRepository.findById(id)
+        prodRes.content = await validatePercentageResult(prodRes.content)
+        return prodRes;
+    } catch (error) {
+        return serviceResponse(500,error.message)
+    }
+}
+
 const getDetailMachineProgres = async(paramsQuery)=>{
     try {
         var {
@@ -66,5 +76,6 @@ const validatePercentageResult = async(content)=>{
 
 module.exports = {
     addProductionResult,
-    getDetailMachineProgres
+    getDetailMachineProgres,
+    getProductionResultById
 }

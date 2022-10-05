@@ -18,8 +18,8 @@ const generateAuthUserToken = async(user)=>{
         data.role_id = user.role.id
     }
 
-    const token = await jwt.sign(data, keys,{
-        expiresIn: 60 * 60
+    const token =  jwt.sign(data, keys,{
+        expiresIn: 60 * 60 * 24
     });
 
     return token

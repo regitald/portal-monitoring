@@ -15,6 +15,8 @@ var maintenanceRouter = require('./routes/maintenance')
 var fileUpload = require('express-fileupload');
 var {createDoc} = require('./utils/PdfGenerator/pdfGenerator')
 var cors = require('cors')
+const {expressjwt} = require('express-jwt')
+const key = process.env.JWT_KEY
 
 var baseResponse = require('./models/responses/baseResponse')
 var app = express();
@@ -24,18 +26,18 @@ app.use(fileUpload({
   createParentPath: true
 }));
 
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use('/api/auth',authRouter)
 
+app.use(expressjwt({ secret: key,algorithms: ["HS256"] }))
 app.use('/api/users', usersRouter);
 app.use('/api/roles', rolesRouter)
 app.use('/api/permission',permissionRouter)
 app.use('/api/permission-role',permissionRoleRouter)
 app.use('/api/user-activities',userActivitiesRouter)
-app.use('/api/auth',authRouter)
 app.use('/api/planning',moRouter)
 app.use('/api/maintenance',maintenanceRouter)
 app.use('/api/production/result',productionResultRouter)
@@ -54,7 +56,7 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500).send(baseResponse("endpoint not available"));
+  res.status(err.status || 500).send(baseResponse(err.message));
 });
 
 createDoc()

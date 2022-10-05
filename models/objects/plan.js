@@ -55,10 +55,20 @@ const getFilterPlanArrObj = ()=>{
     ]
 }
 
+const getPartCategoryEnum = ()=>{
+    return [
+        'RH','LH','MID'
+    ]
+}
+
+
+
 
 
 module.exports = {
     getPlanObj,
     getPlanArrObj,
-    getFilterPlanArrObj
+    getFilterPlanArrObj,
+    getPartCategoryEnum
+
 }

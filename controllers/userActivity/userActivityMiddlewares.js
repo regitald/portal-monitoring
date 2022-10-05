@@ -5,7 +5,6 @@ const userActivityService = require('../../services/userActivity/userActivitySer
 var jwtKey = process.env.JWT_KEY
 var authHeader = process.env.JWT_HEADER
 
-
 const logActivity = async (req,res,next)=>{
     try {
         var authToken = req.header(authHeader)

@@ -19,7 +19,18 @@ const getProductionResult = async(req,res,next)=>{
     }
 }
 
+const getProductionResultById = async(req,res,next)=>{
+    try {
+        var {id} = req.params
+        var prodRes = await productionResultService.getProductionResultById(id)
+        res.status(prodRes.code).send(baseResponse(prodRes.message,prodRes.content))
+    } catch (error) {
+        res.status(500).send(baseResponse(error.message))
+    }
+}
+
 module.exports = {
     addProductionResult,
-    getProductionResult
+    getProductionResult,
+    getProductionResultById
 }

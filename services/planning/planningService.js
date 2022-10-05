@@ -1,4 +1,4 @@
-const { getPlanObj } = require('../../models/objects/plan')
+const { getPlanObj, getPartCategoryEnum } = require('../../models/objects/plan')
 const serviceResponse = require('../../models/responses/serviceResponse')
 const dailyPlanningRepository = require('../../repositories/dailyPlanningRepository')
 const monthlyPlanningRepository = require('../../repositories/monthlyPlanningRepository')
@@ -7,6 +7,7 @@ const {convertToJson} = require('../../utils/xlsxConverter')
 const {getHourAndMinutesFromDate,getDateFromDateTime, getRoundedDateFromDateTime} =  require('../../utils/dateUtils')
 const {buildCondition,fetchSortBy} = require('../../repositories/conditionBuilder/knexConditionBuilder')
 const lineNumberRepository = require('../../repositories/lineNumbersRepository');
+const { getLineNumbers } = require('../lineNumber/lineNumberService');
 
 const getPlanningList = async(period,paramsQuery)=>{
     try {
@@ -189,41 +190,68 @@ const importPlanning = async (period,file)=>{
         var failed = 0;
         var messages = new Array()
         var planImportFormat = getPlanArrObj()
+        var partNameEnum = getPartCategoryEnum()
 
         var planObjArr = await convertToJson(file.data,planImportFormat)
         var counter = 1;
         var planAddedArr = []
+        var planFailedArr = []
         for(let i = 0;i<=planObjArr.length-1;i++){
-            var message = "data "+counter+" ";
-            counter++;
-
-            var planObj = planObjArr[i]
-
-            var newStartProd = await getHourAndMinutesFromDate(planObj.start_production)
-            var newFinishProd = await getHourAndMinutesFromDate(planObj.finish_production)
-            
-            planObj.start_production = newStartProd
-            planObj.finish_production = newFinishProd
-            planObj.production_date = await getRoundedDateFromDateTime(
-                planObj.production_date
-            )
-                                
-            var added = await addPlanning(period,planObj)
+            try {
+                var message = "data "+counter+" ";
+                counter++;
     
-            if(added.code == 201){
-                inserted++
-                planAddedArr.push(added.content)
-            }else{
+                var planObj = planObjArr[i]
+    
+                if(!partNameEnum.includes(planObj.part_category)){
+                    throw new Error("Part category invalid")
+                }
+
+                var productionDate = new Date(planObj.production_date)
+
+                if(isNaN(productionDate.getTime())){
+                    throw new Error("Production date invalid")
+                }
+
+                var lineNumbers = (await getLineNumbers()).content
+
+                if(!lineNumbers.includes(planObj.line_number)){
+                    throw new Error("Line Number invalid")
+                }
+    
+                var newStartProd = await getHourAndMinutesFromDate(planObj.start_production)
+                var newFinishProd = await getHourAndMinutesFromDate(planObj.finish_production)
+                
+                planObj.start_production = newStartProd
+                planObj.finish_production = newFinishProd
+                planObj.production_date = await getRoundedDateFromDateTime(
+                    planObj.production_date
+                )
+                                    
+                var added = await addPlanning(period,planObj)
+        
+                if(added.code == 201){
+                    inserted++
+                    planAddedArr.push(added.content)
+                }else{
+                    failed++
+                }
+                message += added.message
+                messages.push(message)   
+            } catch (error) {
+                planFailedArr.push(planObj)
                 failed++
+                messages.push(error.message)   
             }
-            message += added.message
-            messages.push(message)
         }
 
         var response = {
             inserted,
             failed,
-            data : planAddedArr
+            data : {
+                inserted: planAddedArr,
+                failed : planFailedArr
+            }
         }
         return serviceResponse(200,messages,response)
         
