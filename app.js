@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/api/auth',authRouter)
 
-app.use(expressjwt({ secret: key,algorithms: ["HS256"] }))
+// app.use(expressjwt({ secret: key,algorithms: ["HS256"] }))
 app.use('/api/users', usersRouter);
 app.use('/api/roles', rolesRouter)
 app.use('/api/permission',permissionRouter)
