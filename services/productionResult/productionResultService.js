@@ -2,6 +2,7 @@ const serviceResponse = require('../../models/responses/serviceResponse')
 const productionResultRepository = require('../../repositories/productionResultRepository')
 const {getProductionResultArrObj, getProductionResultObj} = require('../../models/objects/productionResult')
 const {buildCondition,fetchSortBy} = require('../../repositories/conditionBuilder/knexConditionBuilder')
+const lineNumberRepository = require('../../repositories/lineNumbersRepository')
 
 const addProductionResult = async(productionResult)=>{
     try {
@@ -29,30 +30,51 @@ const getDetailMachineProgres = async(paramsQuery)=>{
             data_length
         } = paramsQuery
 
-        if(data_length != undefined){
-            if(date != undefined){
-                var to = new Date(date)
-            }else{
-                var to = new Date()
+        var machineList = await lineNumberRepository.findAll();
+
+        for(let machine of machineList.content){
+            var lineNumber = machine.type +"/"+machine.name
+            paramsQuery.line_number = lineNumber
+
+            var paramsBuilder = await buildCondition(getProductionResultArrObj(),paramsQuery)
+            var order = await fetchSortBy(paramsQuery)
+            var prodResults = await productionResultRepository.findAll(paramsBuilder,order)
+
+            if(prodResults.code != 200){
+                throw new Error(plans.message)
+            }
+            
+            var data = []
+            prodResults.content = await validatePercentageResult(prodRes.content);
+            for(let prodRes of prodResults.content){
+                var filtered = await filterPlanGraphicRespnse(prodRes)
+                data.push(filtered)
             }
 
-            var from = new Date()
-            from.setDate(to.getDate() - data_length)
-            paramsQuery.production_date_to = to
-            paramsQuery.production_date_from = from
+            responses.push({
+                line_number : lineNumber,
+                data
+            })
         }
 
-        var paramsBuilder = await buildCondition(getProductionResultArrObj(),paramsQuery)
-
-        var order = await fetchSortBy(paramsQuery)
-
-        var prodRes = await productionResultRepository.findAll(paramsBuilder,order)
-
-        prodRes.content = await validatePercentageResult(prodRes.content);
 
         return prodRes
     } catch (error) {
         return serviceResponse(500,error.message)
+    }
+}
+
+const filterPlanGraphicRespnse = async(plan)=>{
+    try {
+        return {
+            no_mo: plan.no_mo,
+            production_date : plan.production_date,
+            start_production : plan.start_production,
+            finish_production : plan.finish_production,
+            status : plan.status
+        }
+    } catch (error) {
+        throw new Error(error.message)
     }
 }
 
