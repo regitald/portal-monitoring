@@ -12,6 +12,9 @@ var moRouter = require('./routes/planning')
 var logUserActivityMiddleware = require('./controllers/userActivity/userActivityMiddlewares')
 var productionResultRouter = require('./routes/productionResult')
 var maintenanceRouter = require('./routes/maintenance')
+var machine = require('./routes/machine')
+var viewLogin = require('./routes/view/login')
+var path = require('path');
 var fileUpload = require('express-fileupload');
 var {createDoc} = require('./utils/PdfGenerator/pdfGenerator')
 var cors = require('cors')
@@ -25,11 +28,15 @@ app.use(cors())
 app.use(fileUpload({
   createParentPath: true
 }));
-
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use('/login',viewLogin)
+
 app.use('/api/auth',authRouter)
 
 // app.use(expressjwt({ secret: key,algorithms: ["HS256"] }))
@@ -41,6 +48,7 @@ app.use('/api/user-activities',userActivitiesRouter)
 app.use('/api/planning',moRouter)
 app.use('/api/maintenance',maintenanceRouter)
 app.use('/api/production/result',productionResultRouter)
+app.use('/api/machine',machine)
 
 app.use(logUserActivityMiddleware.logActivity)
 

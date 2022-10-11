@@ -29,6 +29,20 @@ const getDetailMachineProgres = async(paramsQuery)=>{
             date,
             data_length
         } = paramsQuery
+        var responses = []
+
+        if(data_length != undefined){
+            if(date != undefined){
+                var to = new Date(date)
+            }else{
+                var to = new Date()
+            }
+
+            var from = new Date()
+            from.setDate(to.getDate() - data_length)
+            paramsQuery.production_date_to = to
+            paramsQuery.production_date_from = from
+        }
 
         var machineList = await lineNumberRepository.findAll();
 
@@ -45,7 +59,7 @@ const getDetailMachineProgres = async(paramsQuery)=>{
             }
             
             var data = []
-            prodResults.content = await validatePercentageResult(prodRes.content);
+            prodResults.content = await validatePercentageResult(prodResults.content);
             for(let prodRes of prodResults.content){
                 var filtered = await filterPlanGraphicRespnse(prodRes)
                 data.push(filtered)
@@ -57,21 +71,20 @@ const getDetailMachineProgres = async(paramsQuery)=>{
             })
         }
 
-
-        return prodRes
+        return serviceResponse(200,"success",responses)
     } catch (error) {
         return serviceResponse(500,error.message)
     }
 }
 
-const filterPlanGraphicRespnse = async(plan)=>{
+const filterPlanGraphicRespnse = async(obj)=>{
     try {
         return {
-            no_mo: plan.no_mo,
-            production_date : plan.production_date,
-            start_production : plan.start_production,
-            finish_production : plan.finish_production,
-            status : plan.status
+            no_mo: obj.no_mo,
+            production_date : obj.production_date,
+            start_production : obj.start_production,
+            finish_production : obj.finish_production,
+            status : obj.status
         }
     } catch (error) {
         throw new Error(error.message)

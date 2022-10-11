@@ -5,6 +5,12 @@ var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 var server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server,{
+  cors: {
+    origin: '*',
+  }
+})
 
 function normalizePort(val) {
     var port = parseInt(val, 10);
@@ -21,5 +27,8 @@ function normalizePort(val) {
   
     return false;
   }
+
+var {kpiSocket} = require('../services/socket/socket')
+kpiSocket(io)
 
 module.exports = {server,port}

@@ -17,6 +17,7 @@
     "express": "~4.16.1",
     "express-fileupload": "^1.4.0",
     "express-jwt": "^7.7.5",
+    "hbs": "^4.2.0",
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
     "knex": "^2.2.0",
