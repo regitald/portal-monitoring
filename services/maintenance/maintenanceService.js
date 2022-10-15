@@ -29,6 +29,7 @@ const getAllMaintenanceList = async (paramsQuery)=>{
             var newResponse = {}
             newResponse.title = object.line_number
             newResponse.start = object.maintenance_date
+            newResponse.tooltip = object.desc
             if(object.status == 'open'){
                 newResponse.color = '#448bcb'
             }else if(object.status == 'on_progress'){

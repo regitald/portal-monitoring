@@ -32,6 +32,7 @@ const kpiSocket = async(io)=>{
 
                     })
                 }
+                console.log(dataArr);
                 socket.emit("kpi",dataArr)
             },3000)
           })
