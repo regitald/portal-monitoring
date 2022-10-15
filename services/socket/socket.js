@@ -15,18 +15,20 @@ const kpiSocket = async(io)=>{
                 var dataArr = []
 
                 for(let lineNumber of lineNumbers){
-                    var oee = getRandomNumb()
-                    var ava = getRandomNumb()
-                    var perf = getRandomNumb()
-                    var qua = getRandomNumb()
-                    var runtime = getRandomNumb()
+                    var oee = getRandomNumb(100)
+                    var ava = getRandomNumb(100)
+                    var perf = getRandomNumb(100)
+                    var qua = getRandomNumb(100)
+                    var runtime = getRandomNumb(100)
+                    var status = getRandomNumb(2)
                     dataArr.push({
                         lineNumber,
                         oee,
                         ava,
                         perf,
                         qua,
-                        runtime
+                        runtime,
+                        status
 
                     })
                 }
@@ -38,8 +40,8 @@ const kpiSocket = async(io)=>{
     }
 }
 
-const getRandomNumb = ()=>{
-    return Math.floor(Math.random() * 100); 
+const getRandomNumb = (max)=>{
+    return Math.floor(Math.random() * max); 
 }
 
 module.exports = {

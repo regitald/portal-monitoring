@@ -22,6 +22,25 @@ const getAllMaintenanceList = async (paramsQuery)=>{
         var params =await buildCondition(getMaintenanceArrObj(),paramsQuery)
         
         var maintenanceList = await maintenanceRepository.findAll(params,order);
+
+        var newResponses = []
+
+        for(object of maintenanceList.content){
+            var newResponse = {}
+            newResponse.title = object.line_number
+            newResponse.start = object.maintenance_date
+            if(object.status == 'open'){
+                newResponse.color = '#448bcb'
+            }else if(object.status == 'on_progress'){
+                newResponse.color = '#1ea711'
+            }else if(object.status == 'done'){
+                newResponse.color = '#8b8b8b';
+            }
+            newResponses.push(newResponse);
+        }
+
+        maintenanceList.content = newResponses
+
         return maintenanceList
     } catch (error) {
         return serviceResponse(500,error.message)

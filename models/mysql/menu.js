@@ -10,6 +10,14 @@ module.exports = function(sequelize, DataTypes) {
     name: {
       type: DataTypes.STRING(255),
       allowNull: true
+    },
+    url: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    group: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     sequelize,
