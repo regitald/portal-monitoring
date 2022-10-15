@@ -66,7 +66,9 @@ const addMaintenance = async(maintenanceReq)=>{
 const updatedMaintenance = async(id,maintenanceReq)=>{
     try {
         var maintenance = getMaintenanceObj(maintenanceReq)
-        maintenance.maintenance_date = new Date(maintenance.maintenance_date)
+        if(maintenance.maintenance_date != null){
+            maintenance.maintenance_date = new Date(maintenance.maintenance_date)
+        }
         maintenance.updated_at = new Date()
 
         var updated = await maintenanceRepository.update(id,maintenance);
