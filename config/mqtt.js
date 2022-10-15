@@ -9,13 +9,14 @@ var mqtt = require('mqtt')
 
 const getMqttCon = async (uuid)=>{
     var opt = {
-        username : 'test',
-        password : 'test',
-        clientId : uuid
+        port : 1888
+        // username : 'test',
+        // password : 'test',
+        // clientId : uuid
     }
     
     // var host = process.env.MQTT_HOST
-    var host = 'mqtt://103.63.25.67'
+    var host = 'mqtt://103.28.52.43'
     
     var mqttCon = mqtt.connect(host,opt);
     var mqttClient = await mqttCon.on("connect",()=>{})
