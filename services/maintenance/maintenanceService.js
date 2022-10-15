@@ -27,6 +27,7 @@ const getAllMaintenanceList = async (paramsQuery)=>{
 
         for(object of maintenanceList.content){
             var newResponse = {}
+            newResponse.id = object.id
             newResponse.title = object.line_number
             newResponse.start = object.maintenance_date
             newResponse.tooltip = object.desc

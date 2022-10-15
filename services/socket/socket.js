@@ -20,7 +20,7 @@ const kpiSocket = async(io)=>{
                     var perf = getRandomNumb(100)
                     var qua = getRandomNumb(100)
                     var runtime = getRandomNumb(100)
-                    var status = getRandomNumb(2)
+                    var status = getRandomNumb(100)
                     dataArr.push({
                         lineNumber,
                         oee,
