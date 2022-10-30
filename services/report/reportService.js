@@ -43,17 +43,42 @@ const getLogReport = async(params)=>{
 
         row.push({
             style : 'body',
+            rowSpan : 2,
             text:time.start
           })
+
         row.push({
+            rowSpan : 2,
             style : 'body',
             text:time.stop
           })
+        
+        row.push({
+            style : 'body',
+            text:'QTY'
+        })
 
         row.push({
             style : 'body',
             text:'LH'
         })
+
+        row.push({
+            style : 'body',
+            text:'OK'
+        })
+
+        row.push({
+            style : 'body',
+            text:'NG'
+        })
+
+        row.push({
+            style : 'body',
+            text:'Total'
+        })
+
+
         paramsLog.position = 'LH'
         dataLog1 = await reportRepository.getMcLogByTime(paramsLog,ngKeys,ngList)
 
@@ -63,12 +88,42 @@ const getLogReport = async(params)=>{
                 style : 'body',
                 text: dataLog1[key]
             })
-        }
+        }        
+        
+        rows.push(row)
+        
+        var row = []
+        
+        row.push({
+            style : 'body',
+            text:''
+          })
+          
+        row.push({
+            style : 'body',
+            text:''
+          })
 
         row.push({
             style : 'body',
             text:'RH'
         })
+
+        row.push({
+            style : 'body',
+            text:'OK'
+        })
+
+        row.push({
+            style : 'body',
+            text:'NG'
+        })
+
+        row.push({
+            style : 'body',
+            text:'Total'
+        })
+        
 
         paramsLog.position = 'RH'
         dataLog2 = await reportRepository.getMcLogByTime(paramsLog,ngKeys,ngList) 
@@ -83,8 +138,6 @@ const getLogReport = async(params)=>{
 
         rows.push(row)
     }
-
-    console.log(rows);
 
     createDoc(ngList,rows)
 

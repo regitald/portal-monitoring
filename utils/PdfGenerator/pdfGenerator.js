@@ -5,6 +5,8 @@ const Roboto = require('./fonts/Roboto')
 const createDoc = async (rowHeaderList,rows)=>{
   var fontPath = path.dirname('utils/PdfGenerator/fonts/')
 
+  console.log(rows[0]);
+
   var rowHeaders = []
   for(ng of rowHeaderList){
     let rowHeader = {
@@ -196,7 +198,50 @@ const createDoc = async (rowHeaderList,rows)=>{
               },{
                 style : 'body',
                 text:'QTY'
-              },'',{
+              },
+              '',
+              {
+                style : 'body',
+                text:'OK'
+              },{
+                style : 'body',
+                text:'NG'
+              },{
+                style : 'body',
+                text:'Total'
+              },
+              rowHeaders[0],
+              rowHeaders[1],
+              rowHeaders[2],
+              rowHeaders[4],
+              rowHeaders[5],
+              rowHeaders[6],
+              rowHeaders[7],
+              rowHeaders[8],
+              rowHeaders[9],
+              rowHeaders[10],
+              rowHeaders[11],
+              rowHeaders[12],
+              rowHeaders[13],
+              rowHeaders[14],
+              {
+                style : 'body',
+                text:''
+              }
+            ],
+            [
+              {
+                style : 'body',
+                text:'Start'
+              },{
+                style : 'body',
+                text:'Finish'
+              },{
+                style : 'body',
+                text:'QTY'
+              },
+              '',
+              {
                 style : 'body',
                 text:'OK'
               },{
