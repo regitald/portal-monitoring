@@ -1,149 +1,222 @@
 const lineNumberService = require('../../services/lineNumber/lineNumberService')
-const {subKpi} = require('../mqtt/mqttService')
 const {getMqttCon} = require('../../config/mqtt')
 const uuid = require('uuid')
 
 const kpiSocket = async(io)=>{
     try {
-        var mqttClient = await getMqttCon(uuid.v4())
-        mqttClient.setMaxListeners(100);
+        var mqttClient01 = await getMqttCon(uuid.v4())
+        var mqttClient02 = await getMqttCon(uuid.v4())
+        var mqttClient03 = await getMqttCon(uuid.v4())
+        var mqttClient04 = await getMqttCon(uuid.v4())
+        var mqttClient05 = await getMqttCon(uuid.v4())
+        var mqttClient06 = await getMqttCon(uuid.v4())
+        var mqttClient07 = await getMqttCon(uuid.v4())
+        var mqttClient08 = await getMqttCon(uuid.v4())
+        var mqttClient11 = await getMqttCon(uuid.v4())
+        var mqttClient12 = await getMqttCon(uuid.v4())
+        var mqttClient13 = await getMqttCon(uuid.v4())
+
         var lineNumbers = (await lineNumberService.getLineNumbers()).content
-          io.of("/machines").on("connection",async(socket)=>{   
-            var dataArr = {}
+          io.of("/machines").on("connection",async(socket)=>{
+            var data = {}
 
-            mqttClient.subscribe('porting/kpi/injection/01',{},(err)=>{
-                mqttClient.on('message',(msg,buff,pckt)=>{
-                    data = buff.toString()
+
+            mqttClient01.subscribe('porting/kpi/injection/01',{},(err)=>{
+                mqttClient01.on('message',(msg,buff,pckt)=>{
+                    let mc = {}
                     try {
-                        data = JSON.parse(data)                    
+                        mc = JSON.parse(buff.toString())                    
                     } catch (error) {
-                        data = {}
+                        console.log(error);
                     }
-                    dataArr[lineNumbers[0]] = data
+                    data[lineNumbers[0]] = mc
                 })
              })
 
-             mqttClient.subscribe('porting/kpi/injection/02',{},(err)=>{
-                mqttClient.on('message',(msg,buff,pckt)=>{
-                    data = buff.toString()
+             mqttClient02.subscribe('porting/kpi/injection/02',{},(err)=>{
+                mqttClient02.on('message',(msg,buff,pckt)=>{
+                    let mc = {}
                     try {
-                        data = JSON.parse(data)                    
+                        mc = JSON.parse(buff.toString())                    
                     } catch (error) {
-                        data = {}
+                        console.log(error);
                     }
-                    dataArr[lineNumbers[1]] = data
+                    data[lineNumbers[1]] = mc
                 })
              })
 
-             mqttClient.subscribe('porting/kpi/injection/03',{},(err)=>{
-                mqttClient.on('message',(msg,buff,pckt)=>{
-                    data = buff.toString()
+             mqttClient03.subscribe('porting/kpi/injection/03',{},(err)=>{
+                mqttClient03.on('message',(msg,buff,pckt)=>{
+                    let mc = {}
                     try {
-                        data = JSON.parse(data)                    
+                        mc = JSON.parse(buff.toString())                    
                     } catch (error) {
-                        data = {}
+                       console.log(error);
                     }                    
-                    dataArr[lineNumbers[2]] = data
+                    data[lineNumbers[2]] = mc
                 })
              })
 
-             mqttClient.subscribe('porting/kpi/injection/04',{},(err)=>{
-                mqttClient.on('message',(msg,buff,pckt)=>{
-                    data = buff.toString()
+             mqttClient04.subscribe('porting/kpi/injection/04',{},(err)=>{
+                mqttClient04.on('message',(msg,buff,pckt)=>{
+                    let mc = {}
                     try {
-                        data = JSON.parse(data)                    
+                        mc = JSON.parse(buff.toString())                    
                     } catch (error) {
-                        data = {}
+                       console.log(error);
                     }                    
-                    dataArr[lineNumbers[3]] = data
+                    arr.push(mc)
+                    data[lineNumbers[3]] = mc
+                })
+             })
+        
+
+             mqttClient05.subscribe('porting/kpi/injection/05',{},(err)=>{
+                mqttClient05.on('message',(msg,buff,pckt)=>{
+                    let mc = {}
+                    try {
+                        mc = JSON.parse(buff.toString())                    
+                    } catch (error) {
+                        console.log(error);
+                    }
+                    data[lineNumbers[4]] = mc
                 })
              })
 
-             mqttClient.subscribe('porting/kpi/injection/05',{},(err)=>{
-                mqttClient.on('message',(msg,buff,pckt)=>{
-                    data = buff.toString()
+             mqttClient06.subscribe('porting/kpi/injection/06',{},(err)=>{
+                mqttClient06.on('message',(msg,buff,pckt)=>{
+                    let mc = {}
                     try {
-                        data = JSON.parse(data)                    
+                        mc = JSON.parse(buff.toString())                    
                     } catch (error) {
-                        data = {}
+                       console.log(error);
                     }                    
-                    dataArr[lineNumbers[4]] = data
+                    arr.push(mc03)
+                    data[lineNumbers[5]] = mc
                 })
              })
 
-             mqttClient.subscribe('porting/kpi/injection/06',{},(err)=>{
-                mqttClient.on('message',(msg,buff,pckt)=>{
-                    data = buff.toString()
+             mqttClient07.subscribe('porting/kpi/injection/07',{},(err)=>{
+                mqttClient07.on('message',(msg,buff,pckt)=>{
+                    let mc = {}
                     try {
-                        data = JSON.parse(data)                    
+                        mc = JSON.parse(buff.toString())                    
                     } catch (error) {
-                        data = {}
+                       console.log(error);
                     }                    
-                    dataArr[lineNumbers[5]] = data
+                    data[lineNumbers[6]] = mc
                 })
              })
 
-             mqttClient.subscribe('porting/kpi/injection/07',{},(err)=>{
-                mqttClient.on('message',(msg,buff,pckt)=>{
-                    data = buff.toString()
+             mqttClient08.subscribe('porting/kpi/injection/08',{},(err)=>{
+                mqttClient08.on('message',(msg,buff,pckt)=>{
+                    let mc = {}
                     try {
-                        data = JSON.parse(data)                    
+                        mc = JSON.parse(buff.toString())                    
                     } catch (error) {
-                        data = {}
-                    }
-                    dataArr[lineNumbers[6]] = data
+                       console.log(error);
+                    }                    
+                    arr.push(mc03)
+                    data[lineNumbers[7]] = mc
                 })
              })
 
-             mqttClient.subscribe('porting/kpi/injection/08',{},(err)=>{
-                mqttClient.on('message',(msg,buff,pckt)=>{
-                    data = buff.toString()
+             mqttClient11.subscribe('porting/kpi/injection/11',{},(err)=>{
+                mqttClient11.on('message',(msg,buff,pckt)=>{
+                    let mc = {}
                     try {
-                        data = JSON.parse(data)                    
+                        mc = JSON.parse(buff.toString())                    
                     } catch (error) {
-                        data = {}
-                    }
-                    dataArr[lineNumbers[7]] = data
+                       console.log(error);
+                    }                    
+                    data[lineNumbers[8]] = mc
                 })
-            })
+             })
 
-            mqttClient.subscribe('porting/kpi/injection/11',{},(err)=>{
-                mqttClient.on('message',(msg,buff,pckt)=>{
-                    data = buff.toString()
+             mqttClient12.subscribe('porting/kpi/injection/12',{},(err)=>{
+                mqttClient11.on('message',(msg,buff,pckt)=>{
+                    let mc = {}
                     try {
-                        data = JSON.parse(data)                    
+                        mc = JSON.parse(buff.toString())                    
                     } catch (error) {
-                        data = {}
-                    }
-                    dataArr[lineNumbers[8]] = data
+                       console.log(error);
+                    }                    
+                    data[lineNumbers[9]] = mc
                 })
-            })
-             
-            mqttClient.subscribe('porting/kpi/injection/12',{},(err)=>{
-                mqttClient.on('message',(msg,buff,pckt)=>{
-                    data = buff.toString()
-                    try {
-                        data = JSON.parse(data)                    
-                    } catch (error) {
-                        data = {}
-                    }
-                    dataArr[lineNumbers[9]] = data
-                })
-            })
+             })
 
-            mqttClient.subscribe('porting/kpi/assembly/03',{},(err)=>{
-                mqttClient.on('message',(msg,buff,pckt)=>{
-                    data = buff.toString()
+             mqttClient13.subscribe('porting/kpi/assembly/03',{},(err)=>{
+                mqttClient11.on('message',(msg,buff,pckt)=>{
+                    let mc = {}
                     try {
-                        data = JSON.parse(data)                    
+                        mc = JSON.parse(buff.toString())                    
                     } catch (error) {
-                        data = {}
-                    }
-                    dataArr[lineNumbers[9]] = data
+                       console.log(error);
+                    }                    
+                    data[lineNumbers[10]] = mc
                 })
-            })
+             })
 
-            send(dataArr,lineNumbers,socket)
+            setInterval(()=>{
+                var dataToSend = []
+                for(let lineNumber of lineNumbers){
+                    var oee = 0
+                    var ava = 0
+                    var perf = 0
+                    var qua = 0
+                    var runtime = 0
+                    var status = 0
+        
+        
+                    if(data[lineNumber] != undefined){
+                        oee = data[lineNumber].oee
+                    }else{
+                        oee = 0
+                    }
+        
+                    if(data[lineNumber] != undefined){
+                        ava = data[lineNumber].ava
+                    }else{
+                        ava = 0
+                    }
+        
+                    if(data[lineNumber] != undefined){
+                        perf = data[lineNumber].perf
+                    }else{
+                        perf = 0
+                    }
+        
+                    if(data[lineNumber] != undefined){
+                        qua = data[lineNumber].perf
+                    }else{
+                        qua = 0
+                    }
+        
+                    if(data[lineNumber] != undefined){
+                        runtime = data[lineNumber].runtime
+                    }else{
+                        runtime = 0
+                    }
+        
+                    if(data[lineNumber] != undefined){
+                        status = data[lineNumber].status
+                    }else{
+                        status = 0
+                    }
+        
+                    dataToSend.push({
+                        lineNumber,
+                        oee,
+                        ava,
+                        perf,
+                        qua,
+                        runtime,
+                        status
+                    })
+                }
+                console.log(dataToSend);
+                socket.emit("kpi",dataToSend)
+            },5000)
 
           })
     } catch (error) {
@@ -153,65 +226,7 @@ const kpiSocket = async(io)=>{
 
 const send = (data,lineNumbers,socket)=>{
     var dataArr = []
-    setInterval(()=>{
-        for(let lineNumber of lineNumbers){
-            var oee = 0
-            var ava = 0
-            var perf = 0
-            var qua = 0
-            var runtime = 0
-            var status = 0
 
-
-            if(data[lineNumber] != undefined){
-                oee = data[lineNumber].oee
-            }else{
-                oee = 0
-            }
-
-            if(data[lineNumber] != undefined){
-                ava = data[lineNumber].ava
-            }else{
-                ava = 0
-            }
-
-            if(data[lineNumber] != undefined){
-                perf = data[lineNumber].perf
-            }else{
-                perf = 0
-            }
-
-            if(data[lineNumber] != undefined){
-                qua = data[lineNumber].perf
-            }else{
-                qua = 0
-            }
-
-            if(data[lineNumber] != undefined){
-                runtime = data[lineNumber].runtime
-            }else{
-                runtime = 0
-            }
-
-            if(data[lineNumber] != undefined){
-                status = data[lineNumber].status
-            }else{
-                status = 0
-            }
-
-            dataArr.push({
-                lineNumber,
-                oee,
-                ava,
-                perf,
-                qua,
-                runtime,
-                status
-            })
-        }
-        console.log(dataArr);
-        socket.emit("kpi",dataArr)
-    },5000)
 
 }
 
