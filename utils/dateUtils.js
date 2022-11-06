@@ -1,6 +1,5 @@
-const convertToDate = async(dateString)=>{
-    var dateFormatted = date.parse(dateString,'DD-MM-YYYY')
-    dateFormatted.set
+const convertToDate = async(date)=>{
+    var dateFormatted = Date.parse(date,'yyyy=MM-dd')
     console.log(dateFormatted);
 }
 
@@ -8,7 +7,6 @@ const getHourAndMinutesFromDate = async(dateTime)=>{
     var hours = await getHoursFromDate(dateTime)
     var minutes = await getMinutesFromDate(dateTime)
     return hours + ":"+ minutes
-
 }
 
 const getMinutesFromDate = async(dateTime)=>{
@@ -45,6 +43,7 @@ const getRoundedDateFromDateTime = async(dateTime)=>{
 }
 
 module.exports = {
+    convertToDate,
     getHourAndMinutesFromDate,
     getDateFromDateTime,
     getRoundedDateFromDateTime

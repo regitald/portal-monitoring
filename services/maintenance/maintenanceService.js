@@ -3,7 +3,7 @@ const serviceResponse = require('../../models/responses/serviceResponse')
 const maintenanceRepository = require('../../repositories/maintenanceRepository')
 const {fetchSortBy,buildCondition} = require('../../repositories/conditionBuilder/knexConditionBuilder')
 const { convertToJson } = require('../../utils/xlsxConverter')
-const { getRoundedDateFromDateTime } = require('../../utils/dateUtils')
+const { getRoundedDateFromDateTime, convertToDate } = require('../../utils/dateUtils')
 
 
 const getMaintenanceById = async(id)=>{
@@ -29,7 +29,7 @@ const getAllMaintenanceList = async (paramsQuery)=>{
             var newResponse = {}
             newResponse.id = object.id
             newResponse.title = object.line_number
-            newResponse.start = object.maintenance_date
+            newResponse.start =  object.maintenance_date.toISOString().split('T')[0]
             newResponse.tooltip = object.desc
             newResponse.status = object.status
             if(object.status == 'open'){

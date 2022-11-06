@@ -1,12 +1,11 @@
+var PdfPrinter = require('pdfmake');
 const path = require('path');
 const { NONE } = require('sequelize');
 const Roboto = require('./fonts/Roboto')
 
-const createDoc = async (rowHeaderList,rows)=>{
+const createDoc = async (rowHeaderList,rows,mo,totalRow)=>{
   var fontPath = path.dirname('utils/PdfGenerator/fonts/')
-
-  console.log(rows[0]);
-
+  
   var rowHeaders = []
   for(ng of rowHeaderList){
     let rowHeader = {
@@ -16,7 +15,6 @@ const createDoc = async (rowHeaderList,rows)=>{
     rowHeaders.push(rowHeader)
   }
   
-  var PdfPrinter = require('pdfmake');
   var printer = new PdfPrinter(Roboto);
   var fs = require('fs');
   
@@ -38,21 +36,27 @@ const createDoc = async (rowHeaderList,rows)=>{
                 style : 'body'
               },
               {
-                text : 'INJECTION',
+                text : mo.line_number,
                 style : 'body'
               }
-            ],['',
+            ],
+            [
+              '',
             {
-              text : 'INJECTION',
+              text : 'MO no',
               style : 'body'
             },
               {
-                text : '1234567',
+                text : mo.no_mo,
                 style : 'body'
               }
             ]
           ]
         },
+      },
+      {
+        text:' ',
+        style:'bodySmall'
       },
       {
         text:' ',
@@ -64,7 +68,7 @@ const createDoc = async (rowHeaderList,rows)=>{
             [
               {
                 table: {
-                  widths:[74,74],
+                  widths:[74,92],
                   body: [
                   [
                     {
@@ -73,7 +77,7 @@ const createDoc = async (rowHeaderList,rows)=>{
                     }
                     ,
                     {
-                      text : 'Nama Part',
+                      text : mo.part_name,
                       style : 'body'
                     }
                   ],
@@ -84,7 +88,7 @@ const createDoc = async (rowHeaderList,rows)=>{
                     }
                     ,
                     {
-                      text : 'No Part',
+                      text : mo.part_no,
                       style : 'body'
                     }
                   ]
@@ -93,27 +97,27 @@ const createDoc = async (rowHeaderList,rows)=>{
               },
               {
                 table: {
-                  widths:[72,72],
+                  widths:[74,92],
                   body: [
                   [
                     {
-                      text : 'Nama Part',
+                      text : 'Target/Jam',
                       style : 'body'
                     }
                     ,
                     {
-                      text : 'Nama Part',
+                      text : mo.target_production,
                       style : 'body'
                     }
                   ],
                   [
                     {
-                      text : 'No Part',
+                      text : 'Shift',
                       style : 'body'
                     }
                     ,
                     {
-                      text : 'No Part',
+                      text : mo.shift_no,
                       style : 'body'
                     }
                   ]
@@ -122,27 +126,27 @@ const createDoc = async (rowHeaderList,rows)=>{
               },
               {
                 table: {
-                  widths:[74,74],
+                  widths:[74,92],
                   body: [
                   [
                     {
-                      text : 'Nama Part',
+                      text : 'Cycle Time',
                       style : 'body'
                     }
                     ,
                     {
-                      text : 'Nama Part',
+                      text : mo.cycle_time,
                       style : 'body'
                     }
                   ],
                   [
                     {
-                      text : 'No Part',
+                      text : 'Member',
                       style : 'body'
                     }
                     ,
                     {
-                      text : 'No Part',
+                      text : '',
                       style : 'body'
                     }
                   ]
@@ -182,7 +186,7 @@ const createDoc = async (rowHeaderList,rows)=>{
             colSpan:14,
             style : 'body',
             text:'Jenis NG '
-          },'','','','','','','','','','','','','',{
+          },'','','','','','','','','','','','','','',{
             style : 'body',
             rowSpan:2,
             text:'Line Stop/Abnormality'
@@ -224,54 +228,224 @@ const createDoc = async (rowHeaderList,rows)=>{
               rowHeaders[12],
               rowHeaders[13],
               rowHeaders[14],
+              rowHeaders[15],
               {
                 style : 'body',
                 text:''
               }
             ],
+            rows[0],
+            rows[1],
+            rows[2],
+            rows[3],
+            rows[4],
+            rows[5],
+            rows[6],
+            rows[7],
+            rows[8],
+            rows[9],
+            rows[10],
+            rows[11],
+            rows[12],
+            rows[13],
+            rows[14],
+            rows[15],
+            rows[16],
+            rows[17]
+          ],
+        }
+      },
+      {
+        text:' ',
+        style:'bodySmall'
+      },
+      {
+        layout:'noBorders',
+        table : {
+          body:[
             [
               {
-                style : 'body',
-                text:'Start'
-              },{
-                style : 'body',
-                text:'Finish'
-              },{
-                style : 'body',
-                text:'QTY'
+                table: {
+                  widths:[70,96],
+                  body: [
+                  [
+                    {
+                      text : 'Berat Part',
+                      style : 'body'
+                    }
+                    ,
+                    {
+                      text : 'RH :     LH:     ',
+                      style : 'body'
+                    }
+                  ],
+                  [
+                    {
+                      text : 'Berat Runner',
+                      style : 'body'
+                    }
+                    ,
+                    {
+                      text : 'RH :     LH:     ',
+                      style : 'body'
+                    }
+                  ],
+                  [
+                    {
+                      text : 'Target NG',
+                      style : 'body'
+                    }
+                    ,
+                    {
+                      text : 15,
+                      style : 'body'
+                    }
+                  ],
+                  [
+                    {
+                      text : 'Finish',
+                      style : 'body'
+                    },
+                    {
+                      text : 'finish',
+                      style : 'body'
+                    }
+                  ],
+                  [
+                    {
+                      text : 'Operation Time',
+                      style : 'body'
+                    },
+                    {
+                      text : 'operationTime',
+                      style : 'body'
+                    }
+                  ],
+                  [
+                    {
+                      text : 'Total Line Stop',
+                      style : 'body'
+                    },
+                    {
+                      text : 'totalLineStop',
+                      style : 'body'
+                    }
+                  ]
+                ]
+                }
               },
-              '',
               {
-                style : 'body',
-                text:'OK'
-              },{
-                style : 'body',
-                text:'NG'
-              },{
-                style : 'body',
-                text:'Total'
+                table: {
+                  widths:[70,96],
+                  body: [
+                  [
+                    {
+                      text : 'Ng Setting (Pcs)',
+                      style : 'body'
+                    }
+                    ,
+                    {
+                      text : 'RH :     LH:     ',
+                      style : 'body'
+                    }
+                  ],
+                  [
+                    {
+                      text : 'Gumpalan (Kg)',
+                      style : 'body'
+                    }
+                    ,
+                    {
+                      text : '',
+                      style : 'body'
+                    }
+                  ],
+                  [
+                    {
+                      text : 'Runner (Kg)',
+                      style : 'body'
+                    }
+                    ,
+                    {
+                      text : '',
+                      style : 'body'
+                    }
+                  ],
+                  [
+                    {
+                      text : 'Achievement Rate',
+                      style : 'body'
+                    }
+                    ,
+                    {
+                      text : 'RH :     LH:     ',
+                      style : 'body'
+                    }
+                  ],
+                  [
+                    {
+                      text : 'NG Rate',
+                      style : 'body'
+                    }
+                    ,
+                    {
+                      text : 'RH :     LH:     ',
+                      style : 'body'
+                    }
+                  ],
+                  [
+                    {
+                      text : 'Stop Inline Rate',
+                      style : 'body'
+                    }
+                    ,
+                    {
+                      text : '',
+                      style : 'body'
+                    }
+                  ]
+                ]
+                }
               },
-              rowHeaders[0],
-              rowHeaders[1],
-              rowHeaders[2],
-              rowHeaders[4],
-              rowHeaders[5],
-              rowHeaders[6],
-              rowHeaders[7],
-              rowHeaders[8],
-              rowHeaders[9],
-              rowHeaders[10],
-              rowHeaders[11],
-              rowHeaders[12],
-              rowHeaders[13],
-              rowHeaders[14],
               {
-                style : 'body',
-                text:''
+                table: {
+                  heights:['*',54],
+                  widths:[56,56,56],
+                  body: [
+                  [
+                    {
+                      text : 'Ng Setting (Pcs)',
+                      style : 'body'
+                    },
+                    {
+                      text : 'RH :     LH:     ',
+                      style : 'body'
+                    },
+                    {
+                      text : 'Ng Setting (Pcs)',
+                      style : 'body'
+                    }
+                  ],
+                  [
+                    {
+                      text : 'Gumpalan (Kg)',
+                      style : 'body'
+                    },
+                    {
+                      text : 'Test',
+                      style : 'body'
+                    },
+                    {
+                      text : 'Ng Setting (Pcs)',
+                      style : 'body'
+                    }
+
+                  ]
+                ]
+                }
               }
             ]
-          ],
-          
+          ]
         }
       }
     ],
@@ -299,8 +473,8 @@ const createDoc = async (rowHeaderList,rows)=>{
   
   var pdfDoc = printer.createPdfKitDocument(docDefinition, options);
   pdfDoc.pipe(fs.createWriteStream('tmp/document.pdf'));
-  pdfDoc.end();
-  
+  pdfDoc.end()
+  return pdfDoc
 }
 
 module.exports = {

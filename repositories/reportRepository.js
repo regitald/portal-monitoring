@@ -15,8 +15,14 @@ const getMcLogByTime = async(paramsQuery,ngKeys,ngList)=>{
     try {
         var result = {}
         var params = await buildCondition(logProdArrObj(), paramsQuery);
-        var getSumOk = await knex('log_production').sum('ok').where(params)
-        result.ok = getSumOk[0]['sum(`ok`)'] != null ? getSumOk[0]['sum(`ok`)'] : '0'
+        var getSumOkNg = await knex('log_production').sum({
+            ok : 'ok',ng:'ng'
+        }).where(params)
+        let sumOk = getSumOkNg[0]['ok']
+        let sumNg = getSumOkNg[0]['ng'] 
+        result['ok'] = sumOk != null ? parseInt(sumOk) : 0
+        result['ng']= sumNg != null ? parseInt(sumNg ) : 0
+        result['total'] = result.ok + result.ng
 
         let index = 0
         let paramsQueryNg = Object.assign({},paramsQuery)
@@ -29,7 +35,7 @@ const getMcLogByTime = async(paramsQuery,ngKeys,ngList)=>{
             result[key] = getNg[0]['sum(`ng`)'] != null ? getNg[0]['sum(`ng`)'] : '0'
             index++
         }
-
+        console.log(result);
         return result
     } catch (error) {
         console.log(error.message);
