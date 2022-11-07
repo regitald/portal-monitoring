@@ -5,7 +5,7 @@ const {logProdArrObj} = require('../models/objects/log_production')
 const getNgList = async()=>{
     try {
         var getNgList = await knex('list_ng')
-        return getNgList    
+        return getNgList
     } catch (error) {
         console.log(error.message);
     }

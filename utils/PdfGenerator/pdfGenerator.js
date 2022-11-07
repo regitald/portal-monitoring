@@ -251,7 +251,15 @@ const createDoc = async (rowHeaderList,rows,mo,totalRow)=>{
             rows[14],
             rows[15],
             rows[16],
-            rows[17]
+            rows[17],
+            rows[18],
+            rows[19],
+            rows[20],
+            rows[21],
+            rows[22],
+            rows[23],
+            rows[24],
+            rows[25]  
           ],
         }
       },

@@ -2,6 +2,8 @@ const reportRepository = require('../../repositories/reportRepository')
 const { createDoc } = require('../../utils/PdfGenerator/pdfGenerator')
 const planningService = require('../../services/planning/planningService')
 const serviceResponse = require('../../models/responses/serviceResponse')
+const shiftTimeService = require('../shift/shiftService')
+const { getHourAndMinutesFromDate } = require('../../utils/dateUtils')
 
 const getLogReport = async(params)=>{
     /*
@@ -44,7 +46,13 @@ const getLogReport = async(params)=>{
     }
 
     var moContent = mo.content
-    const timeList = getTimeList(0,0)
+    var shiftParams = {
+        shift : params.shift_no,
+        shift_mode : params.shift_mode
+    } 
+    var getTimeList = await shiftTimeService.getShifTimeByShiftAndMode(shiftParams)
+
+    var timeList = getTimeList.content
 
     var ngList =  await reportRepository.getNgList()
     var ngKeys = []
@@ -57,10 +65,15 @@ const getLogReport = async(params)=>{
         okngRh_total : 0
     }
 
+    var logTotalRH = {}
+    var logTotalLH = {}
+
     for(ng of ngList){
         var newNg = ng.name.replace(/ /g,'')
         ngKeys.push(newNg)
-        total[newNg+"_total"] = 0
+        logTotalRH[newNg+"_total"] = 0
+        logTotalLH[newNg+"_total"] = 0
+
     }   
 
     var paramsLog = Object.assign({},params)
@@ -100,22 +113,25 @@ const getLogReport = async(params)=>{
         var dataLogRH = {}
 
         var data = {}
-        paramsLog.datetime_from = params.production_date + " " + time.start
-        paramsLog.datetime_to = params.production_date + " " + time.stop
+        paramsLog.datetime_from = params.production_date + " " + time.start_production
+        paramsLog.datetime_to = params.production_date + " " + time.stop_production
         data.production_date = params.production_date
-        data.start = time.start 
-        data.stop = time.stop
+        data.start = time.start_production 
+        data.stop = time.stop_production
+
+        var startHour = await getHourAndMinutesFromDate(new Date(paramsLog.datetime_from))
+        var stopHour = await getHourAndMinutesFromDate(new Date(paramsLog.datetime_to))
 
         row.push({
             style : 'body',
             rowSpan : 2,
-            text: time.start
+            text: startHour
           })
 
         row.push({
             rowSpan : 2,
             style : 'body',
-            text: time.stop
+            text: stopHour
           })
         
         row.push({
@@ -170,7 +186,7 @@ const getLogReport = async(params)=>{
         for(ng of ngKeys){
             var key = "ng_"+ng
             var totalKey = ng+"_total"
-            total[totalKey] += parseInt(dataLogLH[key])
+            logTotalRH[totalKey] += parseInt(dataLogLH[key])
             row.push({
                 style : 'body',
                 text: dataLogLH[key]
@@ -178,7 +194,7 @@ const getLogReport = async(params)=>{
             if(index == timeList.length - 1){
                 rowTotalLh.push({ 
                     style : 'body',
-                    text: total[totalKey]
+                    text: logTotalRH[totalKey]
                 })
             }
         }
@@ -243,7 +259,7 @@ const getLogReport = async(params)=>{
         for(ng of ngKeys){
             let key = "ng_"+ng
             var totalKey = ng+"_total"
-            total[totalKey] += parseInt(dataLogRH[key])
+            logTotalLH[totalKey] += parseInt(dataLogRH[key])
             row.push({
                 style : 'body',
                 text: dataLogRH[key]
@@ -252,7 +268,7 @@ const getLogReport = async(params)=>{
             if(index == timeList.length - 1){
                 rowTotalRh.push({ 
                     style : 'body',
-                    text: total[totalKey]
+                    text: logTotalLH[totalKey]
                 })
             }
         }
@@ -270,20 +286,6 @@ const getLogReport = async(params)=>{
     serviceResponse(500,error.message)
    }
 
-}
-
-
-const getTimeList = (shift,shift_mode)=>{
-    return [
-        {start:"07:00",stop:"08:00"},
-        {start:"08:00",stop:"09:00"},
-        {start:"09:00",stop:"10:00"},
-        {start:"10:00",stop:"11:00"},
-        {start:"11:00",stop:"12:00"},
-        {start:"12:00",stop:"13:00"},
-        {start:"13:00",stop:"14:00"},
-        {start:"14:00",stop:"15:00"}
-    ]
 }
 
 module.exports = {
