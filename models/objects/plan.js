@@ -24,16 +24,15 @@ const getPlanArrObj = ()=>{
         "shift_no",
         "line_number",
         "no_mo",
+        "part_number",
         "part_name",
         "part_category",
-        "part_number",
-        "target_production",
         "cycle_time",
-        "start_production",
-        "finish_production",
+        "target_production",
         "work_hour",
-        "status"
-    ]
+        "start_production",
+        "finish_production"
+        ]
 }
 
 const getFilterPlanArrObj = ()=>{

@@ -9,7 +9,10 @@ const buildCondition = async (objModel,paramsQuery)=>{
                     if(value.startsWith('like')){
                         var extractedValue = extractValueFromBracket(value)
                         builder.whereILike(field,'%'+extractedValue.toLowerCase()+'%')
-                    }else{
+                    }else if(value.startsWith('gt')){
+                        var extractedValue = extractValueFromBracket(value)
+                        builder.where(field,'>',extractedValue)
+                    }else {
                         builder.where(field,filter.get(field))
                     }
                 }

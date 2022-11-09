@@ -1,118 +1,25 @@
+var PdfPrinter = require('pdfmake');
 const path = require('path');
 const { NONE } = require('sequelize');
 const Roboto = require('./fonts/Roboto')
 
-const createDoc = async ()=>{
+const createDoc = async (rowHeaderList,rows,mo,totalRow)=>{
   var fontPath = path.dirname('utils/PdfGenerator/fonts/')
   
-  var PdfPrinter = require('pdfmake');
+  var rowHeaders = []
+  for(ng of rowHeaderList){
+    let rowHeader = {
+      style : 'body',
+      text: ng.name
+    }
+    rowHeaders.push(rowHeader)
+  }
+  
   var printer = new PdfPrinter(Roboto);
   var fs = require('fs');
-  var rows = [
-    [
-      {
-        style : 'body',
-        text:'07:00'
-      },{
-        style : 'body',
-        text:'08:00'
-      },{
-        style : 'body',
-        text:'C'
-      },'',{
-        style : 'body',
-        text:'D'
-      },{
-        style : 'body',
-        text:'E'
-      },{
-        style : 'body',
-        text:'F'
-      },{
-        style : 'body',
-        text:'G'
-      },{
-        style : 'body',
-        text:'H'
-      },{
-        style : 'body',
-        text:'I'
-      },{
-        style : 'body',
-        text:'J'
-      },{
-        style : 'body',
-        text:'K'
-      },{
-        style : 'body',
-        text:'L'
-      },{
-        style : 'body',
-        text:'M'
-      },{
-        style : 'body',
-        text:'N'
-      },{
-        style : 'body',
-        text:'O'
-      },{
-        style : 'body',
-        text:'P'
-      }],
-      [
-        {
-          style : 'body',
-          text:'08:00'
-        },{
-          style : 'body',
-          text:'09:00'
-        },{
-          style : 'body',
-          text:'C'
-        },'',{
-          style : 'body',
-          text:'D'
-        },{
-          style : 'body',
-          text:'E'
-        },{
-          style : 'body',
-          text:'F'
-        },{
-          style : 'body',
-          text:'G'
-        },{
-          style : 'body',
-          text:'H'
-        },{
-          style : 'body',
-          text:'I'
-        },{
-          style : 'body',
-          text:'J'
-        },{
-          style : 'body',
-          text:'K'
-        },{
-          style : 'body',
-          text:'L'
-        },{
-          style : 'body',
-          text:'M'
-        },{
-          style : 'body',
-          text:'N'
-        },{
-          style : 'body',
-          text:'O'
-        },{
-          style : 'body',
-          text:'P'
-        }
-      ]
-  ]
   
   var docDefinition = {
+    pageMargins: [ 10, 15, 10, 15 ],
     content: [
       {
         table : {
@@ -129,21 +36,27 @@ const createDoc = async ()=>{
                 style : 'body'
               },
               {
-                text : 'INJECTION',
+                text : mo.line_number,
                 style : 'body'
               }
-            ],['',
+            ],
+            [
+              '',
             {
-              text : 'INJECTION',
+              text : 'MO no',
               style : 'body'
             },
               {
-                text : '1234567',
+                text : mo.no_mo,
                 style : 'body'
               }
             ]
           ]
         },
+      },
+      {
+        text:' ',
+        style:'bodySmall'
       },
       {
         text:' ',
@@ -155,7 +68,7 @@ const createDoc = async ()=>{
             [
               {
                 table: {
-                  widths:[74,74],
+                  widths:[74,92],
                   body: [
                   [
                     {
@@ -164,7 +77,7 @@ const createDoc = async ()=>{
                     }
                     ,
                     {
-                      text : 'Nama Part',
+                      text : mo.part_name,
                       style : 'body'
                     }
                   ],
@@ -175,7 +88,7 @@ const createDoc = async ()=>{
                     }
                     ,
                     {
-                      text : 'No Part',
+                      text : mo.part_no,
                       style : 'body'
                     }
                   ]
@@ -184,27 +97,27 @@ const createDoc = async ()=>{
               },
               {
                 table: {
-                  widths:[72,72],
+                  widths:[74,92],
                   body: [
                   [
                     {
-                      text : 'Nama Part',
+                      text : 'Target/Jam',
                       style : 'body'
                     }
                     ,
                     {
-                      text : 'Nama Part',
+                      text : mo.target_production,
                       style : 'body'
                     }
                   ],
                   [
                     {
-                      text : 'No Part',
+                      text : 'Shift',
                       style : 'body'
                     }
                     ,
                     {
-                      text : 'No Part',
+                      text : mo.shift_no,
                       style : 'body'
                     }
                   ]
@@ -213,27 +126,27 @@ const createDoc = async ()=>{
               },
               {
                 table: {
-                  widths:[74,74],
+                  widths:[74,92],
                   body: [
                   [
                     {
-                      text : 'Nama Part',
+                      text : 'Cycle Time',
                       style : 'body'
                     }
                     ,
                     {
-                      text : 'Nama Part',
+                      text : mo.cycle_time,
                       style : 'body'
                     }
                   ],
                   [
                     {
-                      text : 'No Part',
+                      text : 'Member',
                       style : 'body'
                     }
                     ,
                     {
-                      text : 'No Part',
+                      text : '',
                       style : 'body'
                     }
                   ]
@@ -270,10 +183,10 @@ const createDoc = async ()=>{
               text:'ACTUAL'
             },'','',
           {
-            colSpan:9,
+            colSpan:14,
             style : 'body',
             text:'Jenis NG '
-          },'','','','','','','','',{
+          },'','','','','','','','','','','','','','',{
             style : 'body',
             rowSpan:2,
             text:'Line Stop/Abnormality'
@@ -289,7 +202,9 @@ const createDoc = async ()=>{
               },{
                 style : 'body',
                 text:'QTY'
-              },'',{
+              },
+              '',
+              {
                 style : 'body',
                 text:'OK'
               },{
@@ -298,1164 +213,247 @@ const createDoc = async ()=>{
               },{
                 style : 'body',
                 text:'Total'
-              },{
-                style : 'body',
-                text:'Bocor'
-              },{
-                style : 'body',
-                text:'Crack'
-              },{
-                style : 'body',
-                text:'Serabut'
-              },{
-                style : 'body',
-                text:'Scracth'
-              },{
-                style : 'body',
-                text:'Setting'
-              },{
-                style : 'body',
-                text:'Dirty'
-              },{
-                style : 'body',
-                text:'Slinkmark'
-              },{
-                style : 'body',
-                text:'Black Dot'
-              },{
-                style : 'body',
-                text:'Other'
-              },{
+              },
+              rowHeaders[0],
+              rowHeaders[1],
+              rowHeaders[2],
+              rowHeaders[4],
+              rowHeaders[5],
+              rowHeaders[6],
+              rowHeaders[7],
+              rowHeaders[8],
+              rowHeaders[9],
+              rowHeaders[10],
+              rowHeaders[11],
+              rowHeaders[12],
+              rowHeaders[13],
+              rowHeaders[14],
+              rowHeaders[15],
+              {
                 style : 'body',
                 text:''
-              }],
-              rows[0],
-              rows[1],
-                [
-                  {
-                    style : 'body',
-                    text:'09:00'
-                  },{
-                    style : 'body',
-                    text:'10:00'
-                  },{
-                    style : 'body',
-                    text:'C'
-                  },'',{
-                    style : 'body',
-                    text:'D'
-                  },{
-                    style : 'body',
-                    text:'E'
-                  },{
-                    style : 'body',
-                    text:'F'
-                  },{
-                    style : 'body',
-                    text:'G'
-                  },{
-                    style : 'body',
-                    text:'H'
-                  },{
-                    style : 'body',
-                    text:'I'
-                  },{
-                    style : 'body',
-                    text:'J'
-                  },{
-                    style : 'body',
-                    text:'K'
-                  },{
-                    style : 'body',
-                    text:'L'
-                  },{
-                    style : 'body',
-                    text:'M'
-                  },{
-                    style : 'body',
-                    text:'N'
-                  },{
-                    style : 'body',
-                    text:'O'
-                  },{
-                    style : 'body',
-                    text:'P'
-                  }
-                ],
-                [
-                  {
-                    style : 'body',
-                    text:'10:00'
-                  },{
-                    style : 'body',
-                    text:'11:00'
-                  },{
-                    style : 'body',
-                    text:'C'
-                  },'',{
-                    style : 'body',
-                    text:'D'
-                  },{
-                    style : 'body',
-                    text:'E'
-                  },{
-                    style : 'body',
-                    text:'F'
-                  },{
-                    style : 'body',
-                    text:'G'
-                  },{
-                    style : 'body',
-                    text:'H'
-                  },{
-                    style : 'body',
-                    text:'I'
-                  },{
-                    style : 'body',
-                    text:'J'
-                  },{
-                    style : 'body',
-                    text:'K'
-                  },{
-                    style : 'body',
-                    text:'L'
-                  },{
-                    style : 'body',
-                    text:'M'
-                  },{
-                    style : 'body',
-                    text:'N'
-                  },{
-                    style : 'body',
-                    text:'O'
-                  },{
-                    style : 'body',
-                    text:'P'
-                  }
-                ],
-                [
-                  {
-                    style : 'body',
-                    text:'11:00'
-                  },{
-                    style : 'body',
-                    text:'12:00'
-                  },{
-                    style : 'body',
-                    text:'C'
-                  },'',{
-                    style : 'body',
-                    text:'D'
-                  },{
-                    style : 'body',
-                    text:'E'
-                  },{
-                    style : 'body',
-                    text:'F'
-                  },{
-                    style : 'body',
-                    text:'G'
-                  },{
-                    style : 'body',
-                    text:'H'
-                  },{
-                    style : 'body',
-                    text:'I'
-                  },{
-                    style : 'body',
-                    text:'J'
-                  },{
-                    style : 'body',
-                    text:'K'
-                  },{
-                    style : 'body',
-                    text:'L'
-                  },{
-                    style : 'body',
-                    text:'M'
-                  },{
-                    style : 'body',
-                    text:'N'
-                  },{
-                    style : 'body',
-                    text:'O'
-                  },{
-                    style : 'body',
-                    text:'P'
-                  }
-                ],
-                [
-                  {
-                    style : 'body',
-                    text:'13:00'
-                  },{
-                    style : 'body',
-                    text:'14:00'
-                  },{
-                    style : 'body',
-                    text:'C'
-                  },'',{
-                    style : 'body',
-                    text:'D'
-                  },{
-                    style : 'body',
-                    text:'E'
-                  },{
-                    style : 'body',
-                    text:'F'
-                  },{
-                    style : 'body',
-                    text:'G'
-                  },{
-                    style : 'body',
-                    text:'H'
-                  },{
-                    style : 'body',
-                    text:'I'
-                  },{
-                    style : 'body',
-                    text:'J'
-                  },{
-                    style : 'body',
-                    text:'K'
-                  },{
-                    style : 'body',
-                    text:'L'
-                  },{
-                    style : 'body',
-                    text:'M'
-                  },{
-                    style : 'body',
-                    text:'N'
-                  },{
-                    style : 'body',
-                    text:'O'
-                  },{
-                    style : 'body',
-                    text:'P'
-                  }
-                ],
-                [
-                  {
-                    style : 'body',
-                    text:'14:00'
-                  },{
-                    style : 'body',
-                    text:'15:00'
-                  },{
-                    style : 'body',
-                    text:'C'
-                  },'',{
-                    style : 'body',
-                    text:'D'
-                  },{
-                    style : 'body',
-                    text:'E'
-                  },{
-                    style : 'body',
-                    text:'F'
-                  },{
-                    style : 'body',
-                    text:'G'
-                  },{
-                    style : 'body',
-                    text:'H'
-                  },{
-                    style : 'body',
-                    text:'I'
-                  },{
-                    style : 'body',
-                    text:'J'
-                  },{
-                    style : 'body',
-                    text:'K'
-                  },{
-                    style : 'body',
-                    text:'L'
-                  },{
-                    style : 'body',
-                    text:'M'
-                  },{
-                    style : 'body',
-                    text:'N'
-                  },{
-                    style : 'body',
-                    text:'O'
-                  },{
-                    style : 'body',
-                    text:'P'
-                  }
-                ],
-                [
-                  {
-                    style : 'body',
-                    text:'15:00'
-                  },{
-                    style : 'body',
-                    text:'16:00'
-                  },{
-                    style : 'body',
-                    text:'C'
-                  },'',{
-                    style : 'body',
-                    text:'D'
-                  },{
-                    style : 'body',
-                    text:'E'
-                  },{
-                    style : 'body',
-                    text:'F'
-                  },{
-                    style : 'body',
-                    text:'G'
-                  },{
-                    style : 'body',
-                    text:'H'
-                  },{
-                    style : 'body',
-                    text:'I'
-                  },{
-                    style : 'body',
-                    text:'J'
-                  },{
-                    style : 'body',
-                    text:'K'
-                  },{
-                    style : 'body',
-                    text:'L'
-                  },{
-                    style : 'body',
-                    text:'M'
-                  },{
-                    style : 'body',
-                    text:'N'
-                  },{
-                    style : 'body',
-                    text:'O'
-                  },{
-                    style : 'body',
-                    text:'P'
-                  }
-                ],
-                [
-                  {
-                    style : 'body',
-                    text:'16:00'
-                  },{
-                    style : 'body',
-                    text:'17:00'
-                  },{
-                    style : 'body',
-                    text:'C'
-                  },'',{
-                    style : 'body',
-                    text:'D'
-                  },{
-                    style : 'body',
-                    text:'E'
-                  },{
-                    style : 'body',
-                    text:'F'
-                  },{
-                    style : 'body',
-                    text:'G'
-                  },{
-                    style : 'body',
-                    text:'H'
-                  },{
-                    style : 'body',
-                    text:'I'
-                  },{
-                    style : 'body',
-                    text:'J'
-                  },{
-                    style : 'body',
-                    text:'K'
-                  },{
-                    style : 'body',
-                    text:'L'
-                  },{
-                    style : 'body',
-                    text:'M'
-                  },{
-                    style : 'body',
-                    text:'N'
-                  },{
-                    style : 'body',
-                    text:'O'
-                  },{
-                    style : 'body',
-                    text:'P'
-                  }
-                ],
-                [
-                  {
-                    style : 'body',
-                    text:'17:00'
-                  },{
-                    style : 'body',
-                    text:'18:00'
-                  },{
-                    style : 'body',
-                    text:'C'
-                  },'',{
-                    style : 'body',
-                    text:'D'
-                  },{
-                    style : 'body',
-                    text:'E'
-                  },{
-                    style : 'body',
-                    text:'F'
-                  },{
-                    style : 'body',
-                    text:'G'
-                  },{
-                    style : 'body',
-                    text:'H'
-                  },{
-                    style : 'body',
-                    text:'I'
-                  },{
-                    style : 'body',
-                    text:'J'
-                  },{
-                    style : 'body',
-                    text:'K'
-                  },{
-                    style : 'body',
-                    text:'L'
-                  },{
-                    style : 'body',
-                    text:'M'
-                  },{
-                    style : 'body',
-                    text:'N'
-                  },{
-                    style : 'body',
-                    text:'O'
-                  },{
-                    style : 'body',
-                    text:'P'
-                  }
-                ],
-                [
-                  {
-                    style : 'body',
-                    text:'18:00'
-                  },{
-                    style : 'body',
-                    text:'19:00'
-                  },{
-                    style : 'body',
-                    text:'C'
-                  },'',{
-                    style : 'body',
-                    text:'D'
-                  },{
-                    style : 'body',
-                    text:'E'
-                  },{
-                    style : 'body',
-                    text:'F'
-                  },{
-                    style : 'body',
-                    text:'G'
-                  },{
-                    style : 'body',
-                    text:'H'
-                  },{
-                    style : 'body',
-                    text:'I'
-                  },{
-                    style : 'body',
-                    text:'J'
-                  },{
-                    style : 'body',
-                    text:'K'
-                  },{
-                    style : 'body',
-                    text:'L'
-                  },{
-                    style : 'body',
-                    text:'M'
-                  },{
-                    style : 'body',
-                    text:'N'
-                  },{
-                    style : 'body',
-                    text:'O'
-                  },{
-                    style : 'body',
-                    text:'P'
-                  }
-                ],
-                [
-                  {
-                    colSpan:2,
-                    style : 'body',
-                    text:'Total'
-                  },{
-                    style : 'body',
-                    text:''
-                  },{
-                    style : 'body',
-                    text:'C'
-                  },'',{
-                    style : 'body',
-                    text:'D'
-                  },{
-                    style : 'body',
-                    text:'E'
-                  },{
-                    style : 'body',
-                    text:'F'
-                  },{
-                    style : 'body',
-                    text:'G'
-                  },{
-                    style : 'body',
-                    text:'H'
-                  },{
-                    style : 'body',
-                    text:'I'
-                  },{
-                    style : 'body',
-                    text:'J'
-                  },{
-                    style : 'body',
-                    text:'K'
-                  },{
-                    style : 'body',
-                    text:'L'
-                  },{
-                    style : 'body',
-                    text:'M'
-                  },{
-                    style : 'body',
-                    text:'N'
-                  },{
-                    style : 'body',
-                    text:'O'
-                  },{
-                    style : 'body',
-                    text:'P'
-                  }
-                ],
-                [
-                  {
-                    style : 'body',
-                    text:'19:00'
-                  },{
-                    style : 'body',
-                    text:'20:00'
-                  },{
-                    style : 'body',
-                    text:'C'
-                  },'',{
-                    style : 'body',
-                    text:'D'
-                  },{
-                    style : 'body',
-                    text:'E'
-                  },{
-                    style : 'body',
-                    text:'F'
-                  },{
-                    style : 'body',
-                    text:'G'
-                  },{
-                    style : 'body',
-                    text:'H'
-                  },{
-                    style : 'body',
-                    text:'I'
-                  },{
-                    style : 'body',
-                    text:'J'
-                  },{
-                    style : 'body',
-                    text:'K'
-                  },{
-                    style : 'body',
-                    text:'L'
-                  },{
-                    style : 'body',
-                    text:'M'
-                  },{
-                    style : 'body',
-                    text:'N'
-                  },{
-                    style : 'body',
-                    text:'O'
-                  },{
-                    style : 'body',
-                    text:'P'
-                  }],
+              }
+            ],
+            rows[0],
+            rows[1],
+            rows[2],
+            rows[3],
+            rows[4],
+            rows[5],
+            rows[6],
+            rows[7],
+            rows[8],
+            rows[9],
+            rows[10],
+            rows[11],
+            rows[12],
+            rows[13],
+            rows[14],
+            rows[15],
+            rows[16],
+            rows[17],
+            rows[18],
+            rows[19],
+            rows[20],
+            rows[21],
+            rows[22],
+            rows[23],
+            rows[24],
+            rows[25]  
+          ],
+        }
+      },
+      {
+        text:' ',
+        style:'bodySmall'
+      },
+      {
+        layout:'noBorders',
+        table : {
+          body:[
+            [
+              {
+                table: {
+                  widths:[70,96],
+                  body: [
                   [
                     {
-                      style : 'body',
-                      text:'20:00'
-                    },{
-                      style : 'body',
-                      text:'21:00'
-                    },{
-                      style : 'body',
-                      text:'C'
-                    },'',{
-                      style : 'body',
-                      text:'D'
-                    },{
-                      style : 'body',
-                      text:'E'
-                    },{
-                      style : 'body',
-                      text:'F'
-                    },{
-                      style : 'body',
-                      text:'G'
-                    },{
-                      style : 'body',
-                      text:'H'
-                    },{
-                      style : 'body',
-                      text:'I'
-                    },{
-                      style : 'body',
-                      text:'J'
-                    },{
-                      style : 'body',
-                      text:'K'
-                    },{
-                      style : 'body',
-                      text:'L'
-                    },{
-                      style : 'body',
-                      text:'M'
-                    },{
-                      style : 'body',
-                      text:'N'
-                    },{
-                      style : 'body',
-                      text:'O'
-                    },{
-                      style : 'body',
-                      text:'P'
+                      text : 'Berat Part',
+                      style : 'body'
+                    }
+                    ,
+                    {
+                      text : 'RH :     LH:     ',
+                      style : 'body'
                     }
                   ],
                   [
                     {
-                      style : 'body',
-                      text:'21:00'
-                    },{
-                      style : 'body',
-                      text:'22:00'
-                    },{
-                      style : 'body',
-                      text:'C'
-                    },'',{
-                      style : 'body',
-                      text:'D'
-                    },{
-                      style : 'body',
-                      text:'E'
-                    },{
-                      style : 'body',
-                      text:'F'
-                    },{
-                      style : 'body',
-                      text:'G'
-                    },{
-                      style : 'body',
-                      text:'H'
-                    },{
-                      style : 'body',
-                      text:'I'
-                    },{
-                      style : 'body',
-                      text:'J'
-                    },{
-                      style : 'body',
-                      text:'K'
-                    },{
-                      style : 'body',
-                      text:'L'
-                    },{
-                      style : 'body',
-                      text:'M'
-                    },{
-                      style : 'body',
-                      text:'N'
-                    },{
-                      style : 'body',
-                      text:'O'
-                    },{
-                      style : 'body',
-                      text:'P'
+                      text : 'Berat Runner',
+                      style : 'body'
+                    }
+                    ,
+                    {
+                      text : 'RH :     LH:     ',
+                      style : 'body'
                     }
                   ],
                   [
                     {
-                      style : 'body',
-                      text:'22:00'
-                    },{
-                      style : 'body',
-                      text:'23:00'
-                    },{
-                      style : 'body',
-                      text:'C'
-                    },'',{
-                      style : 'body',
-                      text:'D'
-                    },{
-                      style : 'body',
-                      text:'E'
-                    },{
-                      style : 'body',
-                      text:'F'
-                    },{
-                      style : 'body',
-                      text:'G'
-                    },{
-                      style : 'body',
-                      text:'H'
-                    },{
-                      style : 'body',
-                      text:'I'
-                    },{
-                      style : 'body',
-                      text:'J'
-                    },{
-                      style : 'body',
-                      text:'K'
-                    },{
-                      style : 'body',
-                      text:'L'
-                    },{
-                      style : 'body',
-                      text:'M'
-                    },{
-                      style : 'body',
-                      text:'N'
-                    },{
-                      style : 'body',
-                      text:'O'
-                    },{
-                      style : 'body',
-                      text:'P'
+                      text : 'Target NG',
+                      style : 'body'
+                    }
+                    ,
+                    {
+                      text : 15,
+                      style : 'body'
                     }
                   ],
                   [
                     {
-                      style : 'body',
-                      text:'23:00'
-                    },{
-                      style : 'body',
-                      text:'00:00'
-                    },{
-                      style : 'body',
-                      text:'C'
-                    },'',{
-                      style : 'body',
-                      text:'D'
-                    },{
-                      style : 'body',
-                      text:'E'
-                    },{
-                      style : 'body',
-                      text:'F'
-                    },{
-                      style : 'body',
-                      text:'G'
-                    },{
-                      style : 'body',
-                      text:'H'
-                    },{
-                      style : 'body',
-                      text:'I'
-                    },{
-                      style : 'body',
-                      text:'J'
-                    },{
-                      style : 'body',
-                      text:'K'
-                    },{
-                      style : 'body',
-                      text:'L'
-                    },{
-                      style : 'body',
-                      text:'M'
-                    },{
-                      style : 'body',
-                      text:'N'
-                    },{
-                      style : 'body',
-                      text:'O'
-                    },{
-                      style : 'body',
-                      text:'P'
+                      text : 'Finish',
+                      style : 'body'
+                    },
+                    {
+                      text : 'finish',
+                      style : 'body'
                     }
                   ],
                   [
                     {
-                      style : 'body',
-                      text:'00:00'
-                    },{
-                      style : 'body',
-                      text:'01:00'
-                    },{
-                      style : 'body',
-                      text:'C'
-                    },'',{
-                      style : 'body',
-                      text:'D'
-                    },{
-                      style : 'body',
-                      text:'E'
-                    },{
-                      style : 'body',
-                      text:'F'
-                    },{
-                      style : 'body',
-                      text:'G'
-                    },{
-                      style : 'body',
-                      text:'H'
-                    },{
-                      style : 'body',
-                      text:'I'
-                    },{
-                      style : 'body',
-                      text:'J'
-                    },{
-                      style : 'body',
-                      text:'K'
-                    },{
-                      style : 'body',
-                      text:'L'
-                    },{
-                      style : 'body',
-                      text:'M'
-                    },{
-                      style : 'body',
-                      text:'N'
-                    },{
-                      style : 'body',
-                      text:'O'
-                    },{
-                      style : 'body',
-                      text:'P'
+                      text : 'Operation Time',
+                      style : 'body'
+                    },
+                    {
+                      text : 'operationTime',
+                      style : 'body'
                     }
                   ],
                   [
                     {
-                      style : 'body',
-                      text:'01:00'
-                    },{
-                      style : 'body',
-                      text:'02:00'
-                    },{
-                      style : 'body',
-                      text:'C'
-                    },'',{
-                      style : 'body',
-                      text:'D'
-                    },{
-                      style : 'body',
-                      text:'E'
-                    },{
-                      style : 'body',
-                      text:'F'
-                    },{
-                      style : 'body',
-                      text:'G'
-                    },{
-                      style : 'body',
-                      text:'H'
-                    },{
-                      style : 'body',
-                      text:'I'
-                    },{
-                      style : 'body',
-                      text:'J'
-                    },{
-                      style : 'body',
-                      text:'K'
-                    },{
-                      style : 'body',
-                      text:'L'
-                    },{
-                      style : 'body',
-                      text:'M'
-                    },{
-                      style : 'body',
-                      text:'N'
-                    },{
-                      style : 'body',
-                      text:'O'
-                    },{
-                      style : 'body',
-                      text:'P'
-                    }
-                  ],
-                  [
+                      text : 'Total Line Stop',
+                      style : 'body'
+                    },
                     {
-                      style : 'body',
-                      text:'02:00'
-                    },{
-                      style : 'body',
-                      text:'03:00'
-                    },{
-                      style : 'body',
-                      text:'C'
-                    },'',{
-                      style : 'body',
-                      text:'D'
-                    },{
-                      style : 'body',
-                      text:'E'
-                    },{
-                      style : 'body',
-                      text:'F'
-                    },{
-                      style : 'body',
-                      text:'G'
-                    },{
-                      style : 'body',
-                      text:'H'
-                    },{
-                      style : 'body',
-                      text:'I'
-                    },{
-                      style : 'body',
-                      text:'J'
-                    },{
-                      style : 'body',
-                      text:'K'
-                    },{
-                      style : 'body',
-                      text:'L'
-                    },{
-                      style : 'body',
-                      text:'M'
-                    },{
-                      style : 'body',
-                      text:'N'
-                    },{
-                      style : 'body',
-                      text:'O'
-                    },{
-                      style : 'body',
-                      text:'P'
-                    }
-                  ],
-                  [
-                    {
-                      style : 'body',
-                      text:'03:00'
-                    },{
-                      style : 'body',
-                      text:'04:00'
-                    },{
-                      style : 'body',
-                      text:'C'
-                    },'',{
-                      style : 'body',
-                      text:'D'
-                    },{
-                      style : 'body',
-                      text:'E'
-                    },{
-                      style : 'body',
-                      text:'F'
-                    },{
-                      style : 'body',
-                      text:'G'
-                    },{
-                      style : 'body',
-                      text:'H'
-                    },{
-                      style : 'body',
-                      text:'I'
-                    },{
-                      style : 'body',
-                      text:'J'
-                    },{
-                      style : 'body',
-                      text:'K'
-                    },{
-                      style : 'body',
-                      text:'L'
-                    },{
-                      style : 'body',
-                      text:'M'
-                    },{
-                      style : 'body',
-                      text:'N'
-                    },{
-                      style : 'body',
-                      text:'O'
-                    },{
-                      style : 'body',
-                      text:'P'
-                    }
-                  ],
-                  [
-                    {
-                      style : 'body',
-                      text:'05:00'
-                    },{
-                      style : 'body',
-                      text:'06:00'
-                    },{
-                      style : 'body',
-                      text:'C'
-                    },'',{
-                      style : 'body',
-                      text:'D'
-                    },{
-                      style : 'body',
-                      text:'E'
-                    },{
-                      style : 'body',
-                      text:'F'
-                    },{
-                      style : 'body',
-                      text:'G'
-                    },{
-                      style : 'body',
-                      text:'H'
-                    },{
-                      style : 'body',
-                      text:'I'
-                    },{
-                      style : 'body',
-                      text:'J'
-                    },{
-                      style : 'body',
-                      text:'K'
-                    },{
-                      style : 'body',
-                      text:'L'
-                    },{
-                      style : 'body',
-                      text:'M'
-                    },{
-                      style : 'body',
-                      text:'N'
-                    },{
-                      style : 'body',
-                      text:'O'
-                    },{
-                      style : 'body',
-                      text:'P'
-                    }
-                  ],
-                  [
-                    {
-                      style : 'body',
-                      text:'18:00'
-                    },{
-                      style : 'body',
-                      text:'19:00'
-                    },{
-                      style : 'body',
-                      text:'C'
-                    },'',{
-                      style : 'body',
-                      text:'D'
-                    },{
-                      style : 'body',
-                      text:'E'
-                    },{
-                      style : 'body',
-                      text:'F'
-                    },{
-                      style : 'body',
-                      text:'G'
-                    },{
-                      style : 'body',
-                      text:'H'
-                    },{
-                      style : 'body',
-                      text:'I'
-                    },{
-                      style : 'body',
-                      text:'J'
-                    },{
-                      style : 'body',
-                      text:'K'
-                    },{
-                      style : 'body',
-                      text:'L'
-                    },{
-                      style : 'body',
-                      text:'M'
-                    },{
-                      style : 'body',
-                      text:'N'
-                    },{
-                      style : 'body',
-                      text:'O'
-                    },{
-                      style : 'body',
-                      text:'P'
-                    }
-                  ],
-                  [
-                    {
-                      colSpan:2,
-                      style : 'body',
-                      text:'Total'
-                    },{
-                      style : 'body',
-                      text:''
-                    },{
-                      style : 'body',
-                      text:'C'
-                    },'',{
-                      style : 'body',
-                      text:'D'
-                    },{
-                      style : 'body',
-                      text:'E'
-                    },{
-                      style : 'body',
-                      text:'F'
-                    },{
-                      style : 'body',
-                      text:'G'
-                    },{
-                      style : 'body',
-                      text:'H'
-                    },{
-                      style : 'body',
-                      text:'I'
-                    },{
-                      style : 'body',
-                      text:'J'
-                    },{
-                      style : 'body',
-                      text:'K'
-                    },{
-                      style : 'body',
-                      text:'L'
-                    },{
-                      style : 'body',
-                      text:'M'
-                    },{
-                      style : 'body',
-                      text:'N'
-                    },{
-                      style : 'body',
-                      text:'O'
-                    },{
-                      style : 'body',
-                      text:'P'
+                      text : 'totalLineStop',
+                      style : 'body'
                     }
                   ]
-          ],
-          
+                ]
+                }
+              },
+              {
+                table: {
+                  widths:[70,96],
+                  body: [
+                  [
+                    {
+                      text : 'Ng Setting (Pcs)',
+                      style : 'body'
+                    }
+                    ,
+                    {
+                      text : 'RH :     LH:     ',
+                      style : 'body'
+                    }
+                  ],
+                  [
+                    {
+                      text : 'Gumpalan (Kg)',
+                      style : 'body'
+                    }
+                    ,
+                    {
+                      text : '',
+                      style : 'body'
+                    }
+                  ],
+                  [
+                    {
+                      text : 'Runner (Kg)',
+                      style : 'body'
+                    }
+                    ,
+                    {
+                      text : '',
+                      style : 'body'
+                    }
+                  ],
+                  [
+                    {
+                      text : 'Achievement Rate',
+                      style : 'body'
+                    }
+                    ,
+                    {
+                      text : 'RH :     LH:     ',
+                      style : 'body'
+                    }
+                  ],
+                  [
+                    {
+                      text : 'NG Rate',
+                      style : 'body'
+                    }
+                    ,
+                    {
+                      text : 'RH :     LH:     ',
+                      style : 'body'
+                    }
+                  ],
+                  [
+                    {
+                      text : 'Stop Inline Rate',
+                      style : 'body'
+                    }
+                    ,
+                    {
+                      text : '',
+                      style : 'body'
+                    }
+                  ]
+                ]
+                }
+              },
+              {
+                table: {
+                  heights:['*',54],
+                  widths:[56,56,56],
+                  body: [
+                  [
+                    {
+                      text : 'Ng Setting (Pcs)',
+                      style : 'body'
+                    },
+                    {
+                      text : 'RH :     LH:     ',
+                      style : 'body'
+                    },
+                    {
+                      text : 'Ng Setting (Pcs)',
+                      style : 'body'
+                    }
+                  ],
+                  [
+                    {
+                      text : 'Gumpalan (Kg)',
+                      style : 'body'
+                    },
+                    {
+                      text : 'Test',
+                      style : 'body'
+                    },
+                    {
+                      text : 'Ng Setting (Pcs)',
+                      style : 'body'
+                    }
+
+                  ]
+                ]
+                }
+              }
+            ]
+          ]
         }
       }
     ],
@@ -1463,11 +461,11 @@ const createDoc = async ()=>{
       header : {
         marginTop:5,
         alignment : 'center',
-        fontSize : 10,
+        fontSize : 9,
         bold : true
       },
       body: {
-        fontSize : 8,
+        fontSize : 6,
         alignment :'center'
       },
       bodySmall : {
@@ -1483,8 +481,8 @@ const createDoc = async ()=>{
   
   var pdfDoc = printer.createPdfKitDocument(docDefinition, options);
   pdfDoc.pipe(fs.createWriteStream('tmp/document.pdf'));
-  pdfDoc.end();
-  
+  pdfDoc.end()
+  return pdfDoc
 }
 
 module.exports = {
