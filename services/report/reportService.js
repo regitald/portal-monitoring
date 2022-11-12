@@ -4,6 +4,9 @@ const planningService = require('../../services/planning/planningService')
 const serviceResponse = require('../../models/responses/serviceResponse')
 const shiftTimeService = require('../shift/shiftService')
 const { getHourAndMinutesFromDate } = require('../../utils/dateUtils')
+const { buildCondition } = require('../../repositories/conditionBuilder/knexConditionBuilder')
+const { logProdArrObj } = require('../../models/objects/log_production')
+var ng_max_default = 12
 
 const getLogReport = async(params)=>{
     /*
@@ -18,6 +21,7 @@ const getLogReport = async(params)=>{
    try {
     let period = 'daily'
     var getMoParams = {}
+    var footer = {}
 
     if(params.production_date != null){
         getMoParams.production_date = params.production_date
@@ -58,9 +62,9 @@ const getLogReport = async(params)=>{
     var ngKeys = []
     var total = {
         okLh_total : 0,
-        ngLh_total : 0,
-        okngLh_total : 0,
         okRh_total : 0,
+        okngLh_total : 0,
+        ngLh_total : 0,
         ngRh_total : 0,
         okngRh_total : 0
     }
@@ -276,10 +280,55 @@ const getLogReport = async(params)=>{
         rows.push(row)
         index++;
     }
+
     rows.push(rowTotalLh)
     rows.push(rowTotalRh)
 
-    var pdfDocWriteStream  = await createDoc(ngList,rows,moContent[0],total)
+    //get footer data
+    var paramsBetweenToday = {
+        datetime_from : params.production_date + " " + timeList[0].start_production,
+        datetime_to : params.production_date + " " + timeList[timeList.length - 1].stop_production
+    }
+
+    var paramsNgSettingLh = {
+        datetime_from : paramsBetweenToday.datetime_from,
+        datetime_to : paramsBetweenToday.datetime_to,
+        ng : "1",
+        position:"LH",
+        status_machine:"0"
+    }
+
+    var paramsNgSettingRh = {
+        datetime_from : paramsBetweenToday.datetime_from,
+        datetime_to : paramsBetweenToday.datetime_to,
+        ng : "1",
+        position:"RH",
+        status_machine:"0"
+    }
+
+    var ngSettingLhCondition = await buildCondition(logProdArrObj(),paramsNgSettingLh)
+    var ngSettingRhCondition = await buildCondition(logProdArrObj(),paramsNgSettingRh)
+    var betweenToday = await buildCondition(logProdArrObj(),paramsBetweenToday)
+
+    let ngSettingLh = await reportRepository.getSumNGSetting(ngSettingLhCondition)
+    let ngSettingRh = await reportRepository.getSumNGSetting(ngSettingRhCondition)
+    var gump = await reportRepository.getSumGump(betweenToday)
+    var runner = await reportRepository.getRunner(betweenToday)
+
+    footer.ngSettingLh = ngSettingLh != null ? ngSettingLh : 0
+    footer.ngSettingRh =  ngSettingRh != null ? ngSettingRh : 0
+    footer.gump = gump != null ? gump : 0
+    footer.runner = runner != null ? runner : 0
+    footer.ng_max = ng_max_default
+    footer.achievementRateLH = Number(parseInt(total.okLh_total) / parseInt(moContent[0].target_production)).toFixed(2)
+    footer.achievementRateRH = Number(parseInt(total.okRh_total) / parseInt(moContent[0].target_production)).toFixed(2)
+    let ngRateLH = Number(parseInt(total.ngLh_total) / parseInt(total.okLh_total)).toFixed(2) 
+    let ngRateRH = Number(parseInt(total.ngRh_total) / parseInt(total.okRh_total)).toFixed(2)  
+    footer.ngRateLH = isNaN(ngRateLH) ? " NG/OK  :  "+ total.ngLh_total +"/"+total.okLh_total : ngRateLH * 100 + " %"
+    footer.ngRateRH = isNaN(ngRateRH) ? "NG/OK :  "+ total.ngRh_total + "/" + total.okRh_total : ngRateRH * 100 + " %"
+    footer.ng_max_default = ng_max_default
+
+    var pdfDocWriteStream  = await createDoc(ngList,rows,moContent[0],footer)
 
     return serviceResponse(200,"success",pdfDocWriteStream)
    } catch (error) {
@@ -287,6 +336,7 @@ const getLogReport = async(params)=>{
    }
 
 }
+
 
 module.exports = {
     getLogReport
