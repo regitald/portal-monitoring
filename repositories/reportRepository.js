@@ -1,6 +1,7 @@
 const {knex} = require('./iniDbConnection')
 const {buildCondition} = require('./conditionBuilder/knexConditionBuilder')
 const {logProdArrObj} = require('../models/objects/log_production')
+const serviceResponse = require('../models/responses/serviceResponse')
 
 const getNgList = async()=>{
     try {
@@ -42,7 +43,37 @@ const getMcLogByTime = async(paramsQuery,ngKeys,ngList)=>{
     }
 }
 
+const getSumNGSetting = async (params)=>{
+    try {
+        var ngSetting = await knex('log_production').sum({ng:'ng'}).where(params)
+        return ngSetting[0]['ng']
+    } catch (error) {
+        return serviceResponse(500,error.message)
+    }
+}
+
+const getSumGump = async(params)=>{
+    try {
+        var ngSumGump = await knex('log_production').sum({gumpM:'ng_gump_m',gumpH:'ng_gump_m',gumpP:'ng_gump_p'}).where(params)
+        return parseInt(ngSumGump[0]['gumpM']) + parseInt(ngSumGump[0]['gumpH']) + parseInt(ngSumGump[0]['gumpP'])
+    } catch (error) {
+        return serviceResponse(500,error.message)
+    }
+}
+
+const getRunner = async(params)=>{
+    try {
+        var sumNgGate = await knex('log_production').sum({ng_gate:'ng_gate'}).where(params)
+        return sumNgGate[0]['ng_gate']
+    } catch (error) {
+        return serviceResponse(500,error.message)
+    }
+}
+
 module.exports = {
     getMcLogByTime,
-    getNgList
+    getNgList,
+    getSumNGSetting,
+    getSumGump,
+    getRunner
 }

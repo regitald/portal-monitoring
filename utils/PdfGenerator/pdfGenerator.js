@@ -3,7 +3,7 @@ const path = require('path');
 const { NONE } = require('sequelize');
 const Roboto = require('./fonts/Roboto')
 
-const createDoc = async (rowHeaderList,rows,mo,totalRow)=>{
+const createDoc = async (rowHeaderList,rows,mo,footer)=>{
   var fontPath = path.dirname('utils/PdfGenerator/fonts/')
   
   var rowHeaders = []
@@ -305,7 +305,7 @@ const createDoc = async (rowHeaderList,rows,mo,totalRow)=>{
                     }
                     ,
                     {
-                      text : 15,
+                      text : footer.ng_max_default,
                       style : 'body'
                     }
                   ],
@@ -353,7 +353,7 @@ const createDoc = async (rowHeaderList,rows,mo,totalRow)=>{
                     }
                     ,
                     {
-                      text : 'RH :     LH:     ',
+                      text : 'RH : '+footer.ngSettingRH +"      LH : "+footer.ngSettingLH,
                       style : 'body'
                     }
                   ],
@@ -364,7 +364,7 @@ const createDoc = async (rowHeaderList,rows,mo,totalRow)=>{
                     }
                     ,
                     {
-                      text : '',
+                      text : footer.gump,
                       style : 'body'
                     }
                   ],
@@ -375,7 +375,7 @@ const createDoc = async (rowHeaderList,rows,mo,totalRow)=>{
                     }
                     ,
                     {
-                      text : '',
+                      text : footer.runner,
                       style : 'body'
                     }
                   ],
@@ -386,7 +386,7 @@ const createDoc = async (rowHeaderList,rows,mo,totalRow)=>{
                     }
                     ,
                     {
-                      text : 'RH :     LH:     ',
+                      text : 'RH : '+footer.achievementRateRH +"      LH : "+footer.achievementRateRH,
                       style : 'body'
                     }
                   ],
@@ -397,7 +397,7 @@ const createDoc = async (rowHeaderList,rows,mo,totalRow)=>{
                     }
                     ,
                     {
-                      text : 'RH :     LH:     ',
+                      text : 'RH : '+footer.ngRateRH +"    LH : "+footer.ngRateLH,
                       style : 'body'
                     }
                   ],
@@ -422,29 +422,29 @@ const createDoc = async (rowHeaderList,rows,mo,totalRow)=>{
                   body: [
                   [
                     {
-                      text : 'Ng Setting (Pcs)',
+                      text : 'Foreman',
                       style : 'body'
                     },
                     {
-                      text : 'RH :     LH:     ',
+                      text : 'Leader',
                       style : 'body'
                     },
                     {
-                      text : 'Ng Setting (Pcs)',
+                      text : 'Member',
                       style : 'body'
                     }
                   ],
                   [
                     {
-                      text : 'Gumpalan (Kg)',
+                      text : '',
                       style : 'body'
                     },
                     {
-                      text : 'Test',
+                      text : '',
                       style : 'body'
                     },
                     {
-                      text : 'Ng Setting (Pcs)',
+                      text : '',
                       style : 'body'
                     }
 
