@@ -329,7 +329,7 @@ const getLogReport = async(params)=>{
     footer.ng_max_default = ng_max_default
 
     var pdfDocWriteStream  = await createDoc(ngList,rows,moContent[0],footer)
-
+    
     return serviceResponse(200,"success",pdfDocWriteStream)
    } catch (error) {
     serviceResponse(500,error.message)

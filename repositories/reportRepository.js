@@ -31,15 +31,17 @@ const getMcLogByTime = async(paramsQuery,ngKeys,ngList)=>{
             var key = 'ng_' + ngKeys[index]
             paramsQueryNg.desc = 'like('+ng.name+')'
             paramsQueryNg.ng = 'gt('+0+')'
-            var paramsNg = await buildCondition(logProdArrObj(),paramsQueryNg)
-            var getNg = await knex('log_production').sum('ng').where(paramsNg)
+            var getNg = await knex('log_production').sum('ng')
+            .where('position',paramsQuery.position)
+            .andWhere('ng','>',0)
+            .andWhereBetween('datetime',[paramsQuery.datetime_from,paramsQuery.datetime_to])
+            .andWhereILike('desc','%'+ng.name+'%')
             result[key] = getNg[0]['sum(`ng`)'] != null ? getNg[0]['sum(`ng`)'] : '0'
             index++
         }
-        console.log(result);
         return result
     } catch (error) {
-        console.log(error.message);
+        return serviceResponse(500,error.message)
     }
 }
 
