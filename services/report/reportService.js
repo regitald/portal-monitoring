@@ -77,7 +77,6 @@ const getLogReport = async(params)=>{
         ngKeys.push(newNg)
         logTotalRH[newNg+"_total"] = 0
         logTotalLH[newNg+"_total"] = 0
-
     }   
 
     var paramsLog = Object.assign({},params)
@@ -109,6 +108,8 @@ const getLogReport = async(params)=>{
             text:'RH'
         }
     ]
+
+    let rawRow = []
 
     let index = 0;
     for(time of timeList){
@@ -187,21 +188,25 @@ const getLogReport = async(params)=>{
             })
         }
 
-        for(ng of ngKeys){
-            var key = "ng_"+ng
-            var totalKey = ng+"_total"
-            logTotalRH[totalKey] += parseInt(dataLogLH[key])
-            row.push({
-                style : 'body',
-                text: dataLogLH[key]
-            })
-            if(index == timeList.length - 1){
-                rowTotalLh.push({ 
-                    style : 'body',
-                    text: logTotalRH[totalKey]
-                })
-            }
-        }
+        var logs = await reportRepository.getLogByTimeRawQuery(paramsLog);
+
+        rawRow.push(logs)
+
+        // for(ng of ngKeys){
+        //     var key = "ng_"+ng
+        //     var totalKey = ng+"_total"
+        //     logTotalRH[totalKey] += parseInt(dataLogLH[key])
+        //     row.push({
+        //         style : 'body',
+        //         text: dataLogLH[key]
+        //     })
+        //     if(index == timeList.length - 1){
+        //         rowTotalLh.push({ 
+        //             style : 'body',
+        //             text: logTotalRH[totalKey]
+        //         })
+        //     }
+        // }
         
         rows.push(row)
         
@@ -222,7 +227,7 @@ const getLogReport = async(params)=>{
         })
 
         paramsLog.position = 'RH'
-        dataLogRH = await reportRepository.getMcLogByTime(paramsLog,ngKeys,ngList) 
+        // dataLogRH = await reportRepository.getMcLogByTime(paramsLog,ngKeys,ngList) 
 
         row.push({
             style : 'body',
@@ -243,39 +248,39 @@ const getLogReport = async(params)=>{
         total.ngRh_total += parseInt(dataLogRH.ng)
         total.okngRh_total += parseInt(dataLogRH.total)
 
-        if(index == timeList.length - 1){
-            rowTotalRh.push({ 
-                style : 'body',
-                text: total.okRh_total
-            })
+        // if(index == timeList.length - 1){
+        //     rowTotalRh.push({ 
+        //         style : 'body',
+        //         text: total.okRh_total
+        //     })
 
-            rowTotalRh.push({ 
-                style : 'body',
-                text: total.ngRh_total
-            })
+        //     rowTotalRh.push({ 
+        //         style : 'body',
+        //         text: total.ngRh_total
+        //     })
 
-            rowTotalRh.push({ 
-                style : 'body',
-                text: total.okngRh_total
-            })
-        }
+        //     rowTotalRh.push({ 
+        //         style : 'body',
+        //         text: total.okngRh_total
+        //     })
+        // }
 
-        for(ng of ngKeys){
-            let key = "ng_"+ng
-            var totalKey = ng+"_total"
-            logTotalLH[totalKey] += parseInt(dataLogRH[key])
-            row.push({
-                style : 'body',
-                text: dataLogRH[key]
-            })
+        // for(ng of ngKeys){
+        //     let key = "ng_"+ng
+        //     var totalKey = ng+"_total"
+        //     logTotalLH[totalKey] += parseInt(dataLogRH[key])
+        //     row.push({
+        //         style : 'body',
+        //         text: dataLogRH[key]
+        //     })
 
-            if(index == timeList.length - 1){
-                rowTotalRh.push({ 
-                    style : 'body',
-                    text: logTotalLH[totalKey]
-                })
-            }
-        }
+        //     if(index == timeList.length - 1){
+        //         rowTotalRh.push({ 
+        //             style : 'body',
+        //             text: logTotalLH[totalKey]
+        //         })
+        //     }
+        // }
 
         rows.push(row)
         index++;
@@ -283,6 +288,7 @@ const getLogReport = async(params)=>{
 
     rows.push(rowTotalLh)
     rows.push(rowTotalRh)
+    console.log(rawRow);
 
     //get footer data
     var paramsBetweenToday = {
