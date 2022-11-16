@@ -480,8 +480,6 @@ const createDoc = async (rowHeaderList,rows,mo,footer)=>{
   }
   
   var pdfDoc = printer.createPdfKitDocument(docDefinition, options);
-  pdfDoc.pipe(fs.createWriteStream('tmp/document.pdf'));
-  pdfDoc.end()
   return pdfDoc
 }
 
