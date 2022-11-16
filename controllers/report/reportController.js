@@ -8,6 +8,7 @@ const getLogReport = async (req,res,next)=>{
         res.setHeader('Content-Disposition', 'attachment; filename=LPH.pdf');
         res.status(response.code)
         pdfDoc.pipe(res)
+        pdfDoc.end()
     } catch (error) {
         res.status(500).send(error)
     }    
