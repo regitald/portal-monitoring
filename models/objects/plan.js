@@ -23,7 +23,6 @@ const getPlanArrObj = ()=>{
         "production_date",
         "shift_no",
         "line_number",
-        "no_mo",
         "part_number",
         "part_name",
         "part_category",

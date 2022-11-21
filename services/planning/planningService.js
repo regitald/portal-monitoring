@@ -66,8 +66,11 @@ const addPlanning = async(period,planning)=>{
             newPlanning.status = newPlanning.status.toUpperCase()
         }
 
+        let noMo = ""
 
         if(period.toUpperCase() === 'DAILY' ){
+            noMo = await generateDailyNoMo(newPlanning)
+
             var maxOrderId =await dailyPlanningRepository.findMaxOrderId(
                 {
                     production_date : newPlanning.production_date,
@@ -90,9 +93,12 @@ const addPlanning = async(period,planning)=>{
                 return serviceResponse(500,"error find order id")
             }
 
+            newPlanning.no_mo = noMo != null ? noMo : "";
             return await dailyPlanningRepository.save(newPlanning);
 
         }else if(period.toUpperCase() === 'MONTHLY'){
+            noMo = await generateMontlyNoMo(newPlanning)
+
             var maxOrderId =await monthlyPlanningRepository.findMaxOrderId(
                 {
                     production_date : newPlanning.production_date,
@@ -105,6 +111,9 @@ const addPlanning = async(period,planning)=>{
             }else{
                 newPlanning.order_id = 1
             }
+
+            newPlanning.no_mo = noMo != null ? noMo : "";
+
             return await monthlyPlanningRepository.save(newPlanning);
         }else{
             return serviceResponse(400,"period not recognize, please chose daily or monthly")
@@ -257,6 +266,65 @@ const importPlanning = async (period,file)=>{
         
     } catch (error) {
         return serviceResponse(500,error.message)
+    }
+}
+
+const generateDailyNoMo = async(planning)=>{
+    try {
+        let params = {
+            production_date : planning.production_date,
+            line_number : planning.line_number,
+
+        }
+
+        let date = planning.production_date.split("-")
+
+        let day = date[2]
+        let month = date[1]
+        let year = date[0]
+        let lineNumberStart = planning.line_number.substring(0,3);
+        let inc = 1
+
+        var paramsBuilder = await buildCondition(getPlanArrObj(),params)
+        let mo = await dailyPlanningRepository.findAll(paramsBuilder,[])
+        if(mo.content.length > 0){
+            inc = mo.content.length + 1
+        }
+
+        let noMo =  day+"/"+month+"/"+year+"/"+lineNumberStart.toUpperCase()+"/"+inc
+
+        return noMo;
+
+    } catch (error) {
+        return null
+    }
+}
+
+const generateMontlyNoMo = async(planning)=>{
+    try {
+        let params = {
+            production_date : planning.production_date,
+            line_number : planning.line_number,
+        }
+
+        let today = new Date().getDate()
+        let month = new Date().getMonth()
+        let year = new Date().getFullYear()
+        let lineNumberStart = lineNumber.subtring(0,3);
+        let inc = 1
+
+        var paramsBuilder = await buildCondition(getPlanArrObj(),params)
+        let mo = await monthlyPlanningRepository.findAll(params,[])
+        if(mo.content == null){
+            inc = mo.content.size() + 1
+        }
+
+        let noMo = today+"/"+month+1+"/"+year+"/"+lineNumberStart.toUpperCase()+"/"+inc
+
+        return noMo;
+
+    } catch (error) {
+        return error
     }
 }
 
