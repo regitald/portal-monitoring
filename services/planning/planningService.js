@@ -186,7 +186,8 @@ const filterPlanGraphicRespnse = async(plan)=>{
             production_date : plan.production_date,
             start_production : plan.start_production,
             finish_production : plan.finish_production,
-            status : plan.status
+            status : plan.status,
+            work_hour : plan.work_hour
         }
     } catch (error) {
         throw new Error(error.message)
