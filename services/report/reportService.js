@@ -21,7 +21,9 @@ const getLogReport = async(params)=>{
    try {
     let period = 'daily'
     var getMoParams = {}
-    var footer = {}
+
+    var getlog = await reportRepository.getLogByRawQuery()
+    
 
     if(params.production_date != null){
         getMoParams.production_date = params.production_date
@@ -43,13 +45,6 @@ const getLogReport = async(params)=>{
         getMoParams.part_no = params.part_no
     }
 
-    var mo = await planningService.getPlanningList(period,getMoParams);
-
-    if(mo.code != 200){
-        return mo
-    }
-
-    var moContent = mo.content
     var shiftParams = {
         shift : params.shift_no,
         shift_mode : params.shift_mode
@@ -77,7 +72,6 @@ const getLogReport = async(params)=>{
         ngKeys.push(newNg)
         logTotalRH[newNg+"_total"] = 0
         logTotalLH[newNg+"_total"] = 0
-
     }   
 
     var paramsLog = Object.assign({},params)
@@ -314,6 +308,13 @@ const getLogReport = async(params)=>{
     let ngSettingRh = await reportRepository.getSumNGSetting(ngSettingRhCondition)
     var gump = await reportRepository.getSumGump(betweenToday)
     var runner = await reportRepository.getRunner(betweenToday)
+
+    var mo = await planningService.getPlanningList(period,getMoParams);
+    if(mo.code != 200){
+        return mo
+    }
+    var moContent = mo.content
+    var footer = {}
 
     footer.ngSettingLh = ngSettingLh != null ? ngSettingLh : 0
     footer.ngSettingRh =  ngSettingRh != null ? ngSettingRh : 0

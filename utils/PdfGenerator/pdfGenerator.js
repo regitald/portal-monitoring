@@ -183,10 +183,10 @@ const createDoc = async (rowHeaderList,rows,mo,footer)=>{
               text:'ACTUAL'
             },'','',
           {
-            colSpan:14,
+            colSpan:12,
             style : 'body',
             text:'Jenis NG '
-          },'','','','','','','','','','','','','','',{
+          },'','','','','','','','','','','','',{
             style : 'body',
             rowSpan:2,
             text:'Line Stop/Abnormality'
@@ -227,8 +227,6 @@ const createDoc = async (rowHeaderList,rows,mo,footer)=>{
               rowHeaders[11],
               rowHeaders[12],
               rowHeaders[13],
-              rowHeaders[14],
-              rowHeaders[15],
               {
                 style : 'body',
                 text:''
@@ -251,15 +249,7 @@ const createDoc = async (rowHeaderList,rows,mo,footer)=>{
             rows[14],
             rows[15],
             rows[16],
-            rows[17],
-            rows[18],
-            rows[19],
-            rows[20],
-            rows[21],
-            rows[22],
-            rows[23],
-            rows[24],
-            rows[25]  
+            rows[17]
           ],
         }
       },
@@ -353,7 +343,7 @@ const createDoc = async (rowHeaderList,rows,mo,footer)=>{
                     }
                     ,
                     {
-                      text : 'RH : '+footer.ngSettingRH +"      LH : "+footer.ngSettingLH,
+                      text : 'RH : '+footer.ngSettingRh +"      LH : "+footer.ngSettingLh,
                       style : 'body'
                     }
                   ],

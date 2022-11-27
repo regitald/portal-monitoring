@@ -11,7 +11,6 @@ const { getLineNumbers } = require('../lineNumber/lineNumberService');
 
 const getPlanningList = async(period,paramsQuery)=>{
     try {
-
         if(period == undefined){
             return serviceResponse(500,"Period is not defined, please choose daily/monthly")
         }

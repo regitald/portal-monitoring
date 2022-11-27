@@ -1,8 +1,8 @@
-const reportService = require('../../services/report/reportService')
+const reportServiceByRawQuery = require('../../services/report/reportRawQuery')
 const fs = require('fs')
 const getLogReport = async (req,res,next)=>{
     try {
-        var response = await reportService.getLogReport(req.query)
+        var response = await reportServiceByRawQuery.generateReportByRawQuery(req.query)
         var pdfDoc  = response.content
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'attachment; filename=LPH.pdf');
