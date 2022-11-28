@@ -186,7 +186,8 @@ const filterPlanGraphicRespnse = async(plan)=>{
             start_production : plan.start_production,
             finish_production : plan.finish_production,
             status : plan.status,
-            work_hour : plan.work_hour
+            work_hour : plan.work_hour,
+	    part_name : plan.part_name
         }
     } catch (error) {
         throw new Error(error.message)
@@ -287,7 +288,8 @@ const generateDailyNoMo = async(planning)=>{
         let month = date[1]
         let year = date[0]
         let lineNumberStart = planning.line_number.substring(0,3);
-        let inc = 1
+	let lineNoaja = planning.line_number.split("/")[1];
+   	let inc = 1
 
         var paramsBuilder = await buildCondition(getPlanArrObj(),params)
         let mo = await dailyPlanningRepository.findAll(paramsBuilder,[])
@@ -295,7 +297,7 @@ const generateDailyNoMo = async(planning)=>{
             inc = mo.content.length + 1
         }
 
-        let noMo =  day+"/"+month+"/"+year+"/"+lineNumberStart.toUpperCase()+"/"+inc
+        let noMo =  day+"/"+month+"/"+year+"/"+lineNumberStart.toUpperCase()+"/"+lineNoaja+"/"+inc
 
         return noMo;
 

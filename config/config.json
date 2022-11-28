@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "",
-    "password": "",
-    "database": "",
-    "host": "",
+    "username": "andon",
+    "password": "andon",
+    "database": "andon",
+    "host": "10.14.144.71",
     "dialect": ""
   },
   "test": {
