@@ -271,10 +271,14 @@ const importPlanning = async (period,file)=>{
 
 const generateDailyNoMo = async(planning)=>{
     try {
-        let params = {
-            production_date : planning.production_date,
-            line_number : planning.line_number,
+        let prodDate = new Date(planning.production_date)
+        let firstDay = new Date(prodDate.getFullYear(),prodDate.getMonth(),1)
+        let lastDay = new Date(prodDate.getFullYear(), prodDate.getMonth() + 1,0);
 
+        let params = {
+            production_date_from : firstDay,
+            production_date_to : lastDay,
+            line_number : planning.line_number,
         }
 
         let date = planning.production_date.split("-")

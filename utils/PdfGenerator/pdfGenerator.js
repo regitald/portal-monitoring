@@ -44,7 +44,7 @@ const createDoc = async (rowHeaderList,rows,mo,footer)=>{
               '',
             {
               text : 'MO no',
-              style : 'body'
+              style : 'body'  
             },
               {
                 text : mo.no_mo,
@@ -89,7 +89,7 @@ const createDoc = async (rowHeaderList,rows,mo,footer)=>{
                     ,
                     {
                       text : mo.part_no,
-                      style : 'body'
+                      style : 'body'  
                     }
                   ]
                 ]
