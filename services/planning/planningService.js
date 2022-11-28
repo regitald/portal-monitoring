@@ -306,11 +306,15 @@ const generateDailyNoMo = async(planning)=>{
 
 const generateMontlyNoMo = async(planning)=>{
     try {
+        let prodDate = new Date(planning.production_date)
+        let firstDay = new Date(prodDate.getFullYear(),prodDate.getMonth(),1)
+        let lastDay = new Date(prodDate.getFullYear(), prodDate.getMonth() + 1,0);
+
         let params = {
-            production_date : planning.production_date,
+            production_date_from : firstDay,
+            production_date_to : lastDay,
             line_number : planning.line_number,
         }
-
         let today = new Date().getDate()
         let month = new Date().getMonth()
         let year = new Date().getFullYear()
