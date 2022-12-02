@@ -310,28 +310,30 @@ const getLogReport = async(params)=>{
     var runner = await reportRepository.getRunner(betweenToday)
 
     var mo = await planningService.getPlanningList(period,getMoParams);
-    if(mo.code != 200){
-        return mo
-    }
-    var moContent = mo.content
-    var footer = {}
-
-    footer.ngSettingLh = ngSettingLh != null ? ngSettingLh : 0
-    footer.ngSettingRh =  ngSettingRh != null ? ngSettingRh : 0
-    footer.gump = gump != null ? gump : 0
-    footer.runner = runner != null ? runner : 0
-    footer.ng_max = ng_max_default
-    footer.achievementRateLH = Number(parseInt(total.okLh_total) / parseInt(moContent[0].target_production)).toFixed(2)
-    footer.achievementRateRH = Number(parseInt(total.okRh_total) / parseInt(moContent[0].target_production)).toFixed(2)
-    let ngRateLH = Number(parseInt(total.ngLh_total) / parseInt(total.okLh_total)).toFixed(2) 
-    let ngRateRH = Number(parseInt(total.ngRh_total) / parseInt(total.okRh_total)).toFixed(2)  
-    footer.ngRateLH = isNaN(ngRateLH) ? " NG/OK  :  "+ total.ngLh_total +"/"+total.okLh_total : ngRateLH * 100 + " %"
-    footer.ngRateRH = isNaN(ngRateRH) ? "NG/OK :  "+ total.ngRh_total + "/" + total.okRh_total : ngRateRH * 100 + " %"
-    footer.ng_max_default = ng_max_default
-
-    var pdfDocWriteStream  = await createDoc(ngList,rows,moContent[0],footer)
     
-    return serviceResponse(200,"success",pdfDocWriteStream)
+    if(mo.code != 200){
+        return serviceResponse(500,"mo not found")
+    }else{
+        var moContent = mo.content
+        var footer = {}
+
+        footer.ngSettingLh = ngSettingLh != null ? ngSettingLh : 0
+        footer.ngSettingRh =  ngSettingRh != null ? ngSettingRh : 0
+        footer.gump = gump != null ? gump : 0
+        footer.runner = runner != null ? runner : 0
+        footer.ng_max = ng_max_default
+        footer.achievementRateLH = Number(parseInt(total.okLh_total) / parseInt(moContent[0].target_production)).toFixed(2)
+        footer.achievementRateRH = Number(parseInt(total.okRh_total) / parseInt(moContent[0].target_production)).toFixed(2)
+        let ngRateLH = Number(parseInt(total.ngLh_total) / parseInt(total.okLh_total)).toFixed(2) 
+        let ngRateRH = Number(parseInt(total.ngRh_total) / parseInt(total.okRh_total)).toFixed(2)  
+        footer.ngRateLH = isNaN(ngRateLH) ? " NG/OK  :  "+ total.ngLh_total +"/"+total.okLh_total : ngRateLH * 100 + " %"
+        footer.ngRateRH = isNaN(ngRateRH) ? "NG/OK :  "+ total.ngRh_total + "/" + total.okRh_total : ngRateRH * 100 + " %"
+        footer.ng_max_default = ng_max_default
+
+        var pdfDocWriteStream  = await createDoc(ngList,rows,moContent[0],footer)
+        
+        return serviceResponse(200,"success",pdfDocWriteStream)
+    }
    } catch (error) {
     serviceResponse(500,error.message)
    }
