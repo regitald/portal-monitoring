@@ -5,6 +5,7 @@ const { logProdArrObj } = require('../../models/objects/log_production')
 const { createDoc } = require('../../utils/PdfGenerator/pdfGenerator')
 const shiftTimeService = require('../shift/shiftService')
 const serviceResponse = require('../../models/responses/serviceResponse')
+const { readRuntime } = require('blade')
 
 const generateReportByRawQuery = async(params)=>{
     try {
@@ -135,8 +136,11 @@ const generateReportByRawQuery = async(params)=>{
         }
 
         let mo = await getMo('daily',params)
-        let footer = await getFooter(params,ngSetting,total)
-        var pdfDocWriteStream  = await createDoc(ngList,rows,mo[0],footer)
+        if(mo.code != 200 || mo.content.length == 0){
+            return serviceResponse(404, "mo not found")
+        }
+        let footer = await getFooter(params,ngSetting,total,mo.content[0])
+        var pdfDocWriteStream  = await createDoc(ngList,rows,mo.content[0],footer)
 
         return serviceResponse(200,"success",pdfDocWriteStream)
     } catch (error) {
@@ -167,7 +171,7 @@ const getMo = async(period,params)=>{
             getMoParams.part_no = params.part_no
         }
         var mo = await planningService.getPlanningList(period,getMoParams);
-        return mo.content
+        return mo
     } catch (error) {
         return error.message
     }
@@ -187,7 +191,7 @@ const getTimeShifts = async(params)=>{
     }
 }
 
-const getFooter = async(params,ngSetting,total)=>{
+const getFooter = async(params,ngSetting,total,moContent)=>{
     try {
         var timeList = await getTimeShifts(params)
 
@@ -195,8 +199,7 @@ const getFooter = async(params,ngSetting,total)=>{
             datetime_from : params.production_date + " " + timeList[0].start_production,
             datetime_to : params.production_date + " " + timeList[timeList.length - 1].stop_production
         }
-
-        let mo = await getMo('daily',params)
+        
         var betweenToday = await buildCondition(logProdArrObj(),paramsBetweenToday)
 
         var footer = {}
@@ -208,8 +211,8 @@ const getFooter = async(params,ngSetting,total)=>{
         footer.gump = gump != null ? gump : 0
         footer.runner = runner != null ? runner : 0
         footer.ng_max = 12
-        footer.achievementRateLH = Number(parseInt(total.okLh_total) / parseInt(mo[0].target_production)).toFixed(2)
-        footer.achievementRateRH = Number(parseInt(total.okRh_total) / parseInt(mo[0].target_production)).toFixed(2)
+        footer.achievementRateLH = Number(parseInt(total.okLh_total) / parseInt(moContent.target_production)).toFixed(2)
+        footer.achievementRateRH = Number(parseInt(total.okRh_total) / parseInt(moContent.target_production)).toFixed(2)
         let ngRateLH = Number(parseInt(total.ngLh_total) / parseInt(total.okLh_total))
         let ngRateRH = Number(parseInt(total.ngRh_total) / parseInt(total.okRh_total))
         footer.ngRateLH = isNaN(ngRateLH) ? " NG/OK  :  "+ total.ngLh_total +"/"+total.okLh_total : (ngRateLH * 100).toFixed(2) + " %"
@@ -219,7 +222,7 @@ const getFooter = async(params,ngSetting,total)=>{
         return footer
      
     } catch (error) {
-        return error
+        return serviceResponse(500,error.message)
     }
 }
 
