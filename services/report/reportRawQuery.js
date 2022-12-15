@@ -159,8 +159,8 @@ const getMo = async(period,params)=>{
             getMoParams.line_number = params.line_number
         }
     
-        if(params.shift_no != null){
-            getMoParams.shift_no = params.shift_no
+        if(params.shift != null){
+            getMoParams.shift = params.shift
         }
     
         if(params.part_name != null){
@@ -180,7 +180,7 @@ const getMo = async(period,params)=>{
 const getTimeShifts = async(params)=>{
     try {
         var shiftParams = {
-            shift : params.shift_no,
+            shift : params.shift,
             shift_mode : params.shift_mode
         }
         

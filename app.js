@@ -15,6 +15,7 @@ var maintenanceRouter = require('./routes/maintenance')
 var machine = require('./routes/machine')
 var viewLogin = require('./routes/view/login')
 var report = require('./routes/report')
+var logProduction = require('./routes/logProduction')
 var path = require('path');
 var fileUpload = require('express-fileupload');
 var {createDoc} = require('./utils/PdfGenerator/pdfGenerator')
@@ -51,6 +52,7 @@ app.use('/api/maintenance',maintenanceRouter)
 app.use('/api/production/result',productionResultRouter)
 app.use('/api/machine',machine)
 app.use('/api/report',report);
+app.use('/api/log-production',logProduction)
 
 app.use(logUserActivityMiddleware.logActivity)
 
