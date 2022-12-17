@@ -5,7 +5,6 @@ const { logProdArrObj } = require('../../models/objects/log_production')
 const { createDoc } = require('../../utils/PdfGenerator/pdfGenerator')
 const shiftTimeService = require('../shift/shiftService')
 const serviceResponse = require('../../models/responses/serviceResponse')
-const { readRuntime } = require('blade')
 
 const generateReportByRawQuery = async(params)=>{
     try {
@@ -23,7 +22,7 @@ const generateReportByRawQuery = async(params)=>{
             okngRh_total : 0
         }
 
-        let logs = await reportRepository.getLogByRawQuery();
+        let logs = await reportRepository.getLogByRawQuery(params);
         for(let log of logs){
             let rowR = []
             let start = log.st

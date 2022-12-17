@@ -73,7 +73,7 @@ const getRunner = async(params)=>{
     }
 }
 
-const getLogByRawQuery = async()=>{
+const getLogByRawQuery = async(params)=>{
     try {
         var result = await knex.raw(" " +
         "select FROM_UNIXTIME(AVG(UNIX_TIMESTAMP(CONCAT('1970-01-01',' ',b.start_production))),'%H:%i:%s') as st,  " +
@@ -123,7 +123,7 @@ const getLogByRawQuery = async()=>{
         " FROM `log_production` as `a` inner join `shift_times` as `b`  " +
         " on TIME(a.datetime) >= `b`.`start_production`  " +
         " and TIME(a.datetime) <= `b`.`stop_production`  " +
-        " where `a`.`line_name` = 'INJECTION/MC11' and date(`a`.`datetime`) = '2022-11-04'  " +
+        " where `a`.`line_name` = '"+params.line_name+"' and date(`a`.`datetime`) = '"+params.production_date+"'  " +
         " group by `b`.`stop_production` ");
 
         return result[0];
