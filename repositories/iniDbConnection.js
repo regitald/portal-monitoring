@@ -1,14 +1,14 @@
 const dbConfig = require('../config/config')
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize(dbConfig.development);
+const sequelize = new Sequelize(dbConfig.databaseConfiguration);
 const knex = require('knex').knex({
     client: 'mysql2',
     connection:{
-        host: dbConfig.development.host,
-        port : dbConfig.development.port,
-        user : dbConfig.development.username,
-        password : dbConfig.development.password,
-        database : dbConfig.development.database
+        host: dbConfig.databaseConfiguration.host,
+        port : dbConfig.databaseConfiguration.port,
+        user : dbConfig.databaseConfiguration.username,
+        password : dbConfig.databaseConfiguration.password,
+        database : dbConfig.databaseConfiguration.database
     }
 });
 
