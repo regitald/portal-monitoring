@@ -320,11 +320,11 @@ const generateMontlyNoMo = async(planning)=>{
         let today = new Date().getDate()
         let month = new Date().getMonth()
         let year = new Date().getFullYear()
-        let lineNumberStart = lineNumber.subtring(0,3);
+        let lineNumberStart = planning.line_number.substring(0,3);
         let inc = 1
 
         var paramsBuilder = await buildCondition(getPlanArrObj(),params)
-        let mo = await monthlyPlanningRepository.findAll(params,[])
+        let mo = await monthlyPlanningRepository.findAll(paramsBuilder,[])
         if(mo.content == null){
             inc = mo.content.size() + 1
         }
